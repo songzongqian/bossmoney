@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="30px"
+    android:layout_marginRight="30px">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="320px">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70px"
+            android:background="@drawable/button_shap_xiuxiu"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_closeWindow"
+                android:layout_width="match_parent"
+                android:layout_height="30px">
+
+                <ImageView
+                    android:id="@+id/icon_close"
+                    android:layout_width="24px"
+                    android:layout_height="24px"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10px"
+                    android:layout_marginRight="10px"
+                    app:srcCompat="@drawable/home_icon_close" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40px"
+                android:layout_marginTop="45px"
+                android:orientation="horizontal"
+                android:gravity="center"
+              >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="成功领取"
+                    android:textColor="#333333"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_giveMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="24元"
+                    android:textColor="#333333"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="分享朋友圈可再领取"
+                    android:textColor="#999999"
+                    android:textSize="14px"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_shareSecondMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0.3元"
+                    android:textColor="#C6A04D"
+                    android:textSize="14px"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="好友入驻，最高可领取"
+                    android:textColor="#999999"
+                    android:textSize="14px"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_shareThirdMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="300元"
+                    android:textColor="#C6A04D"
+                    android:textSize="14px"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+            
+            <Button
+                android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40px"
+                android:text="立即分享"
+                android:background="@drawable/button_reward"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16px"/>
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/gif_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/index_icon_moneytop"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

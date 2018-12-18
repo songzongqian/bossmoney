@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44px"
+        android:background="#FFFFFF">
+
+
+        <ImageView
+            android:id="@+id/title_back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15px"
+            app:srcCompat="@drawable/black_back" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="25px"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="8px"
+            android:text="上传证件照"
+            android:textColor="#333333"
+            android:textSize="18px" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_finish"
+            android:layout_width="50px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15px">
+
+            <TextView
+                android:id="@+id/tv_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="完成"
+                android:textSize="18px" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/title_top"
+        android:layout_width="wrap_content"
+        android:layout_height="25px"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16px"
+        android:layout_marginTop="17px"
+        android:text="店铺门头照片"
+        android:textColor="#333333"
+        android:textSize="14px" />
+
+    <LinearLayout
+        android:id="@+id/ll_one"
+        android:layout_width="match_parent"
+        android:layout_height="125px"
+        android:layout_marginTop="15px"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="139px"
+            android:layout_height="124px"
+            android:layout_marginLeft="38px"
+            android:background="#DCD9D4">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/shop_icon_lie" />
+
+
+            <ImageView
+                android:id="@+id/iv_storeHead"
+                android:layout_width="139px"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="165px"
+            android:layout_height="115px">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/adMinistrators"
+                android:layout_marginTop="5px"
+                android:background="@drawable/mytext_shap"
+                android:layerType="software" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/my_icon_add" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1、图片需要现场采集"
+                    android:textSize="10px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2、图片上不能有水印"
+                    android:textSize="10px" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3px"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/adMinistrators"
+                android:layout_marginTop="5px"
+                android:background="@drawable/mytext_shap"
+                android:layerType="software" />
+
+
+            <View
+                android:layout_width="3px"
+                android:layout_height="115px"
+                android:layout_alignParentRight="true"
+                android:background="#DCDCDC"
+                android:layerType="software" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="25px"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16px"
+        android:layout_marginTop="17px"
+        android:text="下面两项选择一种即可"
+        android:textColor="#333333"
+        android:textSize="14px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_license"
+            android:layout_width="0px"
+            android:layout_height="30px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/storeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="38px"
+                android:text="店铺营业执照"
+                android:textSize="12px" />
+
+            <ImageView
+                android:id="@+id/iv_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="120px"
+                android:background="@mipmap/my_icon_selected" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_person"
+            android:layout_width="0px"
+            android:layout_height="30px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/peopleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="38px"
+                android:text="商家身份证正反面"
+                android:textSize="12px" />
+
+            <ImageView
+                android:id="@+id/iv_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="150px"
+                android:background="@mipmap/my_icon_unselected" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <!--1-->
+    <RelativeLayout
+        android:id="@+id/rl_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_two"
+            android:layout_width="match_parent"
+            android:layout_height="125px"
+            android:layout_marginTop="15px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="139px"
+                android:layout_height="124px"
+                android:layout_marginLeft="38px"
+                android:background="#DCD9D4">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/shop_icon_lie" />
+
+                <ImageView
+                    android:id="@+id/iv_businessLicense"
+                    android:layout_width="139px"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="165px"
+                android:layout_height="115px">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/adMinistrators"
+                    android:layout_marginTop="5px"
+                    android:background="@drawable/mytext_shap"
+                    android:layerType="software" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/my_icon_add" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1、添加店铺营业执照"
+                        android:textSize="10px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2、图片需要现场采集"
+                        android:textSize="10px" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/adMinistrators"
+                    android:layout_marginTop="5px"
+                    android:background="@drawable/mytext_shap"
+                    android:layerType="software" />
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="115px"
+                    android:layout_alignParentRight="true"
+                    android:background="#DCDCDC"
+                    android:layerType="software" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--2-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_three"
+            android:layout_width="match_parent"
+            android:layout_height="125px"
+            android:layout_marginTop="15px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="139px"
+                android:layout_height="124px"
+                android:layout_marginLeft="38px"
+                android:background="#DCD9D4">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/shop_icon_lie" />
+
+                <ImageView
+                    android:id="@+id/iv_frontFace"
+                    android:layout_width="139px"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="165px"
+                android:layout_height="115px">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/adMinistrators"
+                    android:layout_marginTop="5px"
+                    android:background="@drawable/mytext_shap"
+                    android:layerType="software" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/my_icon_add" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1、添加身份证正面照"
+                        android:textSize="10px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2、图片需要现场采集"
+                        android:textSize="10px" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/adMinistrators"
+                    android:layout_marginTop="5px"
+                    android:background="@drawable/mytext_shap"
+                    android:layerType="software" />
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="115px"
+                    android:layout_alignParentRight="true"
+                    android:background="#DCDCDC"
+                    android:layerType="software" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <!--3-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_four"
+            android:layout_width="match_parent"
+            android:layout_height="125px"
+            android:layout_marginTop="15px"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="139px"
+                android:layout_height="124px"
+                android:layout_marginLeft="38px"
+                android:background="#DCD9D4">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/shop_icon_lie" />
+
+                <ImageView
+                    android:id="@+id/iv_behindFace"
+                    android:layout_width="139px"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="165px"
+                android:layout_height="115px">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/adMinistrators"
+                    android:layout_marginTop="5px"
+                    android:background="@drawable/mytext_shap"
+                    android:layerType="software" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/my_icon_add" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1、添加身份证反面照"
+                        android:textSize="10px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2、图片需要现场采集"
+                        android:textSize="10px" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/adMinistrators"
+                    android:layout_marginTop="5px"
+                    android:background="@drawable/mytext_shap"
+                    android:layerType="software" />
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="115px"
+                    android:layout_alignParentRight="true"
+                    android:background="#DCDCDC"
+                    android:layerType="software" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

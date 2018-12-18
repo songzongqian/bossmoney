@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200px"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+<TextView
+    android:id="@+id/Preservation"
+    android:layout_width="match_parent"
+    android:layout_height="42px"
+    android:text="保存图片到手机"
+    android:textColor="#333333"
+    android:textSize="16px"
+    android:gravity="center"
+    android:background="#FFFFFF"
+    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="#F8F8F8"
+        />
+    <TextView
+        android:id="@+id/dismis"
+        android:layout_width="match_parent"
+        android:layout_height="42px"
+        android:text="取消"
+        android:textColor="#333333"
+        android:textSize="16px"
+        android:gravity="center"
+        android:background="#FFFFFF"
+
+        />
+</LinearLayout>

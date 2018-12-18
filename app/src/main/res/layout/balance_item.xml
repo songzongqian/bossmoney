@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/balance_relative"
+    >
+
+    <TextView
+        android:id="@+id/Putforward"
+        android:layout_width="wrap_content"
+        android:layout_height="20px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="34px"
+        android:layout_marginStart="34px"
+        android:layout_marginTop="28px"
+        android:text="提现 - "
+        android:textSize="14px"
+        android:textColor="#666666"
+        />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Putforward"
+        android:layout_alignStart="@+id/Putforward"
+        android:layout_below="@+id/Putforward"
+        android:layout_marginTop="7px"
+        android:text="TextView"
+        android:textSize="12px"
+        android:textColor="#999999"
+        />
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/Putforward"
+        android:layout_marginEnd="35px"
+        android:layout_marginRight="35px"
+        android:text="TextView"
+        android:textSize="20px"
+        android:textColor="#666666"
+        />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/time"
+        android:layout_alignRight="@+id/money"
+        android:text="TextView"
+        android:textSize="12px"
+        android:textColor="#999999"
+        />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/time"
+        android:layout_marginTop="12px"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="14px"
+        android:background="#F6F6F6"
+        />
+</RelativeLayout>

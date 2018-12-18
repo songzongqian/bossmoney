@@ -1,0 +1,31 @@
+package com.byx.xiuboss.xiuboss.Mvp.fragmment;
+
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.byx.xiuboss.xiuboss.R;
+
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ConversationListFragment extends Fragment {
+
+
+    public ConversationListFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_conversation_list, container, false);
+    }
+
+}

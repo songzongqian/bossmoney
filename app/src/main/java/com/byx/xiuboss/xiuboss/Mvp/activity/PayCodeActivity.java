@@ -1,0 +1,380 @@
+package com.byx.xiuboss.xiuboss.Mvp.activity;
+
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.byx.xiuboss.xiuboss.Bean.CollectBean;
+import com.byx.xiuboss.xiuboss.Bean.WeChatBean;
+import com.byx.xiuboss.xiuboss.Jgim.utils.ToastUtil;
+import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
+import com.byx.xiuboss.xiuboss.NetUrl.Contast;
+import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
+import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.ImageToGallery;
+import com.byx.xiuboss.xiuboss.Utils.ImgUtils;
+import com.byx.xiuboss.xiuboss.Utils.PermissionHelper;
+import com.byx.xiuboss.xiuboss.Utils.PermissionInterface;
+import com.byx.xiuboss.xiuboss.Utils.UrlToBitmap;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.RequestParams;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.bean.ZxingConfig;
+import com.yzq.zxinglibrary.common.Constant;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
+
+public class PayCodeActivity extends BaseActivity implements PermissionInterface {
+
+    //读写权限
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    // 请求状态码
+    private static int REQUEST_PERMISSION_CODE = 1;
+    private PermissionHelper mPermissionHelper;
+    private WeChatBean weChatBean;
+    private String extra;
+    private PopupWindow window;
+    private TextView  topTitle;
+    private ImageView imgQrcode;
+    private TextView tvSave;
+    private TextView tvShare;
+    private Button bindCollect;
+    private String sidNumber;
+    WeChatBean middleBean;
+    private int REQUEST_CODE_SCAN = 111;
+    private RelativeLayout rlBack;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_we_chater);
+        sidNumber = getIntent().getStringExtra("sid");
+        initView();
+        mPermissionHelper = new PermissionHelper(PayCodeActivity.this, this);
+        initData();
+    }
+
+
+    private void initView() {
+        rlBack = findViewById(R.id.rl_back);
+        topTitle = findViewById(R.id.title_text);
+        imgQrcode = findViewById(R.id.wechat_two);
+        tvSave = findViewById(R.id.textView26);
+        tvShare = findViewById(R.id.textView27);
+        bindCollect = findViewById(R.id.btn_bind);
+        rlBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    private void initData() {
+        topTitle.setText("我的收款二维码");
+        RequestParams payParams=new RequestParams();
+        payParams.put("sid", sidNumber);
+        OkHttpUtils.post(AppUrl.QRCODE_URL).params(payParams).execute(new MyJsonCallBack<WeChatBean>() {
+            @Override
+            public void onResponse(WeChatBean weChatBean) {
+
+                if(weChatBean!= null && weChatBean.getCode()==2000){
+                    middleBean= weChatBean;
+                    //加载二维码图片
+                    RequestOptions options = new RequestOptions();
+                    options.centerCrop()
+                            .placeholder(R.mipmap.defaults)
+                            .error(R.mipmap.defaults);
+                    Glide.with(PayCodeActivity.this).load(weChatBean.getData()).apply(options).into(imgQrcode);
+                    //保存相册
+                    tvSave.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view){
+                            mPermissionHelper.requestPermissions();
+                            /**
+                             * 把图像保存到相册
+                             */
+                            Bitmap bitmap = UrlToBitmap.returnBitMap(middleBean.getData());
+                            if(bitmap!=null){
+                            ImageToGallery.saveImageToGallery(PayCodeActivity.this, bitmap);
+                            }
+                        }
+                    });
+
+                    //分享
+                    tvShare.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view){
+                          /*  showPopupWindow();
+                            backgroundAlpha(0.5f);
+                            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                                @Override
+                                public void onDismiss() { backgroundAlpha(1.0f);
+                                }
+                            });*/
+
+
+
+                        }
+                    });
+
+                    //扫码绑定店铺
+                    bindCollect.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view){
+                            //调起摄像头开始扫描数据扫一扫
+                            AndPermission.with(PayCodeActivity.this)
+                                    .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
+                                    .onGranted(new Action() {
+                                        @Override
+                                        public void onAction(List<String> permissions) {
+                                            Intent intent = new Intent(PayCodeActivity.this, CaptureActivity.class);
+                                            /*ZxingConfig是配置类
+                                             *可以设置是否显示底部布局，闪光灯，相册，
+                                             * 是否播放提示音  震动
+                                             * 设置扫描框颜色等
+                                             * 也可以不传这个参数
+                                             * */
+                                            ZxingConfig config = new ZxingConfig();
+                                            config.setPlayBeep(true);//是否播放扫描声音 默认为true
+                                            config.setShake(true);//是否震动  默认为true
+                                            config.setShowbottomLayout(true);
+                                            intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+                                            startActivityForResult(intent, REQUEST_CODE_SCAN);
+                                        }
+                                    })
+                                    .onDenied(new Action() {
+                                        @Override
+                                        public void onAction(List<String> permissions) {
+                                            Uri packageURI = Uri.parse("package:" + PayCodeActivity.this.getPackageName());
+                                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            Toast.makeText(PayCodeActivity.this, "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
+                                        }}).start();
+
+
+
+                        }
+                    });
+
+                }else{
+                    //二维码显示占位图片
+                    Glide.with(PayCodeActivity.this).load(R.mipmap.default_image).into(imgQrcode);
+                }
+
+            }
+
+            @Override
+            public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                super.onError(call, response, e);
+                Glide.with(PayCodeActivity.this).load(R.mipmap.default_image).into(imgQrcode);
+            }
+        });
+
+
+    }
+
+
+    private void showPopupWindow() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popup_share, null, false);
+        window = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        RelativeLayout weChat = contentView.findViewById(R.id.rl_weChat);
+        RelativeLayout weFriend = contentView.findViewById(R.id.rl_weFriend);
+
+        weChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PayCodeActivity.this,"微信",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        weFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PayCodeActivity.this,"朋友圈",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        Button cancel = contentView.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (window != null) {
+                    window.dismiss();
+                }
+            }
+        });
+        window.setBackgroundDrawable(new BitmapDrawable());
+        window.setOutsideTouchable(true);
+        window.setTouchable(true);
+        View rootview = LayoutInflater.from(PayCodeActivity.this).inflate(R.layout.activity_we_chater, null);
+        window.showAtLocation(rootview,  Gravity.BOTTOM, 0, 0);
+    }
+
+
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = PayCodeActivity.this.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        PayCodeActivity.this.getWindow().setAttributes(lp);
+        PayCodeActivity.this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    }
+
+
+
+    /**
+     * View截图
+     *
+     * @param
+     * @return
+     */
+    public Bitmap loadBitmapFromView(View view) {
+        // View view = LayoutInflater.from(WeChatActivity.this).inflate(R.layout.activity_we_chat, null);
+        if (view == null) {
+            return null;
+        }
+        WindowManager manager = getWindowManager();
+        DisplayMetrics metrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;  //以要素为单位
+        int height = metrics.heightPixels;
+        view.setDrawingCacheEnabled(true);
+        //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
+        view.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
+        //这个方法也非常重要，设置布局的尺寸和位置
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        //获得绘图缓存中的Bitmap
+        view.buildDrawingCache();
+        return view.getDrawingCache();
+    }
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 扫描二维码/条码回传
+        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
+            if (data != null) {
+                final String content = data.getStringExtra(Constant.CODED_CONTENT);
+                String newContent = content.substring(0,content.length()-10);
+                if(newContent.equals(Contast.QRCODE_URL)){
+                    new AlertDialog.Builder(PayCodeActivity.this)
+                            .setTitle("提示")
+                            .setMessage("是否绑定该二维码为当前店铺的收款码？")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(final DialogInterface dialog, int which) {
+                                    RequestParams requestParams=new RequestParams();
+                                    requestParams.put("sid",sidNumber);
+                                    requestParams.put("type","app");
+                                    OkHttpUtils.post(content).params(requestParams).execute(new MyJsonCallBack<String>() {
+
+                                        @Override
+                                        public void onResponse(String json) {
+                                            ToastUtil.shortToast(PayCodeActivity.this, "绑定成功");
+                                            dialog.dismiss();
+                                        }
+
+                                        @Override
+                                        public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                                            super.onError(call, response, e);
+                                        }
+                                    });
+
+
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                            .create()
+                            .show();
+
+
+                }else{
+                    Toast.makeText(PayCodeActivity.this,"暂不支持此二维码",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }
+
+    }
+
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            for (int i = 0; i < permissions.length; i++) {
+                Log.i("MainActivity", "申请的权限为：" + permissions[i] + ",申请结果：" + grantResults[i]);
+            }
+        }
+    }
+
+    @Override
+    public int getPermissionsRequestCode() {
+        return 10000;
+    }
+
+    @Override
+    public String[] getPermissions() {
+        return new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    }
+
+    @Override
+    public void requestPermissionsSuccess() {
+
+    }
+
+    @Override
+    public void requestPermissionsFail() {
+        finish();
+    }
+
+
+}

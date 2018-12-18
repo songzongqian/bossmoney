@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F5F8FA"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/detial_orderMore"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/group_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="今天"
+            android:textColor="#999999"
+            android:gravity="center_vertical"
+            android:textSize="14sp"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/group_orderMore"
+        android:background="@drawable/order_shape"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="￥"
+            android:layout_marginLeft="15dp"
+            android:textColor="#C39A4B"
+            android:gravity="center_vertical"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/group_orderPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="589"
+            android:textColor="#C39A4B"
+            android:gravity="center_vertical"
+            android:textSize="36sp"/>
+        <TextView
+            android:id="@+id/group_orderCancelNum"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="共计14单，已取消1单"
+            android:layout_weight="1"
+            android:textColor="#999999"
+            android:gravity="bottom"
+            android:paddingBottom="22dp"
+            android:layout_marginLeft="8dp"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:id="@+id/group_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/expand_select"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</LinearLayout>

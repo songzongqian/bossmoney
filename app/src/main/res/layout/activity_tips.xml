@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.byx.xiuboss.xiuboss.Mvp.activity.TipsActivity">
+    <include layout="@layout/title_item"
+        android:id="@+id/include" />
+
+    <ImageView
+        android:id="@+id/reward_rules"
+        android:layout_width="match_parent"
+        android:layout_height="151px"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include"
+        android:background="@mipmap/icon_reward_rules" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="20px"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/reward_rules"
+        android:layout_marginLeft="15px"
+        android:layout_marginTop="13px"
+        android:text="什么是会员等级？"
+        android:textSize="16px"
+        android:textColor="#333333"
+        />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="56px"
+        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/textView27"
+        android:layout_alignStart="@+id/textView27"
+        android:layout_marginRight="15px"
+        android:layout_below="@+id/textView27"
+        android:layout_marginTop="5px"
+        android:text="账户余额达到等级对应所需金额标准后，自动升级到对应等级可以领取对应等级的奖励。领取奖励24小时内不可提现。等级奖励标准如下："
+        android:textColor="#666666"
+        android:textSize="14px"
+        />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="61px"
+        android:layout_below="@+id/textView32"
+        android:layout_marginTop="11px"
+        android:text="等级"
+        android:textColor="#666666"
+        android:textSize="14px"
+        />
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView34"
+        android:layout_centerHorizontal="true"
+        android:text="金额"
+        android:textColor="#666666"
+        android:textSize="14px"
+        />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView36"
+        android:layout_marginRight="86px"
+        android:text="奖励"
+        android:textColor="#666666"
+        android:textSize="14px"
+        />
+    <ListView
+        android:layout_below="@+id/textView34"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv"
+        android:divider="@null"
+        >
+    </ListView>
+</RelativeLayout>

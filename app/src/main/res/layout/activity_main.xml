@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fram"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/setting_line" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp">
+
+        <RelativeLayout
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/home_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/group_home_selector" />
+
+            <TextView
+                android:id="@+id/home_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="11sp"
+                android:textColor="@drawable/text_color_selector"
+                android:text="@string/home_title" />
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_toRightOf="@id/home_img"
+                android:text="6"
+                android:gravity="center"
+                android:textSize="8sp"
+                android:textColor="#FFFFFF"
+                android:background="@mipmap/bottom_icon_red"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/order"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/order_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/group_order_selector" />
+
+            <TextView
+                android:id="@+id/order_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="11sp"
+                android:textColor="@drawable/text_color_selector"
+                android:text="@string/order_title" />
+
+            <ImageView
+                android:id="@+id/order_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/order_img"
+                android:background="@mipmap/bottom_icon_red"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bill"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/bill_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/group_bill_selector" />
+
+            <TextView
+                android:id="@+id/bill_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:textSize="11sp"
+                android:textColor="@drawable/text_color_selector"
+                android:layout_centerHorizontal="true"
+                android:text="@string/bill_title" />
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_toRightOf="@id/bill_img"
+                android:text="6"
+                android:gravity="center"
+                android:textSize="8sp"
+                android:textColor="#FFFFFF"
+                android:background="@mipmap/bottom_icon_red"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mine"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/mine_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/group_mines_selector" />
+
+            <TextView
+                android:id="@+id/mine_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:textSize="11sp"
+                android:textColor="@drawable/text_color_selector"
+                android:layout_centerHorizontal="true"
+                android:text="@string/mine_title" />
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_toRightOf="@id/mine_img"
+                android:text="6"
+                android:gravity="center"
+                android:textSize="8sp"
+                android:textColor="#FFFFFF"
+                android:background="@mipmap/bottom_icon_red"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+</LinearLayout>

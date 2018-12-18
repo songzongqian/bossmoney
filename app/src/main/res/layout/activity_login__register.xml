@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/home_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+    <!--覆盖Recyclerview，屏蔽用户手指滑动-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#99000000"
+        android:clickable="true" />
+
+    <Button
+        android:id="@+id/btn_Login"
+        android:layout_width="166px"
+        android:layout_height="38px"
+        android:layout_above="@+id/textView13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="58px"
+        android:layout_marginLeft="30px"
+        android:layout_marginStart="30px"
+        android:background="@drawable/button_shap"
+        android:text="登  录"
+        android:textColor="#000000"
+        android:textSize="14px" />
+
+    <Button
+        android:id="@+id/btn_Register"
+        android:layout_width="166px"
+        android:layout_height="38px"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/btn_Login"
+        android:layout_marginRight="31px"
+        android:background="@drawable/button_rester"
+        android:text="入驻申请"
+        android:textColor="#ffffff"
+        android:textSize="14px" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="25px"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="18px"
+        android:text="该版本仅限合作商户使用"
+        android:layout_marginTop="19px"
+        android:textColor="#f5f4f4"
+        android:textSize="14px" />
+
+
+    <ImageView
+        android:layout_width="264px"
+        android:layout_height="116px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="119px"
+        android:src="@mipmap/login_newversion" />
+</RelativeLayout>

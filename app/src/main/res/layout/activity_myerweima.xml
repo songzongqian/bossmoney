@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#263147">
+
+                <ImageView
+                    android:id="@+id/img_back"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:src="@drawable/back" />
+
+                <TextView
+                    android:textSize="36px"
+                    android:textColor="#f7f3f3"
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="我的二维码" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/dEWM"
+                    android:layout_width="400px"
+                    android:layout_height="400px"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30px"
+                    android:src="@mipmap/ic_launcher" />
+                <TextView
+                    android:layout_below="@id/dEWM"
+                    android:layout_marginTop="10px"
+                    android:textColor="#000000"
+                    android:text="网店二维码"
+                    android:textSize="36px"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/skm"
+                    android:layout_width="400px"
+                    android:layout_height="400px"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_launcher" />
+                <TextView
+                    android:layout_below="@id/skm"
+                    android:layout_marginTop="30px"
+                    android:textColor="#000000"
+                    android:text="收款码"
+                    android:textSize="36px"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

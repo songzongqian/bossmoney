@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/title_item" />
+
+        <RelativeLayout
+            android:id="@+id/rl_storeName"
+            android:layout_width="match_parent"
+            android:layout_height="62px"
+            android:layout_marginTop="15px"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:background="@drawable/button"
+            >
+
+            <TextView
+                android:id="@+id/tv_storeName"
+                android:layout_width="wrap_content"
+                android:layout_height="20px"
+                android:text="店铺名称"
+                android:textSize="16px"
+                android:textColor="#333333"
+                android:layout_marginTop="21px"
+                android:layout_marginLeft="15px"
+                />
+
+            <TextView
+                android:id="@+id/tv_storeNameContent"
+                android:layout_width="wrap_content"
+                android:layout_height="20px"
+                android:layout_alignBaseline="@+id/tv_storeName"
+                android:layout_marginLeft="120px"
+                android:text="醉清风"
+                android:textColor="#999999"
+                android:textSize="16px" />
+
+            <ImageView
+                android:id="@+id/button_image_one"
+                android:layout_width="7px"
+                android:layout_height="12px"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="18px"
+                android:layout_marginTop="25px"
+                app:srcCompat="@mipmap/common" />
+        </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_contact"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@drawable/button"
+        >
+        <TextView
+            android:id="@+id/tv_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:text="联系方式"
+            android:textSize="16px"
+            android:textColor="#333333"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="15px"
+            />
+
+        <TextView
+            android:id="@+id/tv_contactContent"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_alignBaseline="@+id/tv_contact"
+            android:layout_marginLeft="120px"
+            android:text="1456424567788"
+            android:textColor="#999999"
+            android:textSize="16px" />
+
+        <ImageView
+            android:id="@+id/button_image_two"
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_address"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@drawable/button"
+        >
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:text="门店地址"
+            android:textSize="16px"
+            android:textColor="#333333"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="15px"
+            />
+
+        <TextView
+            android:id="@+id/tv_addressContent"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_alignBaseline="@+id/tv_address"
+            android:layout_marginLeft="120px"
+            android:text="北京市中南海"
+            android:textColor="#999999"
+            android:textSize="16px" />
+
+        <ImageView
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+      </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_photo"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@drawable/button"
+        >
+        <TextView
+            android:id="@+id/tv_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:text="证件照"
+            android:textSize="16px"
+            android:textColor="#333333"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="15px"
+            />
+
+        <TextView
+            android:id="@+id/tv_photoContent"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_alignBaseline="@+id/tv_photo"
+            android:layout_marginLeft="120px"
+            android:text="未上传"
+            android:textColor="#999999"
+            android:textSize="16px" />
+
+        <ImageView
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_workTime"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@drawable/button"
+        >
+        <TextView
+            android:id="@+id/tv_work"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:text="营业时间"
+            android:textSize="16px"
+            android:textColor="#333333"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="15px"
+            />
+
+        <TextView
+            android:id="@+id/tv_workContent"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_alignBaseline="@+id/tv_work"
+            android:layout_marginLeft="120px"
+            android:text="09:00-19:00"
+            android:textColor="#999999"
+            android:textSize="16px" />
+
+        <ImageView
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_category"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@drawable/button"
+        >
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:text="经营品类"
+            android:textSize="16px"
+            android:textColor="#333333"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="15px"
+            />
+
+        <TextView
+            android:id="@+id/tv_categoryContent"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_alignBaseline="@+id/tv_category"
+            android:layout_marginLeft="120px"
+            android:text="甜品"
+            android:textColor="#999999"
+            android:textSize="16px" />
+
+        <ImageView
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_cashBack"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@drawable/button"
+        >
+        <TextView
+            android:id="@+id/tv_cashBack"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:text="返现比例"
+            android:textSize="16px"
+            android:textColor="#333333"
+            android:layout_marginTop="21px"
+            android:layout_marginLeft="15px"
+            />
+
+        <TextView
+            android:id="@+id/tv_cashBackContent"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_alignBaseline="@+id/tv_cashBack"
+            android:layout_marginLeft="120px"
+            android:text="20%"
+            android:textColor="#999999"
+            android:textSize="16px" />
+
+        <ImageView
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+    </RelativeLayout>
+        <Button
+            android:id="@+id/post_btn"
+            android:layout_width="match_parent"
+            android:layout_height="42px"
+            android:layout_margin="15px"
+            android:background="@drawable/button"
+            android:text="提交审核"
+            android:textColor="#333333"
+            android:textSize="16px"
+            />
+
+
+</LinearLayout>

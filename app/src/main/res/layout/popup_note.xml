@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400px"
+    android:layout_marginLeft="38px"
+    android:layout_marginRight="38px">
+
+
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="match_parent"
+        android:layout_height="46px"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30px"
+        android:layout_marginTop="10px"
+        android:layout_marginRight="30px"
+        android:layout_marginBottom="20px"
+        android:background="@drawable/button_note"
+        android:text="我知道了"
+        android:textColor="#FFFFFF"
+        android:textSize="18px" />
+
+</RelativeLayout>
+
+
+
+
+
+

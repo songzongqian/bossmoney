@@ -1,0 +1,76 @@
+package com.byx.xiuboss.xiuboss.Bean;
+
+
+public class RewardBean {
+
+
+    /**
+     * code : 2000
+     * message : 微信提现已超过2W
+     * data : {"type":"exceed","date":1544844036,"time":"2"}
+     */
+
+    private int code;
+    private String message;
+    private DataBean data;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
+    }
+
+    public static class DataBean {
+        /**
+         * type : exceed
+         * date : 1544844036
+         * time : 2
+         */
+
+        private String type;
+        private int date;
+        private String time;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public int getDate() {
+            return date;
+        }
+
+        public void setDate(int date) {
+            this.date = date;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+    }
+}

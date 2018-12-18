@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FFFFFF">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50px"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/title_back_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:background="@drawable/black_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的收款二维码" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/Preservation_two"
+        android:layout_width="match_parent"
+        android:layout_height="350px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:layout_marginTop="15px"
+        android:background="@drawable/button_shap_xiuxiu"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/wechat_two"
+            android:layout_width="230px"
+            android:layout_height="230px"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40px"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="25px"
+                android:layout_marginTop="10px"
+                android:text="保存到相册"
+                android:layout_marginLeft="75px"
+                android:textColor="#C6A04D"
+                android:textSize="14px" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="25px"
+                android:layout_marginLeft="220px"
+                android:layout_marginTop="10px"
+                android:text="分享收款码"
+                android:textColor="#C6A04D"
+                android:textSize="14px" />
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_bind"
+        android:layout_width="match_parent"
+        android:layout_height="42px"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
+        android:layout_marginTop="20px"
+        android:background="@drawable/button_tz"
+        android:text="绑定收款码"
+        android:textColor="#FFFFFF"
+        android:textSize="18px"/>
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="25px"
+        android:layout_marginTop="16px"
+        android:text="点击绑定您的专属二维码"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000"
+        android:textSize="14px" />
+
+
+
+</LinearLayout>
+
+
+

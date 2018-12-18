@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <com.zhy.autolayout.AutoLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:background="@drawable/button_shap_xiuxiu"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:orientation="vertical"
+        >
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popup_money"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50px"
+        android:text="检测到您未打开通知权限，可能无法收到收款播报"
+        android:textSize="14px"
+        android:textColor="#999999"
+        />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:layout_below="@+id/textView30"
+        android:layout_marginTop="28px"
+        android:layerType="software"
+        android:background="#DCDCDC"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20px">
+
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="32px"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView31"
+            android:layout_marginBottom="13px"
+            android:layout_marginTop="12px"
+            android:layout_marginLeft="30px"
+            android:text="暂不打开"
+            android:textColor="#999999"
+            android:textSize="16px"
+            android:background="@drawable/button_popup_two"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_marginLeft="50px"
+                android:layout_width="wrap_content"
+                android:layout_height="32px"
+                android:layout_marginTop="12px"
+                android:layout_marginBottom="13px"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30px"
+                android:text="打开"
+                android:textColor="#FFFFFF"
+                android:textSize="16px"
+                android:background="@drawable/button_popup"
+                />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+    </com.zhy.autolayout.AutoLinearLayout>

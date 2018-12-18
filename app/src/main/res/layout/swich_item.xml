@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15px"
+    android:background="#FFFFFF"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/swich_icon"
+        android:layout_width="50px"
+        android:layout_height="50px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13px"
+        android:layout_marginLeft="15px"
+        android:layout_marginStart="15px"
+        app:civ_border_color="#26A69A"/>
+
+    <TextView
+        android:id="@+id/swich_name"
+        android:layout_width="wrap_content"
+        android:layout_height="22px"
+        android:layout_marginLeft="85px"
+        android:layout_centerVertical="true"
+        android:text="TextView"
+        android:textSize="16px"
+        android:textColor="#333333"
+        />
+
+    <CheckBox
+        android:id="@+id/swich_check_box"
+        android:layout_width="30px"
+        android:layout_height="30px"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="9px"
+        android:layout_marginRight="9px"
+        android:button="@null"
+        android:background="@drawable/checkbox_style"
+        />
+</RelativeLayout>

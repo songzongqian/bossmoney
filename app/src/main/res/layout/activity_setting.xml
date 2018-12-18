@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    android:orientation="vertical"
+    tools:context="com.byx.xiuboss.xiuboss.Mvp.activity.SettingActivity">
+
+    <include layout="@layout/title_item" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_clearDisk"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:layout_marginTop="15px"
+        android:background="@drawable/button">
+
+        <TextView
+            android:id="@+id/tv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_marginLeft="15px"
+            android:layout_marginTop="21px"
+            android:text="清除缓存"
+            android:textColor="#333333"
+            android:textSize="16px" />
+
+        <TextView
+            android:id="@+id/tv_cacheSize"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_alignBaseline="@+id/tv_clear"
+            android:layout_marginLeft="120px"
+            android:text=""
+            android:textColor="#999999"
+            android:textSize="16px" />
+
+
+        <ImageView
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+    </RelativeLayout>
+
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_update"
+        android:layout_width="match_parent"
+        android:layout_height="62px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:layout_marginTop="15px"
+        android:background="@drawable/button">
+
+        <TextView
+            android:id="@+id/clearBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_marginLeft="15px"
+            android:layout_marginTop="21px"
+            android:text="当前版本号"
+            android:textColor="#333333"
+            android:textSize="16px" />
+
+
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="20px"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21px"
+            android:text="当前版本号"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50px"
+            android:textColor="#333333"
+            android:textSize="16px" />
+
+
+
+        <ImageView
+            android:layout_width="7px"
+            android:layout_height="12px"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18px"
+            android:layout_marginTop="25px"
+            app:srcCompat="@mipmap/common" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/button_exit"
+        android:layout_width="match_parent"
+        android:layout_height="58px"
+        android:layout_marginTop="10px"
+        android:background="#FFFFFF"
+        android:text="退出当前账号"
+        android:textColor="#C6A04D"
+        android:textSize="18px"
+
+        />
+
+</LinearLayout>

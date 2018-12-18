@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:background="#FFFFFF"
+    >
+
+    <RelativeLayout
+
+        android:layout_marginBottom="20px"
+        android:id="@+id/relativi_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/touxiang"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="19px"
+            android:src="@drawable/ic_launcher_background" />
+
+
+        <TextView
+            android:id="@+id/nicheng"
+            android:layout_width="wrap_content"
+            android:layout_height="42px"
+
+            android:layout_alignTop="@+id/touxiang"
+            android:layout_marginStart="36px"
+            android:layout_toEndOf="@+id/touxiang"
+            android:text="Yx"
+            android:textColor="#151515"
+            android:textSize="36px" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="40px"
+            android:layout_alignBottom="@+id/touxiang"
+            android:layout_alignStart="@+id/nicheng"
+            android:text="15:07"
+            android:textColor="#999999"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/jine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignBottom="@+id/nicheng"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40px"
+            android:text="+10.00"
+            android:textColor="#000000"
+            android:textSize="36px" />
+
+        <TextView
+            android:id="@+id/xinxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/jine"
+            android:layout_alignTop="@+id/time"
+            android:text="+10.00"
+            android:textColor="#999999"
+            android:textSize="30px" />
+
+
+
+
+
+</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#F5F8FA"
+        android:layout_below="@id/relativi_one"
+        android:id="@+id/view" />
+</RelativeLayout>

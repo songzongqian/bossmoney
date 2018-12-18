@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.byx.xiuboss.xiuboss">
+
+    <!-- 打电话权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 连接网络权限，用于执行云端语音能力 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 读取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取当前wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 读取联系人权限，上传联系人需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 外存储写权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 外存储读权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 配置权限，用来记录应用配置信息 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 手机定位信息，用来为语义等功能提供定位，提供更精准的服务 -->
+    <!-- 定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 如需使用人脸识别，还要添加：摄相头权限，拍照需要用到 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- 极光推送需要的权限-->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <application
+        android:name=".Application.JgApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/cover_120"
+        android:label="@string/application_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        tools:replace="icon,label,theme">
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="true" />
+
+        <!-- 设置设计图大小 -->
+        <meta-data
+            android:name="design_width"
+            android:value="415" />
+        <meta-data
+            android:name="design_height"
+            android:value="736" />
+        <!--
+        <meta-data
+            android:name="design_width"  android:value="750" />
+        <meta-data
+            android:name="design_height" android:value="1334" />
+        -->
+
+
+        <!-- 高德地图后台配置 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value=" 2e511472e51a99dedae2a6a0beddfc09" />
+
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Mvp.activity.Login_RegisterActivity" />
+        <activity
+            android:name=".Mvp.activity.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".Mvp.activity.DetailsActivity" />
+        <activity android:name=".Mvp.activity.ChatActivity" />
+
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" />
+
+        <activity android:name=".Mvp.activity.SettingActivity" />
+        <activity android:name=".Mvp.activity.BalanceActivity" />
+        <activity android:name=".Mvp.activity.SwichActivity" />
+        <activity
+            android:name=".Mvp.activity.BalanceWebActivity"
+            android:hardwareAccelerated="true" />
+        <activity android:name=".Mvp.activity.WeChatActivity" />
+        <activity android:name=".Mvp.activity.WelComeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Mvp.activity.TipsActivity" />
+        <activity android:name=".Mvp.activity.TodayMoneyActivity" />
+        <activity android:name=".Mvp.activity.ReceivablesActivity" />
+        <activity android:name=".Mvp.activity.AccountActivity" />
+        <activity android:name=".Mvp.activity.CompletedActivity" />
+        <activity android:name=".Mvp.activity.CollectSuccessActivity" />
+        <activity android:name=".Mvp.activity.PayCodeActivity" />
+        <activity android:name=".Mvp.activity.BussinessActivity" />
+        <activity android:name=".Mvp.activity.businessinfo.StoreNameActivity" />
+        <activity android:name=".Mvp.activity.businessinfo.ContactActivity" />
+        <activity
+            android:name=".Mvp.activity.businessinfo.StoreAddressActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".Mvp.activity.businessinfo.StorePhotoActivity" />
+        <activity android:name=".Mvp.activity.ManageActivity" />
+        <activity android:name=".Mvp.activity.CollectDetailActivity"/>
+        <activity android:name=".Mvp.activity.HelpActivity"/>
+        <activity android:name=".Mvp.activity.NewLoginActivity"/>
+
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" />
+
+        <!-- &lt;!&ndash; Required SDK核心功能&ndash;&gt;<receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/> -->
+        <!-- User defined. For test only 用户自定义的广播接收器 -->
+        <receiver
+            android:name=".Jpush.MyReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required 用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.byx.xiuboss.xiuboss" />
+            </intent-filter>
+        </receiver>
+        <!-- User defined. For test only 用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调 -->
+        <receiver android:name=".Jpush.MyJPushMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+
+                <category android:name="com.byx.xiuboss.xiuboss" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".Mvp.activity.OrderActivity" />
+        <activity android:name=".Mvp.activity.CancelOrderActivity" />
+        <activity
+            android:name=".Mvp.activity.RecoinResonActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity android:name=".Mvp.activity.WithDrawTipActivity"/>
+
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jiguang.share.android.ui.JiguangShellActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+        </activity>
+
+        <!-- Optional 微信分享回调,wxapi必须在包名路径下，否则回调不成功-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true" />
+
+
+    </application>
+
+</manifest>

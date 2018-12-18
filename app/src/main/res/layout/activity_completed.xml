@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F8F8F8"
+    tools:context="com.byx.xiuboss.xiuboss.Mvp.activity.CompletedActivity">
+    <include layout="@layout/title_item"/>
+
+    <RelativeLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="280px"
+        android:layout_marginTop="10px"
+        >
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="76px"
+            android:layout_height="76px"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28px"
+            app:srcCompat="@mipmap/index_icon_sign" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30px"
+            android:text="提现成功"
+             android:textSize="16px"
+            android:textColor="#666666"
+            />
+
+        <TextView
+            android:id="@+id/Put_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textView38"
+            android:layout_marginTop="3px"
+            android:text="2018-10-01 10:14:54"
+            android:textSize="12px"
+            android:textColor="#999999"
+            />
+
+        <TextView
+            android:id="@+id/Account_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Put_forward"
+            android:layout_centerHorizontal="true"
+            android:text="到账时间：10月02日"
+            android:textColor="#999999"
+            android:textSize="12px"
+            />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="220px"
+            android:layout_height="42px"
+            android:layout_below="@+id/Account_money"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14px"
+            android:text="完成"
+            android:textSize="18px"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_reward"
+            />
+    </RelativeLayout>
+</LinearLayout>

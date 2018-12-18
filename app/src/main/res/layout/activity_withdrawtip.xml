@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_item" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="15px"
+        android:text="什么是交易手续费？"
+        android:textColor="#333333"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="15px"
+        android:text="交易手续费是指根据商家收款流水抽取的手续费;不区分是用的是信用卡、微信、支付宝、
+花呗，所有付款渠道流水均计算在内。"
+        android:textColor="#666666"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="15px"
+        android:text="收费标准"
+        android:textColor="#333333"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="15px"
+        android:text="基础标准(适用于大部分普通商户):"
+        android:textColor="#666666"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15px"
+        android:text="每天免手续费交易额度一千元，超过部分每笔收取千分之三点五（0.35%=0.0035）手续费；"
+        android:textColor="#666666"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15px"
+        android:text="特定行业(平均单笔交易超过300元，如批发、建材等):"
+        android:textColor="#666666"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15px"
+        android:text="无免手续费额度，每笔收取交易额度的千分之二点五（0.25%=0.0025）手续费"
+        android:textColor="#666666"
+        android:textSize="14sp"/>
+
+
+
+
+
+
+
+</LinearLayout>

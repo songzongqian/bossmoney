@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Preservation_two"
+        android:layout_width="match_parent"
+        android:layout_height="570px"
+        android:background="@drawable/button_shap_xiuxiu"
+        >
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="450px"
+            android:background="@mipmap/my_img_wechat"
+            android:id="@+id/relativeLayout">
+
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="42px"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="57px"
+                android:text="休休团购合作商户"
+                android:textColor="#FFFFFF"
+                android:textSize="30px"
+                />
+
+            <ImageView
+                android:id="@+id/wechat_two"
+                android:layout_width="230px"
+                android:layout_height="230px"
+                android:layout_below="@+id/textView25"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="23px"
+                android:background="@drawable/erweima"
+                />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="25px"
+                android:layout_below="@+id/wechat_two"
+                android:layout_marginTop="16px"
+                android:layout_centerHorizontal="true"
+                android:text="微信支付宝均可付款"
+                android:textColor="#FFFFFF"
+                android:textSize="18px"
+                />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26px"
+            android:background="@mipmap/my_icon_logo"
+            />
+    </RelativeLayout>
