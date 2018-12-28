@@ -150,15 +150,16 @@
                 android:text="@string/mine_title" />
 
             <TextView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:id="@+id/mMineRed"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
                 android:layout_toRightOf="@id/mine_img"
-                android:text="6"
+                android:text=""
                 android:gravity="center"
                 android:textSize="8sp"
                 android:textColor="#FFFFFF"
                 android:background="@mipmap/bottom_icon_red"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </RelativeLayout>
 
 
