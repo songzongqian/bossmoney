@@ -4,10 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byx.xiuboss.xiuboss.Bean.VersionBean;
 import com.byx.xiuboss.xiuboss.Mvp.activity.BaseActivity;
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.BillFragment;
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.BillTestFragment;
@@ -28,12 +32,18 @@ import com.byx.xiuboss.xiuboss.Mvp.fragmment.IndexFragment;
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.MyFragment;
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.Orderragment;
 import com.byx.xiuboss.xiuboss.Mvp.view.AutoRadioGroup;
+import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.NetUrl.Contast;
+import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
+import com.byx.xiuboss.xiuboss.Utils.NetUtils;
 import com.byx.xiuboss.xiuboss.Utils.NotificationsUtils;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
+import com.byx.xiuboss.xiuboss.Utils.UpdateAppUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,6 +53,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -66,6 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private PopupWindow window;
     private NiftyDialogBuilder dialogBuilder;
     private OnEventReceive receive;
+    private String version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +97,69 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        checkVersion();
         initNotifications();
     }
+
+
+    /**
+     * 检测是否有新版本发布
+     */
+    private void checkVersion() {
+        PackageManager packageManager = getPackageManager();
+        try {
+            PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+            version = packInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String testUrl="https://devapi.ourxiuxiu.com/api/checkVersion";
+        if(NetUtils.isConnected(MainActivity.this)){
+            RequestParams requestParams=new RequestParams();
+            requestParams.put("source","android");
+            requestParams.put("os","cmandroid");
+            requestParams.put("version",version);
+            OkHttpUtils.post(testUrl).params(requestParams).execute(new MyJsonCallBack<VersionBean>() {
+
+                @Override
+                public void onResponse(VersionBean versionBean) {
+                    if(versionBean!=null && versionBean.getCode()==2000){
+                        String enable = versionBean.getData().getEnable();
+                        if(enable.equals("1")){
+                            //当前版本可用
+
+
+                        }else if(enable.equals("2")){
+                            //当前版本不可用，需要强制更新
+                            UpdateAppUtils.from(MainActivity.this)
+                                    .checkBy(UpdateAppUtils.CHECK_BY_VERSION_NAME) //更新检测方式，默认为VersionCode
+                                    .apkPath(versionBean.getData().getUrl())
+                                    .showNotification(true)  //是否显示下载进度到通知栏，默认为true
+                                    .updateInfo(versionBean.getData().getMsg())  //更新日志信息 String
+                                    .downloadBy(UpdateAppUtils.DOWNLOAD_BY_BROWSER) //下载方式：app下载、手机浏览器下载。默认app下载
+                                    .isForce(true)//是否强制更新，默认false 强制更新情况下用户不同意更新则不能使用app
+                                    .update();
+                        }
+                    }else{
+                        //返回-1时
+
+                    }
+
+                }
+
+                @Override
+                public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                    super.onError(call, response, e);
+                }
+            });
+
+        }else{
+            //无网络状态
+        }
+    }
+
+
 
     private void initNotifications() {
         if (!NotificationsUtils.isNotificationEnabled(this)) {

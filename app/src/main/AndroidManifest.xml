@@ -169,6 +169,7 @@
             android:name=".Mvp.activity.RecoinResonActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".Mvp.activity.WithDrawTipActivity"/>
+        <activity android:name=".Mvp.activity.OnLineServiceActivity"/>
 
 
         <!-- Required SDK核心功能-->

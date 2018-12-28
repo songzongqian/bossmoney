@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.activeandroid.query.Set;
+import com.byx.xiuboss.xiuboss.Application.JgApplication;
 import com.byx.xiuboss.xiuboss.Jgim.utils.ToastUtil;
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.FileCacheUtil;
@@ -21,6 +23,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 
 public class SettingActivity extends BaseActivity {
@@ -96,7 +99,8 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.button_exit:
-                JMessageClient.logout();
+                //JMessageClient.logout();
+                JPushInterface.stopPush(JgApplication.context);
                 SharedPreferences loginSuccess = this.getSharedPreferences("login_sucess", MODE_PRIVATE);
                 loginSuccess.edit().putBoolean("isLogin",false).commit();
                 Intent logoutIntent = new Intent(this, NewLoginActivity.class);

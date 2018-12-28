@@ -115,6 +115,26 @@
         android:layout_height="1px"
         android:background="#F6F6F6"
         />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_Online"
+        android:layout_width="match_parent"
+        android:layout_height="57px">
+
+
+        <TextView
+            android:id="@+id/tv_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18px"
+            android:layout_marginLeft="25px"
+            android:layout_centerVertical="true"
+            android:text="联系在线客服"
+            android:textSize="16px"
+            android:textColor="#666666"
+            />
+    </RelativeLayout>
     <Button
         android:id="@+id/cancel"
         android:layout_width="match_parent"

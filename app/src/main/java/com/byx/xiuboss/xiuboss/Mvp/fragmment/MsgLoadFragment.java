@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byx.xiuboss.xiuboss.Application.JgApplication;
 import com.byx.xiuboss.xiuboss.Bean.LoginBean;
 import com.byx.xiuboss.xiuboss.Bean.MsgCodeBean;
 import com.byx.xiuboss.xiuboss.Jgim.utils.ToastUtil;
@@ -29,6 +30,7 @@ import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.RexUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
 
 import java.util.HashSet;
@@ -92,10 +94,10 @@ public class MsgLoadFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.getCode:
-                countDownTimer.start();
                 mobile = loginMobile.getText().toString().trim();
                 if (!TextUtils.isEmpty(mobile) && RexUtils.isMobileNO(mobile)) {
                     //请求验证码接口
+                    countDownTimer.start();
                     RequestParams params = new RequestParams();
                     params.put("mobile", mobile);
                     OkHttpUtils.post(AppUrl.GET_LOGINCODE).params(params).execute(new MyJsonCallBack<MsgCodeBean>() {
@@ -144,6 +146,11 @@ public class MsgLoadFragment extends BaseFragment {
             e.printStackTrace();
         }
 
+
+
+
+        RequestHeaders  headers=new RequestHeaders();
+
         RequestParams requestParams = new RequestParams();
         requestParams.put("mobile", mobile);
         requestParams.put("sms", smCode);
@@ -173,9 +180,17 @@ public class MsgLoadFragment extends BaseFragment {
                     edit.putBoolean("isLogin", true);
                     edit.commit();
 
+                    //开始新的推送注册方式
+                    JPushInterface.setTags(getActivity(), 0, pushTag);
+                    JPushInterface.resumePush(JgApplication.context);
+                    ToastUtil.shortToast(getActivity(), "登陆成功");
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
+
 
                     //填充极光推送的相关信息
-                    JMessageClient.login(mobile, mobile, new BasicCallback() {
+                   /* JMessageClient.login(mobile, mobile, new BasicCallback() {
                         @Override
                         public void gotResult(int responseCode, String responseMessage) {
                             if (responseCode == 0) {
@@ -190,7 +205,9 @@ public class MsgLoadFragment extends BaseFragment {
                             }
                         }
 
-                    });
+                    });*/
+
+
                 } else {
                     ToastUtil.shortToast(getActivity(), "登录失败");
                 }

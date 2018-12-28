@@ -6,8 +6,8 @@ public class RewardBean {
 
     /**
      * code : 2000
-     * message : 微信提现已超过2W
-     * data : {"type":"exceed","date":1544844036,"time":"2"}
+     * message : 微信提现每天只有十次机会，奖励金额已领取到余额。
+     * data : {"type":"sendnumerror","date":1545208522,"moneytype":"credit","time":"2"}
      */
 
     private int code;
@@ -40,13 +40,15 @@ public class RewardBean {
 
     public static class DataBean {
         /**
-         * type : exceed
-         * date : 1544844036
+         * type : sendnumerror
+         * date : 1545208522
+         * moneytype : credit
          * time : 2
          */
 
         private String type;
         private int date;
+        private String moneytype;
         private String time;
 
         public String getType() {
@@ -63,6 +65,14 @@ public class RewardBean {
 
         public void setDate(int date) {
             this.date = date;
+        }
+
+        public String getMoneytype() {
+            return moneytype;
+        }
+
+        public void setMoneytype(String moneytype) {
+            this.moneytype = moneytype;
         }
 
         public String getTime() {

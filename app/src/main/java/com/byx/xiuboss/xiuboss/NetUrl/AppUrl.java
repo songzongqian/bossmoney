@@ -67,5 +67,12 @@ public class AppUrl {
     /**验证码登录获取验证码接口*/
     public static final String GET_LOGINCODE = BaseUrl + "/CI/index.php/StoreMy/proving";
 
+    /**检测应用是否更新的接口*/
+
+    public static final String GET_VERSIONCODE = "https://www.ourdaidai.com/api/checkVersion";
+
+
+
+
 
 }

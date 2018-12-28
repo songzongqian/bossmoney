@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <include layout="@layout/title_item"/>
 
 <RelativeLayout
-    android:id="@+id/Preservation_two"
+    android:id="@+id/rl_myUI"
     android:layout_width="match_parent"
     android:layout_height="570px"
     android:background="@drawable/button_shap_xiuxiu"

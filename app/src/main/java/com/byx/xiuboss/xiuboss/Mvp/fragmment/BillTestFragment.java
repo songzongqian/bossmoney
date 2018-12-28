@@ -111,7 +111,6 @@ public class BillTestFragment extends BaseFragment {
         rlBack.setVisibility(View.GONE);
         rlSave.setVisibility(View.GONE);
         recyclerTwo.setLayoutManager(new LinearLayoutManager(getActivity()));
-
     }
 
 

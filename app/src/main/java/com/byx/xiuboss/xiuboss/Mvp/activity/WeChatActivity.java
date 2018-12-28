@@ -1,140 +1,154 @@
 package com.byx.xiuboss.xiuboss.Mvp.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.byx.xiuboss.xiuboss.Bean.WeChatBean;
-import com.byx.xiuboss.xiuboss.Jgim.utils.ToastUtil;
-import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
+import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
+import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.ImageToGallery;
-import com.byx.xiuboss.xiuboss.Utils.ImgUtils;
-import com.byx.xiuboss.xiuboss.Utils.PermissionHelper;
-import com.byx.xiuboss.xiuboss.Utils.PermissionInterface;
-import com.google.gson.Gson;
+import com.byx.xiuboss.xiuboss.Utils.UrlToBitmap;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.RequestParams;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import cn.jiguang.share.android.api.JShareInterface;
+import cn.jiguang.share.android.api.PlatActionListener;
+import cn.jiguang.share.android.api.Platform;
+import cn.jiguang.share.android.api.ShareParams;
+import cn.jiguang.share.wechat.Wechat;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class WeChatActivity extends BaseActivity implements PermissionInterface {
 
-    @BindView(R.id.title_back_image)
-    ImageView titleBackImage;
-    @BindView(R.id.title_text)
-    TextView titleText;
-    @BindView(R.id.wechat_two)
-    ImageView wechat;
-    @BindView(R.id.wechat_showpup)
-    ImageView wechatShowpup;
-    @BindView(R.id.Preservation_two)
-    RelativeLayout PreservationTwo;
-    @BindView(R.id.rl_save)
-    RelativeLayout rlSave;
-    @BindView(R.id.imageView6)
-    ImageView imageView6;
+public class WeChatActivity extends BaseActivity {
 
 
-    private String url = "https://www.ourdaidai.com/CI/index.php/StoreMy/qrcode";
-    //读写权限
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    // 请求状态码
-    private static int REQUEST_PERMISSION_CODE = 1;
-    private PermissionHelper mPermissionHelper;
-    private WeChatBean weChatBean;
     private String extra;
-    private PopupWindow window;
+    private ImageView imageView;
+    private RelativeLayout rlMyUI;
+    private Bitmap bmp;
+    private ImageView ivTest;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_we_chat);
-        ButterKnife.bind(this);
-        mPermissionHelper = new PermissionHelper(WeChatActivity.this, this);
+        imageView = findViewById(R.id.wechat_two);
+        rlMyUI = findViewById(R.id.rl_myUI);
+        ivTest = findViewById(R.id.imageView6);
+        ivTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bitmap = loadBitmapFromView(rlMyUI);
+                if(bitmap !=null){
+                    ImageToGallery.saveImageToGallery(WeChatActivity.this, bitmap);
+                }
+            }
+        });
         initData();
+        shareWeChat();
+    }
+
+    private void shareWeChat() {
+        WindowManager manager = getWindowManager();
+        DisplayMetrics metrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;  //以要素为单位
+        int height = metrics.heightPixels;
+        rlMyUI.setDrawingCacheEnabled(true);
+        //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
+        rlMyUI.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
+        //这个方法也非常重要，设置布局的尺寸和位置
+        rlMyUI.layout(0, 0, rlMyUI.getMeasuredWidth(), rlMyUI.getMeasuredHeight());
+        //获得绘图缓存中的Bitmap
+        rlMyUI.buildDrawingCache();
+        Bitmap bitmap = rlMyUI.getDrawingCache();
+        if(bitmap !=null){
+            ImageToGallery.saveImageToGallery(WeChatActivity.this, bitmap);
+            ShareParams shareParams = new ShareParams();
+            shareParams.setShareType(Platform.SHARE_IMAGE);
+            shareParams.setImageData(bmp);
+            JShareInterface.share(Wechat.Name, shareParams, new PlatActionListener() {
+                @Override
+                public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                    System.out.println("微信分享成功");
+                }
+
+                @Override
+                public void onError(Platform platform, int i, int i1, Throwable throwable) {
+                    System.out.println("微信分享失败");
+
+                }
+
+                @Override
+                public void onCancel(Platform platform, int i) {
+                    System.out.println("微信分享取消");
+                }
+            });
+        }
     }
 
 
     private void initData() {
-        wechatShowpup.setVisibility(View.VISIBLE);
-        titleText.setText("我的收款码");
         Intent intent = getIntent();
         extra = intent.getStringExtra("sid");
-        Map<String, String> map = new HashMap<>();
-        map.put("sid", extra);
-        OkHttpUtils.getInstance().postDataAsynToNet(url, map, new OkHttpUtils.MyNetCall() {
+        RequestParams params=new RequestParams();
+        params.put("sid",extra);
+        OkHttpUtils.post(AppUrl.QRCODE_URL).params(params).execute(new MyJsonCallBack<WeChatBean>() {
+
             @Override
-            public void success(Call call, Response response) throws IOException {
-                getData(response.body().string());
+            public void onResponse(WeChatBean weChatBean) {
+                if (weChatBean != null && weChatBean.getCode() == 2000) {
+                    RequestOptions options = new RequestOptions();
+                    options.centerCrop().placeholder(R.mipmap.defaults).error(R.mipmap.defaults);
+                    //Glide.with(WeChatActivity.this).load(weChatBean.getData()).apply(options).into(imageView);
+                    Glide.with(WeChatActivity.this).load(weChatBean.getData()).apply(options).into(new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable drawable, @Nullable Transition<? super Drawable> transition) {
+                            imageView.setImageDrawable(drawable);
+                            shareWeChat();
+
+
+                        }
+                    });
+                }
+
             }
 
             @Override
-            public void failed(Call call, IOException e) {
-
-            }
-        });
-
-    }
-
-
-    @OnClick({R.id.title_back_image, R.id.wechat_showpup, R.id.rl_save})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.title_back_image:
-                finish();
-                break;
-            case R.id.wechat_showpup:
-                showPopupWindow();
-                break;
-                //扩大点击事件的范围
-            case R.id.rl_save:
-                showPopupWindow();
-                break;
-
-        }
-    }
-
-    public void getData(String data) {
-        Gson gson = new Gson();
-        weChatBean = gson.fromJson(data, WeChatBean.class);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.with(WeChatActivity.this).load(weChatBean.getData()).into(wechat);
+            public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                super.onError(call, response, e);
             }
         });
+
     }
 
-    /**
-     * View截图,截取某个布局的图片
-     *
-     * @param
-     * @return
-     */
+
     public Bitmap loadBitmapFromView(View view) {
         // View view = LayoutInflater.from(WeChatActivity.this).inflate(R.layout.activity_we_chat, null);
         if (view == null) {
@@ -153,91 +167,40 @@ public class WeChatActivity extends BaseActivity implements PermissionInterface 
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         //获得绘图缓存中的Bitmap
         view.buildDrawingCache();
+        Bitmap drawingCache = view.getDrawingCache();
         return view.getDrawingCache();
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSION_CODE) {
-            for (int i = 0; i < permissions.length; i++) {
-                Log.i("MainActivity", "申请的权限为：" + permissions[i] + ",申请结果：" + grantResults[i]);
-            }
+
+    private Bitmap getBitmap(View view) throws Exception {
+
+        View screenView = getWindow().getDecorView();
+        screenView.setDrawingCacheEnabled(true);
+        screenView.buildDrawingCache();
+
+        //获取屏幕整张图片
+        Bitmap bitmap = screenView.getDrawingCache();
+
+        if (bitmap != null) {
+
+            //需要截取的长和宽
+            int outWidth = view.getWidth();
+            int outHeight = view.getHeight();
+
+            //获取需要截图部分的在屏幕上的坐标(view的左上角坐标）
+            int[] viewLocationArray = new int[2];
+            view.getLocationOnScreen(viewLocationArray);
+
+            //从屏幕整张图片中截取指定区域
+            bitmap = Bitmap.createBitmap(bitmap, viewLocationArray[0], viewLocationArray[1], outWidth, outHeight);
+
         }
+
+        return bitmap;
     }
 
-    @Override
-    public int getPermissionsRequestCode() {
-        return 10000;
-    }
 
-    @Override
-    public String[] getPermissions() {
-        return new String[]{
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    }
-
-    @Override
-    public void requestPermissionsSuccess() {
-
-    }
-
-    @Override
-    public void requestPermissionsFail() {
-        finish();
-    }
-
-    private void showPopupWindow() {
-        View inflate = LayoutInflater.from(WeChatActivity.this).inflate(R.layout.wechat_popupwindow, null, false);
-        window = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-
-        TextView Preservation = inflate.findViewById(R.id.Preservation);
-        TextView dismis = inflate.findViewById(R.id.dismis);
-
-        Preservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPermissionHelper.requestPermissions();
-                        WeChatActivity.this.getWindow().getDecorView().setDrawingCacheEnabled(true);
-                        Bitmap bmp=WeChatActivity.this.getWindow().getDecorView().getDrawingCache();
-                        ImageToGallery.saveImageToGallery(WeChatActivity.this,bmp);
-                        window.dismiss();
-                    }
-                });
-
-            }
-        });
-
-        dismis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                window.dismiss();
-            }
-        });
-        backgroundAlpha(0.5f);
-        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                backgroundAlpha(1.0f);
-            }
-        });
-        window.setOutsideTouchable(true);
-        window.setTouchable(true);
-        window.setBackgroundDrawable(new BitmapDrawable());
-        window.showAtLocation(LayoutInflater.from(WeChatActivity.this).inflate(R.layout.activity_we_chat, null), Gravity.BOTTOM, 0, 0);
-    }
-
-    private void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        getWindow().setAttributes(lp);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    }
 
 
 }

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byx.xiuboss.xiuboss.Application.JgApplication;
 import com.byx.xiuboss.xiuboss.Bean.HomeBean;
 import com.byx.xiuboss.xiuboss.Bean.NewPersonBean;
 import com.byx.xiuboss.xiuboss.Bean.RewardBean;
@@ -207,6 +209,7 @@ public class IndexFragment extends BaseFragment {
     private String id;
     int flag = 0;
     private TTSUtils instance;
+    private String popuContent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -221,27 +224,24 @@ public class IndexFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        checkVersion();
         initData();
         checkPush();
+    }
+
+    //检测版本号
+    private void checkVersion() {
+
+
     }
 
 
     //检测用户是否注册成功了极光推送，再次帮用户注册
     private void checkPush() {
-        sid = loginSucess.getString("sid", "");
-        String userId = loginSucess.getString("userId", "");
-        tags.add(sid);
-        JMessageClient.login(userId, userId, new BasicCallback() {
-            @Override
-            public void gotResult(int responseCode, String responseMessage) {
-                if (responseCode == 0) {
-                    JPushInterface.setTags(getActivity(), 0, tags);
-                }
-            }
-
-        });
-
-
+            sid = loginSucess.getString("sid", "");
+            tags.add(sid);
+            JPushInterface.setTags(getActivity(), 0, tags);
+            JPushInterface.resumePush(JgApplication.context);
     }
 
     private void initData() {
@@ -257,7 +257,6 @@ public class IndexFragment extends BaseFragment {
             params.put("sid", sid);
             OkHttpUtils.post(AppUrl.HOME_URL).params(params).execute(new MyJsonCallBack<HomeBean>() {
 
-
                 @Override
                 public void onResponse(HomeBean homeBean) {
                     if (homeBean != null && homeBean.getCode() == 2000) {
@@ -266,11 +265,24 @@ public class IndexFragment extends BaseFragment {
                         //tvMoneyTotal.setText(homeBean.getData().getFee().getOrderTotalFee());
                         //tvMoneyTakeOut.setText(homeBean.getData().getFee().getOrderTotalFee());
                         // tvMoneyPay.setText(homeBean.getData().getFee().getPayBillTotalFee());
+                        String payBillFinalFee = homeBean.getData().getFee().getPayBillFinalFee();
+                        if(TextUtils.isEmpty(payBillFinalFee)){
+                            totalFan.setText("0.00");
+                        }else{
+                            totalFan.setText(homeBean.getData().getFee().getPayBillFinalFee());
+                        }
 
-                        totalFan.setText(homeBean.getData().getFee().getTotal_fee());
-                        customerDai.setText(homeBean.getData().getFee().getCustomer());
+                        String customer = homeBean.getData().getFee().getCustomer();
+                        if(TextUtils.isEmpty(customer)){
+                            customerDai.setText("0");
 
-                        Totalamount.setText("今日收款" + homeBean.getData().getTodaySum() + "笔,合计");
+                        }else{
+                            customerDai.setText(homeBean.getData().getFee().getCustomer());
+                        }
+
+
+
+                        Totalamount.setText("今日实际收入共" + homeBean.getData().getTodaySum() + "笔");
                         TotalamountMoney.setText(homeBean.getData().getTodayFee() + "元");
                         yesterdayMoney.setText("昨日实时：" + homeBean.getData().getYesterFee() + "元");
 
@@ -305,7 +317,7 @@ public class IndexFragment extends BaseFragment {
                             llCount.setVisibility(View.GONE);
                             buttonThree.setVisibility(View.VISIBLE);
                             buttonThree.setText("等级不足");
-                        } else if (sytemTime >= serverTime && xyz >= 200) {
+                        } else if (sytemTime >= serverTime && xyz >= 200){
                             //可以重新领取
                             if (flag == 0) {
                                 TTSUtils instance = TTSUtils.getInstance();
@@ -703,7 +715,19 @@ public class IndexFragment extends BaseFragment {
             @Override
             public void onResponse(RewardBean rewardBean) {
                 if (rewardBean != null && rewardBean.getCode()==2000) {
-                        final MediaPlayer player = MediaPlayer.create(getActivity(), R.raw.ring);
+                    String moneyType = rewardBean.getData().getMoneytype();
+                    if(moneyType!=null){
+                        if(moneyType.equals("credit")){
+                            //余额到账
+                            popuContent = "已经存入您的账户余额";
+
+                        }else if(moneyType.equals("wechat")){
+                            //微信到账
+                            popuContent = "已经提现到您的微信账户";
+
+                        }
+                    }
+                    final MediaPlayer player = MediaPlayer.create(getActivity(), R.raw.ring);
                         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
                         player.start();
                         player.setVolume(1f, 1f);
@@ -717,9 +741,11 @@ public class IndexFragment extends BaseFragment {
                         View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.popup_success, null, false);
                         PopupWindow window = new PopupWindow(inflate, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
                         ImageView close = inflate.findViewById(R.id.icon_close);
+                        TextView tvContent= inflate.findViewById(R.id.textView30);
                         TextView popupMoney = inflate.findViewById(R.id.popup_money);
                         Button btnRecord = inflate.findViewById(R.id.btn_record);
                         popupMoney.setText(money+ "元");
+                        tvContent.setText(popuContent);
                         close.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -749,21 +775,16 @@ public class IndexFragment extends BaseFragment {
 
 
                         //判断用户领取奖励的3种情况
-                        String type = rewardBean.getData().getType();
+                          String type = rewardBean.getData().getType();
+                       // String type = "exceed";
                         if (type != null) {
                             System.out.println("返回的数据类型" + type);
                             if (type.equals("exceed")) {
 
-                                if (Build.VERSION.SDK_INT >= 23)
-                                    if (!Settings.canDrawOverlays(getActivity())) {
-                                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
-                                        startActivityForResult(intent, 10);
-                                    }
-
                                 //提现已经超过20000
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("微信提现额度已用完")
-                                        .setMessage("您今日已通过微信提现20000元,奖励金额已发放到余额，可在余额明细中查看")
+                                        .setMessage(rewardBean.getMessage())
                                         .setCancelable(false)
                                         .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
@@ -775,15 +796,11 @@ public class IndexFragment extends BaseFragment {
                                 alert.show();
                             } else if (type.equals("binding")) {
                                 //用户未绑定微信
-                                if (Build.VERSION.SDK_INT >= 23)
-                                    if (!Settings.canDrawOverlays(getActivity())) {
-                                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
-                                        startActivityForResult(intent, 10);
-                                    }
+
                                 String mobile = loginSucess.getString("mobile", "");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("您尚未绑定微信")
-                                        .setMessage("奖励金额已发放到余额，可在余额明细中查看")
+                                        .setMessage(rewardBean.getMessage())
                                         .setCancelable(false)
                                         .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
@@ -801,15 +818,10 @@ public class IndexFragment extends BaseFragment {
                                 alert.show();
                             } else if (type.equals("errormessage")) {
                                 //微信姓名不对称
-                                if (Build.VERSION.SDK_INT >= 23)
-                                    if (!Settings.canDrawOverlays(getActivity())) {
-                                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
-                                        startActivityForResult(intent, 10);
-                                    }
                                 String mobile = loginSucess.getString("mobile", "");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("您绑定微信的真实姓名与微信账户信息不符")
-                                        .setMessage("奖励金额已发放到余额，可在余额明细中查看。如需修改微信信息，请联系商务经理")
+                                        .setMessage(rewardBean.getMessage())
                                         .setCancelable(false)
                                         .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
@@ -826,10 +838,53 @@ public class IndexFragment extends BaseFragment {
                                 });
                                 AlertDialog alert = builder.create();
                                 alert.show();
+                            }else if(type.equals("sendnumerror")){
+                                //超出次数限制
+                                String mobile = loginSucess.getString("mobile", "");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setTitle("提示")
+                                        .setMessage(rewardBean.getMessage())
+                                        .setCancelable(false)
+                                        .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                                        Uri data = Uri.parse("tel:" + mobile);
+                                        intent.setData(data);
+                                        startActivity(intent);
+
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }else if(type.equals("publicerror")){
+
+                                String mobile = loginSucess.getString("mobile", "");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setTitle("提示")
+                                        .setMessage(rewardBean.getMessage())
+                                        .setCancelable(false)
+                                        .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                                        Uri data = Uri.parse("tel:" + mobile);
+                                        intent.setData(data);
+                                        startActivity(intent);
+
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }else{
+
                             }
-
-                        } else {
-
                         }
                         //显示时间
                         buttonRewardTwo.start(86400000);

@@ -63,14 +63,14 @@
                         android:id="@+id/bill_second"
                         android:layout_width="match_parent"
                         android:layout_height="63px"
-                        android:layout_marginLeft="15px"
                         android:layout_marginRight="15px"
+                        android:paddingLeft="30px"
                         android:layout_marginTop="15px"
                         android:background="@drawable/button_shap_xiuxiu"
                         android:gravity="center_vertical"
                         android:text="历史收款记录"
                         android:textColor="#666666"
-                        android:textSize="12px"
+                        android:textSize="14sp"
                         />
 
                     <com.scwang.smartrefresh.layout.SmartRefreshLayout

@@ -3,6 +3,7 @@ package com.byx.xiuboss.xiuboss.Mvp.activity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -39,8 +40,9 @@ public class Login_RegisterActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login__register);
-        checkPermission();
+        //检测账号是否登陆
         initView();
+        checkPermission();
     }
 
 

@@ -26,7 +26,7 @@ public class ImageToGallery {
         File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, fos);
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {

@@ -8,7 +8,7 @@ public class HomeBean {
     /**
      * code : 2000
      * message : 请求成功
-     * data : {"fee":{"orderTotalFee":"0.00","payBillTotalFee":"2.00","orderCustomer":"0","payBillCustomer":"1","returnTotalFee":"2.00","total_fee":"2.00","customer":"1"},"todaySum":1,"todayFee":"2","yesterSum":0,"yesterFee":"0","currentGrade":{"f2":"200","f3":"0.0009","f4":"0.3","id":"1","fee":"200"},"prevGrade":{"id":"0","f2":"0","f3":"0","f4":"0"},"signtime":"0","nextGrade":{"f2":"500","f3":"0.00093","f4":"0.465","id":"2","fee":"500"},"amount":{"amount":"300.00","signtime":"0","amountFee":"300.00"},"monthMoney":"26748.50","monthFee":"26,748.5","tixian_fee":"1","shoukuan_fee":"1000","nextDifference":"200.00","storeBonus":0,"pop_up_text":"1.1.3","pop_up_status":1,"pop_up_settles":"优化首页签到和等级展示。\r\n 新增登录后语音提示领取奖励。 \r\n新增提现到账后推送语音提醒。 \r\n新增新入驻的商户可以领取新手大礼包。\r\n 新增删除提现方式功能。\r\n 修改新的手续费扣除方案。"}
+     * data : {"fee":{"orderFinalFee":"19.8","payBillFinalFee":"2070","orderTotalFee":"19.80","payBillTotalFee":"1,834.60","orderCustomer":"1","payBillCustomer":"9","returnTotalFee":"1854.40","total_fee":"1,854.40","final_fee":2089.8,"customer":"10"},"todaySum":10,"todayFee":"1,854.4","yesterSum":25,"yesterFee":"1,338.32","currentGrade":{"f2":"3000","f3":"0.00106","f4":"3.18","id":"6","fee":"3,000"},"prevGrade":{"f2":"2000","f3":"0.00103","f4":"2.06","id":"5","fee":"2,000"},"signtime":"1545199745","nextGrade":{"f2":"5000","f3":"0.00109","f4":"5.45","id":"7","fee":"5,000"},"amount":{"amount":"3183.79","signtime":"1545199745","amountFee":"3,183.79"},"monthMoney":"0.00","monthFee":0,"tixian_fee":"1","shoukuan_fee":"1000","nextDifference":"1,816.21","storeBonus":0,"pop_up_text":"1.1.2","pop_up_status":1,"pop_up_settles":"优化首页签到和等级展示。\r\n新增登录后语音提示领取奖励。 \r\n新增提现到账后推送语音提醒。 \r\n新增新入驻的商户可以领取新手大礼包。\r\n新增删除提现方式功能。\r\n修改新的手续费扣除方案。"}
      */
 
     private int code;
@@ -41,23 +41,23 @@ public class HomeBean {
 
     public static class DataBean {
         /**
-         * fee : {"orderTotalFee":"0.00","payBillTotalFee":"2.00","orderCustomer":"0","payBillCustomer":"1","returnTotalFee":"2.00","total_fee":"2.00","customer":"1"}
-         * todaySum : 1
-         * todayFee : 2
-         * yesterSum : 0
-         * yesterFee : 0
-         * currentGrade : {"f2":"200","f3":"0.0009","f4":"0.3","id":"1","fee":"200"}
-         * prevGrade : {"id":"0","f2":"0","f3":"0","f4":"0"}
-         * signtime : 0
-         * nextGrade : {"f2":"500","f3":"0.00093","f4":"0.465","id":"2","fee":"500"}
-         * amount : {"amount":"300.00","signtime":"0","amountFee":"300.00"}
-         * monthMoney : 26748.50
-         * monthFee : 26,748.5
+         * fee : {"orderFinalFee":"19.8","payBillFinalFee":"2070","orderTotalFee":"19.80","payBillTotalFee":"1,834.60","orderCustomer":"1","payBillCustomer":"9","returnTotalFee":"1854.40","total_fee":"1,854.40","final_fee":2089.8,"customer":"10"}
+         * todaySum : 10
+         * todayFee : 1,854.4
+         * yesterSum : 25
+         * yesterFee : 1,338.32
+         * currentGrade : {"f2":"3000","f3":"0.00106","f4":"3.18","id":"6","fee":"3,000"}
+         * prevGrade : {"f2":"2000","f3":"0.00103","f4":"2.06","id":"5","fee":"2,000"}
+         * signtime : 1545199745
+         * nextGrade : {"f2":"5000","f3":"0.00109","f4":"5.45","id":"7","fee":"5,000"}
+         * amount : {"amount":"3183.79","signtime":"1545199745","amountFee":"3,183.79"}
+         * monthMoney : 0.00
+         * monthFee : 0
          * tixian_fee : 1
          * shoukuan_fee : 1000
-         * nextDifference : 200.00
+         * nextDifference : 1,816.21
          * storeBonus : 0
-         * pop_up_text : 1.1.3
+         * pop_up_text : 1.1.2
          * pop_up_status : 1
          * pop_up_settles : 优化首页签到和等级展示。
          新增登录后语音提示领取奖励。
@@ -241,22 +241,44 @@ public class HomeBean {
 
         public static class FeeBean {
             /**
-             * orderTotalFee : 0.00
-             * payBillTotalFee : 2.00
-             * orderCustomer : 0
-             * payBillCustomer : 1
-             * returnTotalFee : 2.00
-             * total_fee : 2.00
-             * customer : 1
+             * orderFinalFee : 19.8
+             * payBillFinalFee : 2070
+             * orderTotalFee : 19.80
+             * payBillTotalFee : 1,834.60
+             * orderCustomer : 1
+             * payBillCustomer : 9
+             * returnTotalFee : 1854.40
+             * total_fee : 1,854.40
+             * final_fee : 2089.8
+             * customer : 10
              */
 
+            private String orderFinalFee;
+            private String payBillFinalFee;
             private String orderTotalFee;
             private String payBillTotalFee;
             private String orderCustomer;
             private String payBillCustomer;
             private String returnTotalFee;
             private String total_fee;
+            private String final_fee;
             private String customer;
+
+            public String getOrderFinalFee() {
+                return orderFinalFee;
+            }
+
+            public void setOrderFinalFee(String orderFinalFee) {
+                this.orderFinalFee = orderFinalFee;
+            }
+
+            public String getPayBillFinalFee() {
+                return payBillFinalFee;
+            }
+
+            public void setPayBillFinalFee(String payBillFinalFee) {
+                this.payBillFinalFee = payBillFinalFee;
+            }
 
             public String getOrderTotalFee() {
                 return orderTotalFee;
@@ -306,6 +328,14 @@ public class HomeBean {
                 this.total_fee = total_fee;
             }
 
+            public String getFinal_fee() {
+                return final_fee;
+            }
+
+            public void setFinal_fee(String final_fee) {
+                this.final_fee = final_fee;
+            }
+
             public String getCustomer() {
                 return customer;
             }
@@ -317,11 +347,11 @@ public class HomeBean {
 
         public static class CurrentGradeBean {
             /**
-             * f2 : 200
-             * f3 : 0.0009
-             * f4 : 0.3
-             * id : 1
-             * fee : 200
+             * f2 : 3000
+             * f3 : 0.00106
+             * f4 : 3.18
+             * id : 6
+             * fee : 3,000
              */
 
             private String f2;
@@ -373,24 +403,18 @@ public class HomeBean {
 
         public static class PrevGradeBean {
             /**
-             * id : 0
-             * f2 : 0
-             * f3 : 0
-             * f4 : 0
+             * f2 : 2000
+             * f3 : 0.00103
+             * f4 : 2.06
+             * id : 5
+             * fee : 2,000
              */
 
-            private String id;
             private String f2;
             private String f3;
             private String f4;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
+            private String id;
+            private String fee;
 
             public String getF2() {
                 return f2;
@@ -415,15 +439,31 @@ public class HomeBean {
             public void setF4(String f4) {
                 this.f4 = f4;
             }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getFee() {
+                return fee;
+            }
+
+            public void setFee(String fee) {
+                this.fee = fee;
+            }
         }
 
         public static class NextGradeBean {
             /**
-             * f2 : 500
-             * f3 : 0.00093
-             * f4 : 0.465
-             * id : 2
-             * fee : 500
+             * f2 : 5000
+             * f3 : 0.00109
+             * f4 : 5.45
+             * id : 7
+             * fee : 5,000
              */
 
             private String f2;
@@ -475,9 +515,9 @@ public class HomeBean {
 
         public static class AmountBean {
             /**
-             * amount : 300.00
-             * signtime : 0
-             * amountFee : 300.00
+             * amount : 3183.79
+             * signtime : 1545199745
+             * amountFee : 3,183.79
              */
 
             private String amount;

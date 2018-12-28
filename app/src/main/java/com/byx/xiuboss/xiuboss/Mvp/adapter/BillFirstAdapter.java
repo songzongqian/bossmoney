@@ -13,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.byx.xiuboss.xiuboss.Bean.BillTestFirstBean;
 import com.byx.xiuboss.xiuboss.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -54,9 +56,14 @@ public class BillFirstAdapter extends RecyclerView.Adapter {
         }
 
 
+        String addtime = dataBean.getAddtime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        Long aLong = Long.valueOf(addtime);
+        long lt = new Long(aLong*1000);
+        Date date = new Date(lt);
         myViewHolder.payMoney.setText("+" + dataBean.getPrice());
         myViewHolder.nickName.setText(dataBean.getNickname());
-        myViewHolder.payTime.setText(dataBean.getAddtime());
+        myViewHolder.payTime.setText(simpleDateFormat.format(date));
         myViewHolder.paySource.setText("已返现"+dataBean.getMoney_total());
     }
 

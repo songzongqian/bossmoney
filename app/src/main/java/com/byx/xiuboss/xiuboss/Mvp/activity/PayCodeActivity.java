@@ -49,8 +49,14 @@ import com.yzq.zxinglibrary.bean.ZxingConfig;
 import com.yzq.zxinglibrary.common.Constant;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
+import cn.jiguang.share.android.api.JShareInterface;
+import cn.jiguang.share.android.api.PlatActionListener;
+import cn.jiguang.share.android.api.Platform;
+import cn.jiguang.share.android.api.ShareParams;
+import cn.jiguang.share.wechat.Wechat;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -137,13 +143,13 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
                     tvShare.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view){
-                          /*  showPopupWindow();
+                            showPopupWindow();
                             backgroundAlpha(0.5f);
                             window.setOnDismissListener(new PopupWindow.OnDismissListener() {
                                 @Override
                                 public void onDismiss() { backgroundAlpha(1.0f);
                                 }
-                            });*/
+                            });
 
 
 
@@ -217,8 +223,9 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
         weChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(PayCodeActivity.this,"微信",Toast.LENGTH_LONG).show();
-
+                Intent intent=new Intent(PayCodeActivity.this,WeChatActivity.class);
+                intent.putExtra("sid",sidNumber);
+                startActivity(intent);
             }
         });
 

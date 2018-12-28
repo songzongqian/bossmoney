@@ -55,7 +55,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40px"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:orientation="horizontal">
@@ -63,19 +63,30 @@
 
             <com.byx.xiuboss.xiuboss.Mvp.view.ClearWriteEditText
                 android:id="@+id/login_passWord"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="15px"
                 android:layout_marginTop="18px"
                 android:background="@null"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:layout_centerVertical="true"
                 android:hint="请输入密码"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:textColor="#2C2C2C"
                 android:textColorHint="#C8C8C8"
                 android:textSize="16px" />
 
+
+            <ImageView
+                android:id="@+id/iv_eye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/login_icon_show"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"/>
         </RelativeLayout>
 
         <View
@@ -83,7 +94,7 @@
             android:layout_height="1px"
             android:layout_below="@id/ll_name_psw"
             android:layout_marginLeft="30px"
-            android:layout_marginTop="15px"
+            android:layout_marginTop="5px"
             android:layout_marginRight="15px"
             android:background="#F6F6F6" />
 

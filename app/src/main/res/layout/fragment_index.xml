@@ -90,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5px"
-                            android:text="返现总收入"
+                            android:text="今日总收入(含返现)"
                             android:textSize="14px"
                             android:textColor="#333333"
                             android:layout_gravity="center_horizontal"
@@ -714,6 +714,7 @@
                         android:layout_height="46px"
                         android:background="@drawable/button_reward"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="30px"
                         android:visibility="gone">
 
                         <TextView
@@ -739,16 +740,17 @@
                     <LinearLayout
                         android:id="@+id/ll_count"
                         android:layout_width="wrap_content"
-                        android:layout_height="40px"
+                        android:layout_height="50px"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="28px"
                         android:orientation="horizontal"
+                        android:layout_marginBottom="30px"
                        >
 
                         <cn.iwgang.countdownview.CountdownView
                             android:id="@+id/button_reward_two"
                             android:layout_width="wrap_content"
-                            android:layout_height="29px"
+                            android:layout_height="35px"
                             android:layout_gravity="center_vertical"
                             app:isHideTimeBackground="false"
                             app:isShowDay="false"
@@ -759,10 +761,10 @@
                             app:isShowTimeBgDivisionLine="false"
                             app:suffixGravity="center"
                             app:suffixTextColor="#C6A04D"
-                            app:suffixTextSize="11sp"
+                            app:suffixTextSize="14sp"
                             app:timeBgColor="#C6A04D"
                             app:timeTextColor="#FFFFFF"
-                            app:timeTextSize="11sp"/>
+                            app:timeTextSize="14sp"/>
 
                         <TextView
                             android:layout_marginLeft="7px"
@@ -770,7 +772,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="之后可领取"
-                            android:textSize="11sp" />
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -783,6 +785,7 @@
                         android:background="@drawable/button_popup_two"
                         android:text="等级不足"
                         android:textColor="#666666"
+                        android:layout_marginBottom="30px"
                         android:textSize="14px"
                         android:visibility="gone"
                         />

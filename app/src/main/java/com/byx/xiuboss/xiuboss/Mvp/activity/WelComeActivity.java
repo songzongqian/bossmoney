@@ -25,16 +25,18 @@ public class WelComeActivity extends BaseActivity {
         SharedPreferences loginSuccess = this.getSharedPreferences("login_sucess", MODE_PRIVATE);
         boolean isLogin = loginSuccess.getBoolean("isLogin", false);
         if(isLogin==true){
-            goToMainActivity();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(WelComeActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, 1500);
         }else{
             goToRegisterAndLoginActivity();
         }
     }
 
-    private void goToMainActivity() {
-        startActivity(new Intent(WelComeActivity.this, MainActivity.class));
-        finish();
-    }
 
     private void goToRegisterAndLoginActivity() {
         new Handler().postDelayed(new Runnable() {

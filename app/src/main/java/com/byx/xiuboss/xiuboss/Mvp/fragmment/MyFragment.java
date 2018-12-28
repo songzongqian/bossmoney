@@ -37,6 +37,7 @@ import com.byx.xiuboss.xiuboss.Jpush.MyReceiver;
 import com.byx.xiuboss.xiuboss.MainActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.BalanceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.HelpActivity;
+import com.byx.xiuboss.xiuboss.Mvp.activity.OnLineServiceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.SettingActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.SwichActivity;
 import com.byx.xiuboss.xiuboss.Mvp.view.CommonPopupWindow;
@@ -361,6 +362,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
         RelativeLayout Customerservice = contentView.findViewById(R.id.Customerservice);
         final TextView managerName = contentView.findViewById(R.id.manager_name);
         final TextView customerServiceName = contentView.findViewById(R.id.customerservice_name);
+        RelativeLayout rlOnline=contentView.findViewById(R.id.rl_Online);
         Button cancel = contentView.findViewById(R.id.cancel);
         mobile.setText("0710-3780521");
         managerMobile.setText(managerMobile1);
@@ -386,6 +388,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                 if (window != null) {
                     window.dismiss();
                 }
+            }
+        });
+
+        rlOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到在线客服页面
+                if (window != null) {
+                    window.dismiss();
+                }
+                Intent intent=new Intent(getActivity(),OnLineServiceActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         window.setBackgroundDrawable(new BitmapDrawable());
