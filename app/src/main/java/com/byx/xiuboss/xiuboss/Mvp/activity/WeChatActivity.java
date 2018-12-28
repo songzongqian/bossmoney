@@ -64,50 +64,49 @@ public class WeChatActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 bitmap = loadBitmapFromView(rlMyUI);
-                if(bitmap !=null){
+                if (bitmap != null) {
                     ImageToGallery.saveImageToGallery(WeChatActivity.this, bitmap);
                 }
             }
         });
         initData();
-        shareWeChat();
+        //shareWeChat();
     }
 
     private void shareWeChat() {
-        if(bitmap==null){
+        if (bitmap == null) {
             bitmap = loadBitmapFromView(rlMyUI);
         }
-            ImageToGallery.saveImageToGallery(WeChatActivity.this, bitmap);
-            ShareParams shareParams = new ShareParams();
-            shareParams.setShareType(Platform.SHARE_IMAGE);
-            shareParams.setImageData(bmp);
-            JShareInterface.share(Wechat.Name, shareParams, new PlatActionListener() {
-                @Override
-                public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                    System.out.println("微信分享成功");
+        //ImageToGallery.saveImageToGallery(WeChatActivity.this, bitmap);
+        ShareParams shareParams = new ShareParams();
+        shareParams.setShareType(Platform.SHARE_IMAGE);
+        shareParams.setImageData(bitmap);
+        JShareInterface.share(Wechat.Name, shareParams, new PlatActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                System.out.println("微信分享成功");
 
-                }
+            }
 
-                @Override
-                public void onError(Platform platform, int i, int i1, Throwable throwable) {
-                    System.out.println("微信分享失败");
+            @Override
+            public void onError(Platform platform, int i, int i1, Throwable throwable) {
+                System.out.println("微信分享失败");
 
-                }
+            }
 
-                @Override
-                public void onCancel(Platform platform, int i) {
-                    System.out.println("微信分享取消");
-                }
-            });
-        }
-
+            @Override
+            public void onCancel(Platform platform, int i) {
+                System.out.println("微信分享取消");
+            }
+        });
+    }
 
 
     private void initData() {
         Intent intent = getIntent();
         extra = intent.getStringExtra("sid");
-        RequestParams params=new RequestParams();
-        params.put("sid",extra);
+        RequestParams params = new RequestParams();
+        params.put("sid", extra);
         OkHttpUtils.post(AppUrl.QRCODE_URL).params(params).execute(new MyJsonCallBack<WeChatBean>() {
 
             @Override
@@ -120,7 +119,12 @@ public class WeChatActivity extends BaseActivity {
                         @Override
                         public void onResourceReady(@NonNull Drawable drawable, @Nullable Transition<? super Drawable> transition) {
                             imageView.setImageDrawable(drawable);
-                            shareWeChat();
+                            imageView.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    shareWeChat();
+                                }
+                            }, 1000);
                         }
                     });
                 }
@@ -157,12 +161,6 @@ public class WeChatActivity extends BaseActivity {
         Bitmap drawingCache = view.getDrawingCache();
         return view.getDrawingCache();
     }
-
-
-
-
-
-
 
 
 }

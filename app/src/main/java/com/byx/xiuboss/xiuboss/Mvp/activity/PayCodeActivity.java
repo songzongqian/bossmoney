@@ -225,6 +225,7 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
             public void onClick(View view) {
                 Intent intent=new Intent(PayCodeActivity.this,WeChatActivity.class);
                 intent.putExtra("sid",sidNumber);
+
                 startActivity(intent);
             }
         });

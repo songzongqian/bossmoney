@@ -48,6 +48,7 @@ import com.byx.xiuboss.xiuboss.Utils.NetUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.model.RequestParams;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -214,6 +215,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
         ivInternet = view.findViewById(R.id.iv_internet);
         tvInternet = view.findViewById(R.id.tv_internet);
         rlHelp = view.findViewById(R.id.rl_help);
+
+        RelativeLayout mOrderCompLayout = view.findViewById(R.id.orderCompLayout);
+        RelativeLayout mOrderInviteLayout = view.findViewById(R.id.orderInviteLayout);
+        TextView mOrderCompRed = view.findViewById(R.id.orderCompRed);
+        TextView mOrderInviteRed = view.findViewById(R.id.orderInviteRed);
+
 
         activity = new MainActivity();
         Accountbalance_btn.setOnClickListener(this);

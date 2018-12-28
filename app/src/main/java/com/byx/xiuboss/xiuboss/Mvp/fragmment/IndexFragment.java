@@ -269,7 +269,7 @@ public class IndexFragment extends BaseFragment {
                         if(TextUtils.isEmpty(payBillFinalFee)){
                             totalFan.setText("0.00");
                         }else{
-                            totalFan.setText(homeBean.getData().getFee().getPayBillFinalFee());
+                            totalFan.setText(homeBean.getData().getFee().getPayBillFinalFee()+"");
                         }
 
                         String customer = homeBean.getData().getFee().getCustomer();
