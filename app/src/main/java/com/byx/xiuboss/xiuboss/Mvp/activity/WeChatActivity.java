@@ -97,6 +97,8 @@ public class WeChatActivity extends BaseActivity {
                 @Override
                 public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                     System.out.println("微信分享成功");
+
+
                 }
 
                 @Override
