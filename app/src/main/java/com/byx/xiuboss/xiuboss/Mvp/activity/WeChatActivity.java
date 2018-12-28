@@ -74,21 +74,9 @@ public class WeChatActivity extends BaseActivity {
     }
 
     private void shareWeChat() {
-        WindowManager manager = getWindowManager();
-        DisplayMetrics metrics = new DisplayMetrics();
-        manager.getDefaultDisplay().getMetrics(metrics);
-        int width = metrics.widthPixels;  //以要素为单位
-        int height = metrics.heightPixels;
-        rlMyUI.setDrawingCacheEnabled(true);
-        //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
-        rlMyUI.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
-        //这个方法也非常重要，设置布局的尺寸和位置
-        rlMyUI.layout(0, 0, rlMyUI.getMeasuredWidth(), rlMyUI.getMeasuredHeight());
-        //获得绘图缓存中的Bitmap
-        rlMyUI.buildDrawingCache();
-        Bitmap bitmap = rlMyUI.getDrawingCache();
-        if(bitmap !=null){
+        if(bitmap==null){
+            bitmap = loadBitmapFromView(rlMyUI);
+        }
             ImageToGallery.saveImageToGallery(WeChatActivity.this, bitmap);
             ShareParams shareParams = new ShareParams();
             shareParams.setShareType(Platform.SHARE_IMAGE);
@@ -97,7 +85,6 @@ public class WeChatActivity extends BaseActivity {
                 @Override
                 public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                     System.out.println("微信分享成功");
-
 
                 }
 
@@ -113,7 +100,7 @@ public class WeChatActivity extends BaseActivity {
                 }
             });
         }
-    }
+
 
 
     private void initData() {
@@ -134,8 +121,6 @@ public class WeChatActivity extends BaseActivity {
                         public void onResourceReady(@NonNull Drawable drawable, @Nullable Transition<? super Drawable> transition) {
                             imageView.setImageDrawable(drawable);
                             shareWeChat();
-
-
                         }
                     });
                 }
@@ -175,32 +160,7 @@ public class WeChatActivity extends BaseActivity {
 
 
 
-    private Bitmap getBitmap(View view) throws Exception {
 
-        View screenView = getWindow().getDecorView();
-        screenView.setDrawingCacheEnabled(true);
-        screenView.buildDrawingCache();
-
-        //获取屏幕整张图片
-        Bitmap bitmap = screenView.getDrawingCache();
-
-        if (bitmap != null) {
-
-            //需要截取的长和宽
-            int outWidth = view.getWidth();
-            int outHeight = view.getHeight();
-
-            //获取需要截图部分的在屏幕上的坐标(view的左上角坐标）
-            int[] viewLocationArray = new int[2];
-            view.getLocationOnScreen(viewLocationArray);
-
-            //从屏幕整张图片中截取指定区域
-            bitmap = Bitmap.createBitmap(bitmap, viewLocationArray[0], viewLocationArray[1], outWidth, outHeight);
-
-        }
-
-        return bitmap;
-    }
 
 
 

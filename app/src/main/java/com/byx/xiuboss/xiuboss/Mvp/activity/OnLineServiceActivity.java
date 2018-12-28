@@ -43,9 +43,6 @@ public class OnLineServiceActivity extends BaseActivity {
         ButterKnife.bind(this);
         titleText.setText("在线客服");
         loadWebView();
-
-
-
     }
 
 
