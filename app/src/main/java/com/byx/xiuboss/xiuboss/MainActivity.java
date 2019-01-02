@@ -31,6 +31,7 @@ import com.byx.xiuboss.xiuboss.Mvp.fragmment.HomeFragment;
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.IndexFragment;
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.MyFragment;
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.Orderragment;
+import com.byx.xiuboss.xiuboss.Mvp.fragmment.PublishFragment;
 import com.byx.xiuboss.xiuboss.Mvp.view.AutoRadioGroup;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.NetUrl.Contast;
@@ -74,7 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.order_num)
     ImageView order_num;
 
-    private BaseFragment[] fragments = {new IndexFragment(), new Orderragment(),new BillTestFragment(), new MyFragment()};
+    private BaseFragment[] fragments = {new PublishFragment(), new Orderragment(),new BillTestFragment(), new MyFragment()};
     private PopupWindow window;
     private NiftyDialogBuilder dialogBuilder;
     private OnEventReceive receive;

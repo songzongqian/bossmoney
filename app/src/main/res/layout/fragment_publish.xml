@@ -1,0 +1,135 @@
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.byx.xiuboss.xiuboss.Mvp.fragmment.PublishFragment">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="237dp"
+        android:background="#D45047"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <TextView
+                android:id="@+id/mStoreName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="雅斯超市"
+                android:textColor="#FDE3B6"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/mChangeStoreIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:src="@mipmap/index_icon_money" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="今日总收入"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/mAllIcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="今日总收入"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/mBackPropt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="其中休休返现收入占比 20%"
+            android:textColor="#F2C3B7"
+            android:textSize="14sp" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/mLayout01"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="74dp">
+                <TextView
+                    android:id="@+id/mTextView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="#FDE3B6"
+                    android:text="全部(173)"/>
+                <View
+                    android:id="@+id/mView01"
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:background="#FDE3B6"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/mLayout02"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="74dp">
+                <TextView
+                    android:id="@+id/mTextView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="#FDE3B6"
+                    android:text="返现(23)"/>
+                <View
+                    android:id="@+id/mView02"
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:visibility="invisible"
+                    android:background="#FDE3B6"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+</com.zhy.autolayout.AutoLinearLayout>
