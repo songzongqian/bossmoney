@@ -1,21 +1,28 @@
 package com.byx.xiuboss.xiuboss.Mvp.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.zhy.autolayout.AutoLayoutActivity;
+import com.zhy.autolayout.AutoLinearLayout;
 
 /**
  * Created by wangwenjie001 on 2018/9/13.
@@ -38,6 +45,9 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected BaseFragment mCurFragment;
     private BaseActivity mContext;
     public boolean isDestoryed = false;//页面是否被销毁
+    private View mDialogView;
+    private LinearLayout mProgressView;
+    private LinearLayout mEmptyView;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +187,59 @@ public abstract class BaseActivity extends AutoLayoutActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
     }
+
+    /*==============开始=用来网络第一此加载失败时显示=====================*/
+    private View createV(Activity a) {
+        if (mDialogView== null){
+            // 1.找到activity根部的ViewGroup，类型都为FrameLayout。
+            FrameLayout rootContainer = (FrameLayout) a.findViewById(android.R.id.content);//固定写法，返回根视图
+            //2.初始化控件显示的位置
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            lp.gravity = Gravity.CENTER;
+            /*设置显示的视图*/
+            mDialogView = View.inflate(this, R.layout.load_progress, null);
+            mProgressView = mDialogView.findViewById(R.id.mProgressView);
+            mEmptyView = mDialogView.findViewById(R.id.mEmptyView);
+            //4.将控件加到根节点下
+            rootContainer.addView(mDialogView);
+        }
+        mEmptyView.setVisibility(View.GONE);
+        mProgressView.setVisibility(View.VISIBLE);
+        return mDialogView;
+    }
+
+    public void showDialog() {
+        createV(this);
+        handler.sendEmptyMessageDelayed(200,2000);
+    }
+
+    public void cancelDialog() {
+        if (mDialogView != null) {
+            mDialogView.setVisibility(View.GONE);
+        }
+    }
+
+    public View getEmptyView() {
+        return mDialogView;
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==200){
+                changeToEmpty();
+            }
+        }
+    };
+    private void changeToEmpty() {
+        if (mDialogView!=null){
+            mProgressView.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /*----------结束---------------*/
 
     @Override
     protected void onDestroy() {

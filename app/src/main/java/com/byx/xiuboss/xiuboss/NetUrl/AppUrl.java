@@ -68,8 +68,10 @@ public class AppUrl {
     public static final String GET_LOGINCODE = BaseUrl + "/CI/index.php/StoreMy/proving";
 
     /**检测应用是否更新的接口*/
-
     public static final String GET_VERSIONCODE = "https://www.ourdaidai.com/api/checkVersion";
+
+    /**检测应用是否更新的接口*/
+    public static final String INDEXDATA_URL = BaseUrl+"/CI/ST12.php/Customer/OrderList";
 
 
 

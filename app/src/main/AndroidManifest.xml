@@ -35,7 +35,7 @@
     <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!-- 极光推送需要的权限-->
+    <!-- 极光推送需要的权限 -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -47,7 +47,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".Application.JgApplication"
@@ -123,9 +123,9 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".Mvp.activity.businessinfo.StorePhotoActivity" />
         <activity android:name=".Mvp.activity.ManageActivity" />
-        <activity android:name=".Mvp.activity.CollectDetailActivity"/>
-        <activity android:name=".Mvp.activity.HelpActivity"/>
-        <activity android:name=".Mvp.activity.NewLoginActivity"/>
+        <activity android:name=".Mvp.activity.CollectDetailActivity" />
+        <activity android:name=".Mvp.activity.HelpActivity" />
+        <activity android:name=".Mvp.activity.NewLoginActivity" />
 
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -167,28 +167,24 @@
         <activity android:name=".Mvp.activity.CancelOrderActivity" />
         <activity
             android:name=".Mvp.activity.RecoinResonActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".Mvp.activity.WithDrawTipActivity"/>
-        <activity android:name=".Mvp.activity.OnLineServiceActivity"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".Mvp.activity.WithDrawTipActivity" />
+        <activity android:name=".Mvp.activity.OnLineServiceActivity" />
 
-
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jiguang.share.android.ui.JiguangShellActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
 
-        </activity>
-
-        <!-- Optional 微信分享回调,wxapi必须在包名路径下，否则回调不成功-->
+        <!-- Optional 微信分享回调,wxapi必须在包名路径下，否则回调不成功 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:exported="true" />
-
-
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".Mvp.activity.CollRecordeActivity"></activity>
     </application>
 
 </manifest>

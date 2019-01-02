@@ -1,5 +1,6 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -53,7 +54,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:text="今日总收入"
+            android:text=""
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="34sp" />
@@ -65,71 +66,30 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="其中休休返现收入占比 20%"
+            android:text=""
             android:textColor="#F2C3B7"
             android:textSize="14sp" />
 
-        <com.zhy.autolayout.AutoRelativeLayout
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/mTabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            app:tl_indicator_color="#FDE3B6"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:tl_textsize="16sp"
+            app:tl_textSelectColor="#FDE3B6"
+            app:tl_textUnselectColor="#F2C3B7"
+            app:tl_tab_space_equal="true"
+            app:tl_indicator_width_equal_title="true"
             android:layout_weight="1">
 
-            <com.zhy.autolayout.AutoLinearLayout
-                android:id="@+id/mLayout01"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="74dp">
-                <TextView
-                    android:id="@+id/mTextView01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textColor="#FDE3B6"
-                    android:text="全部(173)"/>
-                <View
-                    android:id="@+id/mView01"
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:background="#FDE3B6"/>
-            </com.zhy.autolayout.AutoLinearLayout>
-            <com.zhy.autolayout.AutoLinearLayout
-                android:id="@+id/mLayout02"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="74dp">
-                <TextView
-                    android:id="@+id/mTextView02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textColor="#FDE3B6"
-                    android:text="返现(23)"/>
-                <View
-                    android:id="@+id/mView02"
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:visibility="invisible"
-                    android:background="#FDE3B6"/>
-            </com.zhy.autolayout.AutoLinearLayout>
-
-        </com.zhy.autolayout.AutoRelativeLayout>
+        </com.flyco.tablayout.SlidingTabLayout>
 
     </com.zhy.autolayout.AutoLinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/mViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent" />
 </com.zhy.autolayout.AutoLinearLayout>

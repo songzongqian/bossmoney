@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.byx.xiuboss.xiuboss.Bean.SwichBean;
@@ -25,7 +26,7 @@ import okhttp3.Response;
 
 public class SwichActivity extends BaseActivity {
 
-    private ImageView titleBackImage;
+    private RelativeLayout mHeadBack;
     private TextView titleText;
     private RecyclerView swichRecycler;
     private SwichAdapter adapter;
@@ -36,33 +37,35 @@ public class SwichActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swich);
+        setStatusBar(true);
         initView();
         initData();
     }
 
     private void initData() {
+        requestStoreData();
+    }
+
+    private void requestStoreData() {
+
         SharedPreferences login_sucess = getSharedPreferences("login_sucess", MODE_PRIVATE);
         String id = login_sucess.getString("id", "");
         Map<String,String> tags= new HashMap<>();
         tags.put("id",id);
-        OkHttpUtils.getInstance().postDataAsynToNet(AppUrl.SWITCH_SHOP_URL, tags, new OkHttpUtils.MyNetCall() {
+
+        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.SWITCH_SHOP_URL, tags, new OkHttpUtils.UserNetCall() {
             @Override
-            public void success(Call call, Response response) throws IOException {
-                String string = response.body().string();
+            public void success(Call call, String json) {
                 Gson gson=new Gson();
-                SwichBean swichBean = gson.fromJson(string, SwichBean.class);
+                SwichBean swichBean = gson.fromJson(json, SwichBean.class);
                 data = swichBean.getData();
-                runOnUiThread(new Runnable(){
+                adapter = new SwichAdapter(id_dian,data,SwichActivity.this,SwichActivity.this);
+                swichRecycler.setAdapter(adapter);
+                adapter.setListener(new SwichAdapter.onListener(){
                     @Override
-                    public void run() {
-                        adapter = new SwichAdapter(id_dian,data,SwichActivity.this,SwichActivity.this);
-                        swichRecycler.setAdapter(adapter);
-                        adapter.setListener(new SwichAdapter.onListener(){
-                            @Override
-                            public void OnListener(int i){
-                                finish();
-                            }
-                        });
+                    public void OnListener(int i){
+                        finish();
+                        overridePendingTransition(R.anim.bottom_silent,R.anim.bottom_out);
                     }
                 });
             }
@@ -72,19 +75,21 @@ public class SwichActivity extends BaseActivity {
 
             }
         });
+
     }
 
     private void initView() {
         id_dian = getIntent().getStringExtra("id");
-        titleBackImage = (ImageView) findViewById(R.id.title_back_image);
-        titleText = (TextView) findViewById(R.id.title_text);
+        mHeadBack = findViewById(R.id.head_back);
+        titleText = findViewById(R.id.head_title);
         titleText.setText("切换店铺");
         swichRecycler = (RecyclerView) findViewById(R.id.swich_recycler);
 
-        titleBackImage.setOnClickListener(new View.OnClickListener() {
+        mHeadBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.bottom_silent,R.anim.bottom_out);
             }
         });
         swichRecycler.setLayoutManager(new LinearLayoutManager(this));

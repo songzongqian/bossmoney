@@ -1,0 +1,445 @@
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFAF5"
+    android:orientation="vertical"
+    tools:context="com.byx.xiuboss.xiuboss.Mvp.fragmment.RewardFragment">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:background="#D45047"
+        android:paddingTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="奖励"
+            android:textColor="#FDE3B6"
+            android:textSize="18sp" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:padding="0.1dp"
+                app:cardCornerRadius="0.1dp"
+                app:cardElevation="0.1dp"
+                app:cardMaxElevation="0.1dp"
+                app:cardUseCompatPadding="true">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shap_xiuxiu"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="31dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp">
+
+                        <TextView
+                            android:id="@+id/mLeveGap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:text="x11 奖励："
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/mLeveGapIcon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@mipmap/index_tips" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/mGradeMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#C6A04D"
+                        android:textSize="32sp" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal|bottom"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="下一等级 "
+                            android:textColor="#9B9B9B"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/mNextGradeOne"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X13"
+                            android:textColor="#C6A04D"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="奖励"
+                            android:textColor="#9B9B9B"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/mNextGradeTwo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="17dp"
+                            android:text="X14"
+                            android:textColor="#C6A04D"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:id="@+id/mCurLeverScore"
+                            android:layout_width="53dp"
+                            android:layout_height="17dp"
+                            android:layout_marginLeft="67dp"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="#999999"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/mNextLeverScore"
+                            android:layout_width="53dp"
+                            android:layout_height="17dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="67dp"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="#999999"
+                            android:textSize="12dp" />
+
+                    </RelativeLayout>
+
+                    <!--圆圈-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp">
+
+                        <ProgressBar
+                            android:id="@+id/mProgressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_bg" />
+
+
+                        <ImageView
+                            android:id="@+id/middle_Level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="84dp"
+                            android:background="@mipmap/index_new_current" />
+
+                        <ImageView
+                            android:id="@+id/last_Level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="84dp"
+                            android:background="@mipmap/index_icon_next" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp">
+
+                        <TextView
+                            android:id="@+id/mCurLever"
+                            android:layout_width="53dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="67dp"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center"
+                            android:text="Lv2"
+                            android:textColor="#67482C"
+                            android:textSize="10dp" />
+
+
+                        <TextView
+                            android:id="@+id/mNextLever"
+                            android:layout_width="53dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="67dp"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center"
+                            android:text="Lv3"
+                            android:textColor="#67482C"
+                            android:textSize="10dp" />
+
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="当前信誉分"
+                            android:textColor="#9B9B9B"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/mCurScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="#C6A04D"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=", 还差"
+                            android:textColor="#9B9B9B"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/mGapScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1717"
+                            android:textColor="#C6A04D"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="分升级为"
+                            android:textColor="#9B9B9B"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/mNextGrade"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" X28"
+                            android:textColor="#9B9B9B"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/mReceiveScore"
+                        android:layout_width="144dp"
+                        android:layout_height="36dp"
+                        android:layout_marginBottom="13dp"
+                        android:layout_marginTop="13dp"
+                        android:background="@drawable/shape_score_bg"
+                        android:gravity="center"
+                        android:text="领取信誉分奖励"
+                        android:textColor="#C6A04D"
+                        android:textSize="14sp" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:padding="0.1dp"
+                app:cardCornerRadius="0.1dp"
+                app:cardElevation="0.1dp"
+                app:cardMaxElevation="0.1dp"
+                app:cardUseCompatPadding="true">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/mInvateFriend"
+                    android:layout_width="match_parent"
+                    android:layout_height="63dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="15dp"
+                        android:src="@mipmap/ic_launcher_round" />
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="邀请朋友使用"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="邀请朋友使用"
+                            android:textColor="#9B9B9B"
+                            android:textSize="12sp" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:src="@mipmap/common" />
+
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:padding="0.1dp"
+                app:cardCornerRadius="0.1dp"
+                app:cardElevation="0.1dp"
+                app:cardMaxElevation="0.1dp"
+                app:cardUseCompatPadding="true">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical">
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="悬赏任务"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="（入驻即可获得奖励）"
+                            android:textColor="#999999"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/mChangeBatch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:text="换一批"
+                            android:textColor="#C6A04D"
+                            android:textSize="16sp" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/mRecyclerView"
+                        android:nestedScrollingEnabled="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</com.zhy.autolayout.AutoLinearLayout>
