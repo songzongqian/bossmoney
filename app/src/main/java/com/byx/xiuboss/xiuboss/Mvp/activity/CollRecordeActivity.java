@@ -47,8 +47,8 @@ public class CollRecordeActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(manager);
 
-        CollRecordeAdapter recordeAdapter = new CollRecordeAdapter(null,this);
-        mRecyclerView.setAdapter(recordeAdapter);
+      //  CollRecordeAdapter recordeAdapter = new CollRecordeAdapter(null,this);
+       // mRecyclerView.setAdapter(recordeAdapter);
 
     }
 

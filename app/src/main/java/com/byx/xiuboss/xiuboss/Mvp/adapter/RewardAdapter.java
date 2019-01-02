@@ -47,7 +47,7 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.VhHolder> 
     private void setOnClickListener(VhHolder holder, final DealBean.DataBean dataBean, final int position) {
 
         holder.itemView.setOnClickListener(view -> {
-            mListener.onItemClick(position, dataBean);
+           // mListener.onItemClick(position, dataBean);
         });
 
     }

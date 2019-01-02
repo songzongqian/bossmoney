@@ -126,6 +126,8 @@
         <activity android:name=".Mvp.activity.CollectDetailActivity" />
         <activity android:name=".Mvp.activity.HelpActivity" />
         <activity android:name=".Mvp.activity.NewLoginActivity" />
+        <activity android:name=".Mvp.activity.WalletActivity"/>
+        <activity android:name=".Mvp.activity.WithDrawActivity"/>
 
         <service
             android:name="cn.jpush.android.service.PushService"
