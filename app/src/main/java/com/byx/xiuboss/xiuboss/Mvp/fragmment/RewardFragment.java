@@ -33,7 +33,6 @@ import com.byx.xiuboss.xiuboss.Bean.RewardBean;
 import com.byx.xiuboss.xiuboss.Bean.RewardInfo;
 import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
 import com.byx.xiuboss.xiuboss.MainActivity;
-import com.byx.xiuboss.xiuboss.Mvp.activity.BalanceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.PayCodeActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.TipsActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.WeChatActivity;
@@ -280,8 +279,6 @@ public class RewardFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 popuContent.dismiss();
-                Intent intent = new Intent(getActivity(), BalanceActivity.class);
-                getActivity().startActivity(intent);
             }
         });
 
