@@ -42,8 +42,8 @@ public class AccountActivity extends BaseActivity {
 
     private void initData() {
         titleText.setText("账单详情");
-        MyBalanceBean.DataBeanX.DataBean dataBean = (MyBalanceBean.DataBeanX.DataBean) getIntent().getSerializableExtra("account");
-        examinePutforward.setText(dataBean.getRegisterTime());
+        MyBalanceBean.DataBean dataBean = (MyBalanceBean.DataBean) getIntent().getSerializableExtra("account");
+        examinePutforward.setText(dataBean.getAddtime());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM月dd日");
         long lt = new Long(dataBean.getAddtime());
         String format = simpleDateFormat.format(new Date(lt * 1000));

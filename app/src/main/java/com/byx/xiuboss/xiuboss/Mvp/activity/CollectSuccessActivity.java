@@ -46,7 +46,7 @@ public class CollectSuccessActivity extends BaseActivity {
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CollectSuccessActivity.this, BalanceActivity.class);
+                Intent intent = new Intent(CollectSuccessActivity.this, WithDrawActivity.class);
                 startActivity(intent);
             }
         });

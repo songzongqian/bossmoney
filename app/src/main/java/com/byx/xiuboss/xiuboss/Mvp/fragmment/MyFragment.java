@@ -35,7 +35,6 @@ import com.byx.xiuboss.xiuboss.Bean.MyFragmentBean;
 import com.byx.xiuboss.xiuboss.Bean.SwitchBean;
 import com.byx.xiuboss.xiuboss.Jpush.MyReceiver;
 import com.byx.xiuboss.xiuboss.MainActivity;
-import com.byx.xiuboss.xiuboss.Mvp.activity.BalanceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.HelpActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.OnLineServiceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.SettingActivity;
@@ -243,8 +242,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                 break;
             case R.id.Accountbalance_btn:
                 //账户余额
-                intent = new Intent(getActivity(), BalanceActivity.class);
-                getActivity().startActivity(intent);
                 break;
             case R.id.relativeLayout_btn:
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.byx.xiuboss.xiuboss.Mvp.activity.HistoryRecordActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.PayCodeActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.ReceivablesActivity;
 import com.byx.xiuboss.xiuboss.R;
@@ -70,6 +71,8 @@ public class FindFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_history:
+                Intent historyIntent=new Intent(getActivity(),HistoryRecordActivity.class);
+                startActivity(historyIntent);
                 break;
             case R.id.rl_scan:
                 Intent intent = new Intent(getActivity(), ReceivablesActivity.class);

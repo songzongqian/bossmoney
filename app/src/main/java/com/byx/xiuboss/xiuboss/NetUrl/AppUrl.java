@@ -80,5 +80,10 @@ public class AppUrl {
     /**返现接口数据*/
     public static final String GETCASH_URL = BaseUrl+"/CI/ST12.php/StoreInfo/GetCash";
 
+    /**提现记录**/
+
+    public static final String CASHRECORD_URL = BaseUrl+"/CI/ST12.php/StoreInfo/GetCashList";
+
+
 
 }

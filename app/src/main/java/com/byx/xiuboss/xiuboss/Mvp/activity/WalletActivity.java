@@ -37,6 +37,7 @@ public class WalletActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
+        setStatusBar(true);
         ButterKnife.bind(this);
         initView();
         initData();
@@ -44,7 +45,8 @@ public class WalletActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        String amount = getIntent().getStringExtra("amount");
+        tvBalance.setText(amount);
     }
 
     private void initView() {

@@ -7,12 +7,28 @@
     android:background="#F8F8F8">
 
 
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="40px"
+    android:background="#FDF8F3">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="今天"
+        android:textSize="12px"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30px"/>
+
+</RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/recycler_wwj"
         android:layout_width="match_parent"
         android:layout_height="99px"
         android:layout_marginLeft="15px"
-        android:layout_marginTop="8px"
         android:layout_marginRight="15px"
         android:background="#FFFFFF">
 
@@ -58,7 +74,8 @@
             android:layout_toRightOf="@+id/moneyCount"
             android:text="元"
             android:textColor="#C6A04D"
-            android:textSize="14px" />
+            android:textSize="14px"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 </LinearLayout>

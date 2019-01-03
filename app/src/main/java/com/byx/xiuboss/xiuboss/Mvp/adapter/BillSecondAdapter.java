@@ -18,6 +18,8 @@ import com.byx.xiuboss.xiuboss.Bean.BillTestSecondBean;
 import com.byx.xiuboss.xiuboss.Bean.TurnoverTwoData;
 import com.byx.xiuboss.xiuboss.Mvp.activity.CollectDetailActivity;
 import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.DateTimeUtils;
+import com.byx.xiuboss.xiuboss.Utils.DatetoLong;
 
 import java.util.List;
 
@@ -56,14 +58,18 @@ public class BillSecondAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         SecondViewHolder secondViewHolder= (SecondViewHolder) holder;
         BillTestSecondBean.DataBean dataBean = secondList.get(position);
+
         statDay = dataBean.getStat_day();
         if(!TextUtils.isEmpty(statDay) ){
+            //String aLong = DatetoLong.getLong(statDay);
+            String finalTime = DateTimeUtils.judteTime(statDay, context);
+            secondViewHolder.tvDate.setText(finalTime);
             String month = statDay.substring(4, 6);
             String day = statDay.substring(6, 8);
             Log.e("month",month);
             Log.e("day",day);
-            secondViewHolder.textDescribe.setText(month+"月"+day+"日"+"收款"+dataBean.getSum()+"笔,合计");
-            secondViewHolder.moneyTotal.setText(dataBean.getPrice());
+            secondViewHolder.textDescribe.setText("收款"+dataBean.getSum()+"笔");
+            secondViewHolder.moneyTotal.setText("￥"+dataBean.getPrice());
         }else{
 
         }
@@ -96,12 +102,14 @@ public class BillSecondAdapter extends RecyclerView.Adapter {
         private final TextView textDescribe;
         private final TextView moneyTotal;
         private final RelativeLayout relativeLayout;
+        private final TextView tvDate;
 
         public SecondViewHolder(View itemView) {
             super(itemView);
             textDescribe = itemView.findViewById(R.id.text_describe);
             moneyTotal = itemView.findViewById(R.id.moneyCount);
             relativeLayout = itemView.findViewById(R.id.recycler_wwj);
+            tvDate = itemView.findViewById(R.id.tv_date);
         }
     }
 

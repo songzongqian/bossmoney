@@ -33,7 +33,6 @@ import android.widget.Toast;
 import com.byx.xiuboss.xiuboss.Bean.HomeBean;
 import com.byx.xiuboss.xiuboss.Bean.RewardBean;
 import com.byx.xiuboss.xiuboss.Jgim.utils.ToastUtil;
-import com.byx.xiuboss.xiuboss.Mvp.activity.BalanceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.ManageActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.PayCodeActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.ReceivablesActivity;
@@ -424,8 +423,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             //3、钱包（账户余额）
             case R.id.wallet:
-                intent = new Intent(getActivity(), BalanceActivity.class);
-                startActivity(intent);
+
                 break;
             //4、收款码
             case R.id.receipt_code:
@@ -530,8 +528,6 @@ public class HomeFragment extends BaseFragment {
                             @Override
                             public void onClick(View v) {
                                 window.dismiss();
-                                Intent intent = new Intent(getActivity(), BalanceActivity.class);
-                                getActivity().startActivity(intent);
                             }
                         });
                         backgroundAlpha(0.5f);

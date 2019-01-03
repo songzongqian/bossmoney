@@ -48,8 +48,8 @@ public class CompletedActivity extends BaseActivity {
 
     private void initData() {
         titleText.setText("账单详情");
-        MyBalanceBean.DataBeanX.DataBean dataBean = (MyBalanceBean.DataBeanX.DataBean) getIntent().getSerializableExtra("completed");
-        PutForward.setText(dataBean.getRegisterTime());
+        MyBalanceBean.DataBean dataBean = (MyBalanceBean.DataBean) getIntent().getSerializableExtra("completed");
+        PutForward.setText(dataBean.getAddtime());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM月dd日");
         long lt = new Long(dataBean.getAddtime());
         String format = simpleDateFormat.format(new Date(lt*1000));

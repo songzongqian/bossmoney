@@ -9,10 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.byx.xiuboss.xiuboss.Bean.MyBalanceBean;
-import com.byx.xiuboss.xiuboss.Mvp.adapter.BalanceAdapter;
+import com.byx.xiuboss.xiuboss.Bean.BillTestSecondBean;
+import com.byx.xiuboss.xiuboss.Mvp.adapter.BillSecondAdapter;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
 import com.byx.xiuboss.xiuboss.R;
@@ -23,9 +22,7 @@ import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,9 +30,9 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class WithDrawActivity extends BaseActivity {
+public class HistoryRecordActivity extends BaseActivity {
     /**
-     * 新版提现记录的activity
+     * 收款明细新版
      */
     @BindView(R.id.title_back_image)
     ImageView titleBackImage;
@@ -51,18 +48,17 @@ public class WithDrawActivity extends BaseActivity {
     RecyclerView recycler;
     @BindView(R.id.smartRefreshLayout)
     SmartRefreshLayout smartRefreshLayout;
-    private int page=1;
+    private int pageIndexSecond = 0;
     private String sid;
-    private BalanceAdapter adapter;
-    private RequestParams requestParams;
-    private List<MyBalanceBean.DataBean> lance;
-    Map<String,String> headerMap=new HashMap<>();
-
+    private List<BillTestSecondBean.DataBean> dataSecondList;
+    private BillSecondAdapter billSecondAdapter;
+    private RequestParams secondParams;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdraw);
+        setContentView(R.layout.activity_history_record);
+        setStatusBar(true);
         ButterKnife.bind(this);
         initView();
         initData();
@@ -76,13 +72,13 @@ public class WithDrawActivity extends BaseActivity {
         SharedPreferences share = getSharedPreferences("login_sucess", MODE_PRIVATE);
         sid = share.getString("sid", "");
         //设置RecyclerView 样式
-        recycler.setLayoutManager(new LinearLayoutManager(WithDrawActivity.this));
+        recycler.setLayoutManager(new LinearLayoutManager(HistoryRecordActivity.this));
         //刷新
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener(){
 
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                adapter.notifyDataSetChanged();
+                billSecondAdapter.notifyDataSetChanged();
                 smartRefreshLayout.finishRefresh();
             }
         });
@@ -94,28 +90,27 @@ public class WithDrawActivity extends BaseActivity {
                 smartRefreshLayout.finishLoadmore();
             }
         });
+
     }
 
-    private void refreshMore() {
-        requestParams.clear();
-        page+=1;
-        requestParams.put("sid",sid);
-        requestParams.put("startPos",page+"");
-        requestParams.put("source","android");
-        requestParams.put("step",10+"");
-        requestParams.put("debug",1+"");
-        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).execute(new MyJsonCallBack<MyBalanceBean>() {
+
+
+
+    private void initData() {
+        secondParams = new RequestParams();
+        secondParams.put("sid",sid);
+        secondParams.put("start",pageIndexSecond+"");
+        OkHttpUtils.post(AppUrl.EVERYDAY_URL).params(secondParams).execute(new MyJsonCallBack<BillTestSecondBean>() {
 
             @Override
-            public void onResponse(MyBalanceBean myBalanceBean) {
-                if(myBalanceBean!=null && myBalanceBean.getCode()==2000){
-                    if(myBalanceBean.getData()!=null &&myBalanceBean.getData().size()==0){
-                        Toast.makeText(WithDrawActivity.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
-                    }else{
-                        lance.addAll( myBalanceBean.getData());
-                        adapter.notifyDataSetChanged();
-                    }
+            public void onResponse(BillTestSecondBean billTestSecondBean) {
+                if (billTestSecondBean != null && billTestSecondBean.getCode() == 2000) {
+                    dataSecondList = billTestSecondBean.getData();
+                    billSecondAdapter = new BillSecondAdapter(HistoryRecordActivity.this, dataSecondList, sid);
+                    recycler.setAdapter(billSecondAdapter);
+                    billSecondAdapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
@@ -127,35 +122,26 @@ public class WithDrawActivity extends BaseActivity {
 
     }
 
-    private void initData() {
 
 
-        /*headerMap.put("sid",sid);
-        headerMap.put("startPos",page+"");
-        headerMap.put("source","android");
-        headerMap.put("sid",sid);
-        headerMap.put("step",10+"");*/
-
-
-
-
-        requestParams = new RequestParams();
-        requestParams.put("sid",sid);
-        requestParams.put("startPos",page+"");
-        requestParams.put("source","android");
-        requestParams.put("step",10+"");
-        requestParams.put("debug",1+"");
-        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).execute(new MyJsonCallBack<MyBalanceBean>() {
+    //加载更多数据
+    private void refreshMore() {
+        secondParams.clear();
+        pageIndexSecond+=5;
+        secondParams.put("sid",sid);
+        secondParams.put("start",pageIndexSecond+"");
+        OkHttpUtils.post(AppUrl.EVERYDAY_URL).params(secondParams).execute(new MyJsonCallBack<BillTestSecondBean>() {
 
             @Override
-            public void onResponse(MyBalanceBean myBalanceBean) {
-                if(myBalanceBean!=null && myBalanceBean.getCode()==2000){
-                    lance = myBalanceBean.getData();
-                    adapter = new BalanceAdapter(lance,WithDrawActivity.this);
-                    recycler.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }
+            public void onResponse(BillTestSecondBean billTestSecondBean) {
+                if(billTestSecondBean!=null && billTestSecondBean.getCode()==2000){
+                    if(billTestSecondBean.getData().size()==0){
 
+                    }else{
+                        dataSecondList.addAll(billTestSecondBean.getData());
+                        billSecondAdapter.notifyDataSetChanged();
+                    }
+                }
             }
 
             @Override

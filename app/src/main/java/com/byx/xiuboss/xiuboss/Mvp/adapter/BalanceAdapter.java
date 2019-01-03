@@ -23,10 +23,10 @@ import java.util.List;
  */
 
 public class BalanceAdapter extends RecyclerView.Adapter<BalanceAdapter.ViewHolder> {
-        private List<MyBalanceBean.DataBeanX.DataBean> lance=new ArrayList<>();
+        private List<MyBalanceBean.DataBean> lance=new ArrayList<>();
         private Context context;
     private onListener listener;
-    public BalanceAdapter(List<MyBalanceBean.DataBeanX.DataBean> lance, Context context) {
+    public BalanceAdapter(List<MyBalanceBean.DataBean> lance, Context context) {
         this.lance = lance;
         this.context = context;
     }
@@ -45,30 +45,28 @@ public class BalanceAdapter extends RecyclerView.Adapter<BalanceAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         int i = Integer.parseInt(lance.get(position).getStatus());
-        String channel = lance.get(position).getChannel();
-        MyBalanceBean.DataBeanX.DataBean dataBean = lance.get(position);
-
+        String channel = lance.get(position).getInfo();//收款来源
+        MyBalanceBean.DataBean dataBean = lance.get(position);
 
 
         if (channel.equals("支付宝")){
             holder.putforward.setText("提现 - 支付宝");
-            holder.money.setText("-"+lance.get(position).getGet_fee());
+            holder.money.setText("-"+lance.get(position).getValue());
             holder.money.setTextColor(0xFF666666);
         }else if (channel.equals("微信")){
             holder.putforward.setText("提现 - 微信");
-            holder.money.setText("-"+lance.get(position).getGet_fee());
+            holder.money.setText("-"+lance.get(position).getValue());
             holder.money.setTextColor(0xFF666666);
         }else if (channel.equals("银行卡")){
             holder.putforward.setText("提现 - 银行卡");
-            holder.money.setText("-"+lance.get(position).getGet_fee());
+            holder.money.setText("-"+lance.get(position).getValue());
             holder.money.setTextColor(0xFF666666);
         }else{
-            holder.putforward.setText("收入 - "+lance.get(position).getChannel());
-            holder.money.setText("+"+lance.get(position).getGet_fee());
+            holder.money.setText("+"+lance.get(position).getValue());
             holder.money.setTextColor(0xFFC6A04D);
         }
 
-        holder.time.setText(lance.get(position).getRegisterTime());
+        holder.time.setText(lance.get(position).getAddtime());
 
        /*0 签到   1  审核通过 2 审核中 3 提现撤销 */
         if (i==0){

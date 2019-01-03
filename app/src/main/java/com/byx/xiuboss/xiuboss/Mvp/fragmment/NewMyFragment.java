@@ -31,7 +31,6 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
 import com.byx.xiuboss.xiuboss.Bean.MyFragmentBean;
 import com.byx.xiuboss.xiuboss.Bean.SwitchBean;
-import com.byx.xiuboss.xiuboss.Mvp.activity.BalanceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.HelpActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.OnLineServiceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.SettingActivity;
@@ -106,6 +105,7 @@ public class NewMyFragment extends BaseFragment {
     private String managerMobile1;
     private PopupWindow window;
     final List<String> mOptionsItems = new ArrayList<>();
+    MyFragmentBean middleBean;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -141,6 +141,7 @@ public class NewMyFragment extends BaseFragment {
                 @Override
                 public void onResponse(MyFragmentBean myFragmentBean) {
                     if (myFragmentBean != null && myFragmentBean.getCode() == 2000) {
+                        middleBean=myFragmentBean;
                         tvShopName.setText(myFragmentBean.getData().getTitle());
                         tvBiLi.setText(myFragmentBean.getData().getAmount());//返现比例
                         Glide.with(getActivity()).load(myFragmentBean.getData().getLogo()).into(ivAvatar);
@@ -219,6 +220,7 @@ public class NewMyFragment extends BaseFragment {
             case R.id.rl_wallet:
                 //钱包
                 Intent walletIntent = new Intent(getActivity(), WalletActivity.class);
+                walletIntent.putExtra("amount",middleBean.getData().getAmount());
                 getActivity().startActivity(walletIntent);
                 break;
             case R.id.isOpen:

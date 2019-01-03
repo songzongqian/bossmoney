@@ -51,7 +51,7 @@ public class Base64Utils {
                 buf.append(Integer.toHexString(tmp));
             }
             //return buf.toString().substring(8, 24);// 16位加密
-            return buf.toString().toUpperCase();// 32位大加密
+            return buf.toString();// 32位小
         } catch (Exception e) {
             e.printStackTrace();
             return null;

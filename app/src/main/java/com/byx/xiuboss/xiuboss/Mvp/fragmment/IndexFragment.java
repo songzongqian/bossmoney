@@ -35,12 +35,12 @@ import com.byx.xiuboss.xiuboss.Application.JgApplication;
 import com.byx.xiuboss.xiuboss.Bean.HomeBean;
 import com.byx.xiuboss.xiuboss.Bean.NewPersonBean;
 import com.byx.xiuboss.xiuboss.Bean.RewardBean;
-import com.byx.xiuboss.xiuboss.Mvp.activity.BalanceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.ManageActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.PayCodeActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.ReceivablesActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.TipsActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.TodayMoneyActivity;
+import com.byx.xiuboss.xiuboss.Mvp.activity.WithDrawActivity;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
 import com.byx.xiuboss.xiuboss.R;
@@ -754,7 +754,7 @@ public class IndexFragment extends BaseFragment {
                         @Override
                         public void onClick(View v) {
                             window.dismiss();
-                            Intent intent = new Intent(getActivity(), BalanceActivity.class);
+                            Intent intent = new Intent(getActivity(), WithDrawActivity.class);
                             getActivity().startActivity(intent);
                         }
                     });
