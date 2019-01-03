@@ -24,8 +24,11 @@
     </com.zhy.autolayout.AutoRelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/mNestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
@@ -51,7 +54,6 @@
                     android:background="@drawable/button_shap_xiuxiu"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -354,6 +356,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/mCheckInTo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="邀请朋友使用"
@@ -377,10 +380,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="#FFFFFF"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="13dp"
                 android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
                 android:padding="0.1dp"
                 app:cardCornerRadius="0.1dp"
                 app:cardElevation="0.1dp"
@@ -427,9 +430,9 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/mRecyclerView"
-                        android:nestedScrollingEnabled="true"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="false" />
 
                 </com.zhy.autolayout.AutoLinearLayout>
 

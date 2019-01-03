@@ -10,7 +10,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        android:background="#FEF8E3"
+        android:background="@drawable/shape_reward_item"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -55,6 +55,7 @@
             android:background="@drawable/shape_score_bg"
             android:gravity="center"
             android:text="去邀请"
+            android:layout_marginRight="15dp"
             android:textColor="#C6A04D"
             android:textSize="12sp" />
 

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +58,13 @@ public class BackCashAdapter extends RecyclerView.Adapter<BackCashAdapter.VhHold
         Glide.with(mContext).load(orderListBean.getCustomerAvatar()).into(holder.mIcon);
         holder.mTitle.setText(orderListBean.getNickName());
         holder.mTime.setText(orderListBean.getDatetime());
-        holder.mCash.setText(orderListBean.getTotal());
-        holder.mBack.setText(orderListBean.getReturnCash());
+        holder.mCash.setText("+"+orderListBean.getTotal());
+        if (!TextUtils.isEmpty(orderListBean.getReturnCash())){
+            holder.mBack.setText("返现"+orderListBean.getReturnCash()+"元");
+        }else{
+            holder.mBack.setVisibility(View.GONE);
+        }
+
 
         setOnClickListener(holder, mList.get(position), position);
     }

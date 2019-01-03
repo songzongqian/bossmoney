@@ -54,9 +54,9 @@ public class CollRecordeActivity extends BaseActivity {
     TextView mBackMoney;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
-    private String openId;
-    private int page;
-    private int size;
+
+    private int page = 1;
+    private int size = 10;
     private List<ReceipeInfo.DataBean.OrderListBean>mOrderList = new ArrayList<>();
     private CollRecordeAdapter mRecordeAdapter;
 
@@ -65,7 +65,7 @@ public class CollRecordeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coll_recorde);
         ButterKnife.bind(this);
-        openId = getIntent().getStringExtra("openId");
+
         setStatusBar(true);
         initView();
         initData();
@@ -96,6 +96,7 @@ public class CollRecordeActivity extends BaseActivity {
     }
     public void requestRecordeData(){
         String sid = SPUtils.getInstance(this).getString("sid");
+        String openId = SPUtils.getInstance(this).getString("id");
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         String date = format.format(new Date(System.currentTimeMillis()));
         Map<String,String> params = new HashMap<>();

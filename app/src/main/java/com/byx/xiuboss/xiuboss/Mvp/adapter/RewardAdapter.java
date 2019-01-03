@@ -50,7 +50,10 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.VhHolder> 
     private void setOnClickListener(VhHolder holder, final RewardInfo.DataBean.ShareTasksBean dataBean, final int position) {
 
         holder.itemView.setOnClickListener(view -> {
-           // mListener.onItemClick(position, dataBean);
+            mListener.onItemClick(0x111,position, dataBean);
+        });
+        holder.mInvite.setOnClickListener(view -> {
+            mListener.onItemClick(0x112,position, dataBean);
         });
 
     }
@@ -79,7 +82,7 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.VhHolder> 
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, RewardInfo.DataBean.ShareTasksBean rdst);
+        void onItemClick(int type,int position, RewardInfo.DataBean.ShareTasksBean rdst);
 
     }
 }

@@ -1,6 +1,7 @@
 package com.byx.xiuboss.xiuboss.Mvp.fragmment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
+import com.byx.xiuboss.xiuboss.Mvp.activity.CollRecordeActivity;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashAdapter;
 import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
@@ -72,7 +74,8 @@ public class BackCashFragment extends BaseFragment {
         mRecyclerView.setAdapter(mCashAdapter);
 
         mCashAdapter.setOnItemClickListener((position, sorb) -> {
-
+            Intent intent = new Intent(getActivity(), CollRecordeActivity.class);
+            startActivity(intent);
         });
     }
 

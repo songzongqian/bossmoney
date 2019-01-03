@@ -58,6 +58,15 @@ public class SwichBean {
         private String id;
         private String mobile;
         private String name;
+        private boolean isSelect;
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
 
         public String getTitle() {
             return title;

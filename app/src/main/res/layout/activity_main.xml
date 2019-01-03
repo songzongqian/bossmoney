@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/order_img"
                 android:background="@mipmap/bottom_icon_red"
-                android:visibility="visible" />
+                android:visibility="invisible" />
         </RelativeLayout>
 
         <RelativeLayout

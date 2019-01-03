@@ -16,22 +16,25 @@ import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.R;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
-import okhttp3.Response;
 
 public class SwichActivity extends BaseActivity {
 
-    private RelativeLayout mHeadBack;
+    private ImageView mHeadBack;
     private TextView titleText;
     private RecyclerView swichRecycler;
     private SwichAdapter adapter;
     private List<SwichBean.DataBean> data;
     private String id_dian;
+    private List<SwichBean.DataBean> mSwichList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +61,12 @@ public class SwichActivity extends BaseActivity {
             public void success(Call call, String json) {
                 Gson gson=new Gson();
                 SwichBean swichBean = gson.fromJson(json, SwichBean.class);
-                data = swichBean.getData();
-                adapter = new SwichAdapter(id_dian,data,SwichActivity.this,SwichActivity.this);
-                swichRecycler.setAdapter(adapter);
-                adapter.setListener(new SwichAdapter.onListener(){
-                    @Override
-                    public void OnListener(int i){
-                        finish();
-                        overridePendingTransition(R.anim.bottom_silent,R.anim.bottom_out);
-                    }
-                });
+                if (swichBean.getCode() == 2000){
+                    mSwichList.clear();
+                    mSwichList.addAll(swichBean.getData());
+                    adapter.notifyDataSetChanged();
+                }
             }
-
             @Override
             public void failed(Call call, IOException e) {
 
@@ -80,7 +77,7 @@ public class SwichActivity extends BaseActivity {
 
     private void initView() {
         id_dian = getIntent().getStringExtra("id");
-        mHeadBack = findViewById(R.id.head_back);
+        mHeadBack = findViewById(R.id.mCloseIcon);
         titleText = findViewById(R.id.head_title);
         titleText.setText("切换店铺");
         swichRecycler = (RecyclerView) findViewById(R.id.swich_recycler);
@@ -93,6 +90,36 @@ public class SwichActivity extends BaseActivity {
             }
         });
         swichRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new SwichAdapter(id_dian,mSwichList,SwichActivity.this,SwichActivity.this);
+        swichRecycler.setAdapter(adapter);
+        adapter.setListener((position,dataBean)->{
+            for(int i=0;i<mSwichList.size();i++){
+                if (i == position){
+                    mSwichList.get(i).setSelect(true);
+                }else{
+                    mSwichList.get(i).setSelect(false);
+                }
+            }
+            adapter.notifyDataSetChanged();
+
+            SharedPreferences share = getSharedPreferences("login_sucess", MODE_PRIVATE);
+            SharedPreferences.Editor edit = share.edit();
+            edit.putString("sid", dataBean.getId());
+            /**
+             * 添加修改店铺手机号码字段
+             */
+            String telephone = dataBean.getTelephone();
+            edit.putString("payMobile", telephone);
+            edit.putString("homeTitle", dataBean.getTitle());
+            System.out.println("切换后存储手机号" + telephone);
+            edit.commit();
+            EventBus.getDefault().post(dataBean.getId());
+            setResult(RESULT_OK);
+            finish();
+            overridePendingTransition(R.anim.bottom_silent,R.anim.bottom_out);
+        });
+
     }
 
 

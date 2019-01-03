@@ -72,6 +72,9 @@ public class RewardInfo {
          * nextReturnCash : 25元
          * shareTasks : [{"returnCash":"20¥","storeName":"张亮麻辣烫","storeAddress":"学院路3号","ssid":"111"},{"returnCash":"20¥","storeName":"张亮麻辣烫","storeAddress":"学院路3号","ssid":"111"}]
          */
+        private String reciveStatus;
+        private String curScore;
+        private String shareReturnCash;
 
         private String stepTitle;
         private String creditScore;
@@ -80,6 +83,30 @@ public class RewardInfo {
         private String nextCreditScore;
         private String nextReturnCash;
         private List<ShareTasksBean> shareTasks;
+
+        public String getReciveStatus() {
+            return reciveStatus;
+        }
+
+        public void setReciveStatus(String reciveStatus) {
+            this.reciveStatus = reciveStatus;
+        }
+
+        public String getCurScore() {
+            return curScore;
+        }
+
+        public void setCurScore(String curScore) {
+            this.curScore = curScore;
+        }
+
+        public String getShareReturnCash() {
+            return shareReturnCash;
+        }
+
+        public void setShareReturnCash(String shareReturnCash) {
+            this.shareReturnCash = shareReturnCash;
+        }
 
         public String getStepTitle() {
             return stepTitle;

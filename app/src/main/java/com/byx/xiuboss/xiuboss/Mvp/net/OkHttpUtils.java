@@ -173,27 +173,27 @@ public class OkHttpUtils {
      * @param
      * @return
      */
-    public void getDataAsynFromUi (String url, final UserNetCall netCall) {
+    public void getDataAsynFromUi(String url, final UserNetCall netCall) {
         //synchronized (this){
-            //1 构造Request
-            Request.Builder builder = new Request.Builder();
-            final Request request = builder.get().url(url).build();
-            //2 将Request封装为Call
-            Call call = mOkHttpClient.newCall(request);
-            //3 执行Call
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    mUserNetCall = netCall;
-                    onFaildResponseData(call, e);
-                }
+        //1 构造Request
+        Request.Builder builder = new Request.Builder();
+        final Request request = builder.get().url(url).build();
+        //2 将Request封装为Call
+        Call call = mOkHttpClient.newCall(request);
+        //3 执行Call
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mUserNetCall = netCall;
+                onFaildResponseData(call, e);
+            }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    mUserNetCall = netCall;
-                    onSuccessResponse(call, response.body().string());
-                }
-            });
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mUserNetCall = netCall;
+                onSuccessResponse(call, response.body().string());
+            }
+        });
         //}
 
     }
@@ -237,7 +237,7 @@ public class OkHttpUtils {
      */
     public void postDataAsynToUi(String url, Map<String, String> bodyParams, final UserNetCall userNetCall) {
         this.mUserNetCall = userNetCall;
-        bodyParams.put("debug","1");
+        bodyParams.put("debug", "1");
         //1构造RequestBody
         RequestBody body = setRequestBody(bodyParams);
         //2 构造Request
@@ -257,6 +257,7 @@ public class OkHttpUtils {
                 onSuccessResponse(call, response.body().string());
             }
         });
+
     }
 
 

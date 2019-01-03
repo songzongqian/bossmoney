@@ -1,9 +1,11 @@
 <resources>
 
     <string name="home_title">首页</string>
-    <string name="order_title">订单</string>
-    <string name="bill_title">账单</string>
-    <string name="goods_title">商品</string>
+    <!--<string name="order_title">订单</string>-->
+    <string name="order_title">发现</string>
+    <!--<string name="bill_title">账单</string>-->
+    <string name="bill_title">奖励</string>
+    <!--<string name="goods_title">商品</string>-->
     <string name="mine_title">我的</string>
 
     <string name="app_name">休休BOSS</string>

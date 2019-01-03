@@ -1,112 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="254px"
-    android:background="@drawable/button_shap_xiuxiu"
-    android:layout_marginLeft="30px"
-    android:layout_marginRight="30px"
-    >
+    android:layout_height="match_parent">
 
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gif_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/index2"
-        android:layout_centerHorizontal="true"
-        />
-
-    <ImageView
-        android:id="@+id/icon_close"
-        android:layout_width="24px"
-        android:layout_height="24px"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10px"
-        android:layout_marginTop="10px"
-        app:srcCompat="@drawable/home_icon_close" />
-
-    <ImageView
-        android:id="@+id/popup_amount"
-        android:layout_width="70px"
-        android:layout_height="70px"
-        android:layout_marginTop="27px"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/index_icon_sign"
-        />
-
-    <TextView
-        android:id="@+id/popup_success"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/popup_amount"
-        android:layout_marginTop="8px"
-        android:text="领取成功"
-        android:textColor="#C6A04D"
-        android:textSize="24px"
-        android:textStyle="bold"
-        />
-
-    <LinearLayout
-        android:id="@+id/popup_lin"
-        android:layout_width="wrap_content"
-        android:layout_height="60px"
-        android:orientation="vertical"
-        android:layout_marginTop="15px"
-        android:layout_below="@+id/popup_success"
-        android:layout_centerHorizontal="true"
-        >
-        <TextView
-            android:id="@+id/popup_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="24元"
-            android:textSize="22px"
-            android:textColor="#666666"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:layout_marginTop="10px"
-            android:id="@+id/textView30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/popup_money"
-            android:layout_centerHorizontal="true"
-            android:text=" "
-            android:textSize="14px"
-            android:textColor="#999999"
-            />
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/textView31"
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="30px"
-        android:layout_marginRight="30px"
-        android:layout_below="@+id/popup_lin"
-        android:layout_marginTop="27px"
-        android:layerType="software"
-        android:background="#DCDCDC"
-        />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/button_shap_xiuxiu">
 
-    <Button
-        android:id="@+id/btn_record"
-        android:layout_width="150px"
-        android:layout_height="32px"
-        android:layout_below="@+id/textView31"
-        android:layout_marginTop="12px"
-        android:layout_marginBottom="13px"
-        android:text="查看交易记录"
-        android:textColor="#FFFFFF"
-        android:textSize="16px"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_popup"
-        />
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/index2" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/icon_close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/home_icon_close" />
+
+        <ImageView
+            android:id="@+id/popup_amount"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="27dp"
+            app:srcCompat="@drawable/index_icon_sign" />
+
+        <TextView
+            android:id="@+id/popup_success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/popup_amount"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="领取成功"
+            android:textColor="#C6A04D"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/popup_lin"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@+id/popup_success"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/popup_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="24元"
+                android:textColor="#666666"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/popup_money"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text=" "
+                android:textColor="#999999"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/popup_lin"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="27dp"
+            android:background="#DCDCDC"
+            android:layerType="software" />
+
+        <Button
+            android:id="@+id/btn_record"
+            android:layout_width="150dp"
+            android:layout_height="32dp"
+            android:layout_below="@+id/textView31"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/button_popup"
+            android:text="查看交易记录"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

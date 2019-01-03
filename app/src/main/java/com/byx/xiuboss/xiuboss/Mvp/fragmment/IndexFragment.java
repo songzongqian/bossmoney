@@ -238,10 +238,10 @@ public class IndexFragment extends BaseFragment {
 
     //检测用户是否注册成功了极光推送，再次帮用户注册
     private void checkPush() {
-            sid = loginSucess.getString("sid", "");
-            tags.add(sid);
-            JPushInterface.setTags(getActivity(), 0, tags);
-            JPushInterface.resumePush(JgApplication.context);
+        sid = loginSucess.getString("sid", "");
+        tags.add(sid);
+        JPushInterface.setTags(getActivity(), 0, tags);
+        JPushInterface.resumePush(JgApplication.context);
     }
 
     private void initData() {
@@ -266,20 +266,19 @@ public class IndexFragment extends BaseFragment {
                         //tvMoneyTakeOut.setText(homeBean.getData().getFee().getOrderTotalFee());
                         // tvMoneyPay.setText(homeBean.getData().getFee().getPayBillTotalFee());
                         String payBillFinalFee = homeBean.getData().getFee().getPayBillFinalFee();
-                        if(TextUtils.isEmpty(payBillFinalFee)){
+                        if (TextUtils.isEmpty(payBillFinalFee)) {
                             totalFan.setText("0.00");
-                        }else{
-                            totalFan.setText(homeBean.getData().getFee().getPayBillFinalFee()+"");
+                        } else {
+                            totalFan.setText(homeBean.getData().getFee().getPayBillFinalFee() + "");
                         }
 
                         String customer = homeBean.getData().getFee().getCustomer();
-                        if(TextUtils.isEmpty(customer)){
+                        if (TextUtils.isEmpty(customer)) {
                             customerDai.setText("0");
 
-                        }else{
+                        } else {
                             customerDai.setText(homeBean.getData().getFee().getCustomer());
                         }
-
 
 
                         Totalamount.setText("今日实际收入共" + homeBean.getData().getTodaySum() + "笔");
@@ -317,7 +316,7 @@ public class IndexFragment extends BaseFragment {
                             llCount.setVisibility(View.GONE);
                             buttonThree.setVisibility(View.VISIBLE);
                             buttonThree.setText("等级不足");
-                        } else if (sytemTime >= serverTime && xyz >= 200){
+                        } else if (sytemTime >= serverTime && xyz >= 200) {
                             //可以重新领取
                             if (flag == 0) {
                                 TTSUtils instance = TTSUtils.getInstance();
@@ -470,7 +469,7 @@ public class IndexFragment extends BaseFragment {
                         String pop_up_text = homeBean.getData().getPop_up_text();
                         String note = homeBean.getData().getPop_up_settles();
                         String versionNumber = loginSucess.getString("versionName", "");
-                        if(pop_up_status!=null){
+                        if (pop_up_status != null) {
                             if (pop_up_status.equals("1")) {
                                 //弹窗
                                 if (pop_up_text.equals(versionNumber)) {
@@ -496,15 +495,14 @@ public class IndexFragment extends BaseFragment {
 
                             }
 
-                        }else{
+                        } else {
 
                         }
 
 
-
                         //新手奖励判断
                         String storeBonus = homeBean.getData().getStoreBonus();
-                        if(storeBonus!=null){
+                        if (storeBonus != null) {
                             if (storeBonus.equals("1")) {
                                 //商户是新商家
                                 rlNewPerson.setVisibility(View.VISIBLE);
@@ -517,7 +515,7 @@ public class IndexFragment extends BaseFragment {
                                 rlNewPerson.setVisibility(View.GONE);
                             }
 
-                        }else{
+                        } else {
 
                         }
 
@@ -676,8 +674,8 @@ public class IndexFragment extends BaseFragment {
                     requestParams.put("sid", sid);
                     requestParams.put("clerk_id", id);
                     requestParams.put("money", middleBean.getData().getCurrentGrade().getF4());
-                    String getMoney=middleBean.getData().getCurrentGrade().getF4();
-                    showOldWindow(requestParams,getMoney); //播放声音,显示动画
+                    String getMoney = middleBean.getData().getCurrentGrade().getF4();
+                    showOldWindow(requestParams, getMoney); //播放声音,显示动画
                 } else {
                     llMyUI.setVisibility(View.GONE);
                     rlEmptyInternet.setVisibility(View.VISIBLE);
@@ -707,201 +705,200 @@ public class IndexFragment extends BaseFragment {
 
 
     //显示旧版本的签到逻辑
-    private void showOldWindow(RequestParams params,String money){
+    private void showOldWindow(RequestParams params, String money) {
         /**
          * 追加领取奖励来源，暂定字段名 app : android
          */
         OkHttpUtils.post(AppUrl.SIGN_IN_URL).params(params).execute(new MyJsonCallBack<RewardBean>() {
             @Override
             public void onResponse(RewardBean rewardBean) {
-                if (rewardBean != null && rewardBean.getCode()==2000) {
+                if (rewardBean != null && rewardBean.getCode() == 2000) {
                     String moneyType = rewardBean.getData().getMoneytype();
-                    if(moneyType!=null){
-                        if(moneyType.equals("credit")){
+                    if (moneyType != null) {
+                        if (moneyType.equals("credit")) {
                             //余额到账
                             popuContent = "已经存入您的账户余额";
 
-                        }else if(moneyType.equals("wechat")){
+                        } else if (moneyType.equals("wechat")) {
                             //微信到账
                             popuContent = "已经提现到您的微信账户";
 
                         }
                     }
                     final MediaPlayer player = MediaPlayer.create(getActivity(), R.raw.ring);
-                        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        player.start();
-                        player.setVolume(1f, 1f);
-                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mediaPlayer) {
-                                //监听播放完毕
-                                player.stop();
-                            }
-                        });
-                        View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.popup_success, null, false);
-                        PopupWindow window = new PopupWindow(inflate, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-                        ImageView close = inflate.findViewById(R.id.icon_close);
-                        TextView tvContent= inflate.findViewById(R.id.textView30);
-                        TextView popupMoney = inflate.findViewById(R.id.popup_money);
-                        Button btnRecord = inflate.findViewById(R.id.btn_record);
-                        popupMoney.setText(money+ "元");
-                        tvContent.setText(popuContent);
-                        close.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                window.dismiss();
-                            }
-                        });
-                        btnRecord.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                window.dismiss();
-                                Intent intent = new Intent(getActivity(), BalanceActivity.class);
-                                getActivity().startActivity(intent);
-                            }
-                        });
-                        backgroundAlpha(0.5f);
-                        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-                                backgroundAlpha(1.0f);
-                            }
-                        });
-                        window.setOutsideTouchable(true);
-                        window.setTouchable(true);
-                        window.setBackgroundDrawable(new BitmapDrawable());
-                        window.setAnimationStyle(R.style.popwin_scale);
-                        window.showAtLocation(LayoutInflater.from(getActivity()).inflate(R.layout.fragment_index, null), Gravity.CENTER, 0, 0);
-
-
-                        //判断用户领取奖励的3种情况
-                          String type = rewardBean.getData().getType();
-                       // String type = "exceed";
-                        if (type != null) {
-                            System.out.println("返回的数据类型" + type);
-                            if (type.equals("exceed")) {
-
-                                //提现已经超过20000
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setTitle("微信提现额度已用完")
-                                        .setMessage(rewardBean.getMessage())
-                                        .setCancelable(false)
-                                        .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            } else if (type.equals("binding")) {
-                                //用户未绑定微信
-
-                                String mobile = loginSucess.getString("mobile", "");
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setTitle("您尚未绑定微信")
-                                        .setMessage(rewardBean.getMessage())
-                                        .setCancelable(false)
-                                        .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                                        Uri data = Uri.parse("tel:" + mobile);
-                                        intent.setData(data);
-                                        startActivity(intent);
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            } else if (type.equals("errormessage")) {
-                                //微信姓名不对称
-                                String mobile = loginSucess.getString("mobile", "");
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setTitle("您绑定微信的真实姓名与微信账户信息不符")
-                                        .setMessage(rewardBean.getMessage())
-                                        .setCancelable(false)
-                                        .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                                        Uri data = Uri.parse("tel:" + mobile);
-                                        intent.setData(data);
-                                        startActivity(intent);
-
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            }else if(type.equals("sendnumerror")){
-                                //超出次数限制
-                                String mobile = loginSucess.getString("mobile", "");
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setTitle("提示")
-                                        .setMessage(rewardBean.getMessage())
-                                        .setCancelable(false)
-                                        .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                                        Uri data = Uri.parse("tel:" + mobile);
-                                        intent.setData(data);
-                                        startActivity(intent);
-
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            }else if(type.equals("publicerror")){
-
-                                String mobile = loginSucess.getString("mobile", "");
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setTitle("提示")
-                                        .setMessage(rewardBean.getMessage())
-                                        .setCancelable(false)
-                                        .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                                        Uri data = Uri.parse("tel:" + mobile);
-                                        intent.setData(data);
-                                        startActivity(intent);
-
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            }else{
-
-                            }
+                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    player.start();
+                    player.setVolume(1f, 1f);
+                    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
+                            //监听播放完毕
+                            player.stop();
                         }
-                        //显示时间
-                        buttonRewardTwo.start(86400000);
-                        buttonRewardTwo.setEnabled(false);
-                        rlReward.setVisibility(View.GONE);
-                        llCount.setVisibility(View.VISIBLE);
-                        buttonThree.setVisibility(View.GONE);
-                    } else if (rewardBean.getMessage().equals("领取时间未到")) {
-                        rlReward.setVisibility(View.GONE);
-                        buttonThree.setVisibility(View.GONE);
-                        llCount.setVisibility(View.VISIBLE);
-                        //开始模拟倒计时24小时,获取当前时间为签到时间
-                        buttonRewardTwo.start(86400000);
-                        System.out.println("服务器返回领取时间未到");
-                    }
-                }
+                    });
+                    View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.popup_success, null, false);
+                    PopupWindow window = new PopupWindow(inflate, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                    ImageView close = inflate.findViewById(R.id.icon_close);
+                    TextView tvContent = inflate.findViewById(R.id.textView30);
+                    TextView popupMoney = inflate.findViewById(R.id.popup_money);
+                    Button btnRecord = inflate.findViewById(R.id.btn_record);
+                    popupMoney.setText(money + "元");
+                    tvContent.setText(popuContent);
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            window.dismiss();
+                        }
+                    });
+                    btnRecord.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            window.dismiss();
+                            Intent intent = new Intent(getActivity(), BalanceActivity.class);
+                            getActivity().startActivity(intent);
+                        }
+                    });
+                    backgroundAlpha(0.5f);
+                    window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            backgroundAlpha(1.0f);
+                        }
+                    });
+                    window.setOutsideTouchable(true);
+                    window.setTouchable(true);
+                    window.setBackgroundDrawable(new BitmapDrawable());
+                    window.setAnimationStyle(R.style.popwin_scale);
+                    window.showAtLocation(LayoutInflater.from(getActivity()).inflate(R.layout.fragment_index, null), Gravity.CENTER, 0, 0);
 
+
+                    //判断用户领取奖励的3种情况
+                    String type = rewardBean.getData().getType();
+                    // String type = "exceed";
+                    if (type != null) {
+                        System.out.println("返回的数据类型" + type);
+                        if (type.equals("exceed")) {
+
+                            //提现已经超过20000
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("微信提现额度已用完")
+                                    .setMessage(rewardBean.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        } else if (type.equals("binding")) {
+                            //用户未绑定微信
+
+                            String mobile = loginSucess.getString("mobile", "");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("您尚未绑定微信")
+                                    .setMessage(rewardBean.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                    Uri data = Uri.parse("tel:" + mobile);
+                                    intent.setData(data);
+                                    startActivity(intent);
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        } else if (type.equals("errormessage")) {
+                            //微信姓名不对称
+                            String mobile = loginSucess.getString("mobile", "");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("您绑定微信的真实姓名与微信账户信息不符")
+                                    .setMessage(rewardBean.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                    Uri data = Uri.parse("tel:" + mobile);
+                                    intent.setData(data);
+                                    startActivity(intent);
+
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        } else if (type.equals("sendnumerror")) {
+                            //超出次数限制
+                            String mobile = loginSucess.getString("mobile", "");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("提示")
+                                    .setMessage(rewardBean.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                    Uri data = Uri.parse("tel:" + mobile);
+                                    intent.setData(data);
+                                    startActivity(intent);
+
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        } else if (type.equals("publicerror")) {
+
+                            String mobile = loginSucess.getString("mobile", "");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("提示")
+                                    .setMessage(rewardBean.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    }).setNegativeButton("联系商务经理", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                    Uri data = Uri.parse("tel:" + mobile);
+                                    intent.setData(data);
+                                    startActivity(intent);
+
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        } else {
+
+                        }
+                    }
+                    //显示时间
+                    buttonRewardTwo.start(86400000);
+                    buttonRewardTwo.setEnabled(false);
+                    rlReward.setVisibility(View.GONE);
+                    llCount.setVisibility(View.VISIBLE);
+                    buttonThree.setVisibility(View.GONE);
+                } else if (rewardBean.getMessage().equals("领取时间未到")) {
+                    rlReward.setVisibility(View.GONE);
+                    buttonThree.setVisibility(View.GONE);
+                    llCount.setVisibility(View.VISIBLE);
+                    //开始模拟倒计时24小时,获取当前时间为签到时间
+                    buttonRewardTwo.start(86400000);
+                    System.out.println("服务器返回领取时间未到");
+                }
+            }
 
 
             @Override
@@ -1125,8 +1122,8 @@ public class IndexFragment extends BaseFragment {
                             RequestParams requestParams = new RequestParams();
                             requestParams.put("sid", sid);
                             requestParams.put("clerk_id", id);
-                            requestParams.put("money", 2.06+"");
-                            showOldWindow(requestParams,"2.06"); //播放声音,显示动画
+                            requestParams.put("money", 2.06 + "");
+                            showOldWindow(requestParams, "2.06"); //播放声音,显示动画
                         }
                     });
 

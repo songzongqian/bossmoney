@@ -105,7 +105,7 @@ public class PublishFragment extends BaseFragment {
             Intent intent = new Intent(getActivity(), SwichActivity.class);
             String sid = SPUtils.getInstance(getActivity()).getString("sid");
             intent.putExtra("id", sid);
-            getActivity().startActivityForResult(intent,0x111);
+            startActivityForResult(intent,0x111);
             getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_silent);
         });
         mFragments.add(new AllSpeadCashFragment());
@@ -148,12 +148,12 @@ public class PublishFragment extends BaseFragment {
     /*设置数据*/
     private void setIndexData(StoreInfo.DataBean infoBean) {
         mStoreName.setText(infoBean.getStoreName());
-        mAllIcome.setText(TextUtils.isEmpty(infoBean.getTotalIncome())?"0":infoBean.getTotalIncome());
+        mAllIcome.setText("￥"+ infoBean.getTotalIncome());
         mBackPropt.setText("其中休休返现收入占比 "+infoBean.getTotalReturnRatio());
         mTabTitles.clear();
         mTabTitles.add("全部("+infoBean.getOrderCount()+")");
         mTabTitles.add("返现("+infoBean.getReturnOrderCount()+")");
-
+        mViewPager.removeAllViews();
         BackCashFragmentAdapter mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
         mViewPager.setAdapter(mAdapter);
         mSlideTabLayout.setViewPager(mViewPager);

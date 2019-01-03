@@ -3,6 +3,7 @@ package com.byx.xiuboss.xiuboss.Mvp.fragmment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,29 +13,28 @@ import android.view.ViewGroup;
 
 import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
 import com.byx.xiuboss.xiuboss.Mvp.activity.CollRecordeActivity;
-import com.byx.xiuboss.xiuboss.Mvp.activity.CollRecordeActivity_ViewBinding;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashAdapter;
-import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.callback.JsonCallBack;
+import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoRelativeLayout;
 
-import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.jmessage.support.qiniu.android.utils.Json;
 import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +76,6 @@ public class AllSpeadCashFragment extends BaseFragment {
 
         mCashAdapter.setOnItemClickListener((position, sorb) -> {
             Intent intent = new Intent(getActivity(), CollRecordeActivity.class);
-            intent.putExtra("openId",sorb.getOrderSn());
             startActivity(intent);
         });
     }
@@ -88,18 +87,21 @@ public class AllSpeadCashFragment extends BaseFragment {
     public void requestCashData(){
 
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
-        Map<String,String>params = new HashMap<>();
+        //Map<String,String>params = new HashMap<>();
+        RequestParams params = new RequestParams();
         params.put("source","android");
         params.put("sid",sid);
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         String date = format.format(new Date(System.currentTimeMillis()));
         params.put("date",date);
         params.put("orderType","1");
+        params.put("debug","1");
         params.put("startPos",String.valueOf(page));
         params.put("step",String.valueOf(size));
-        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.INDEXDATA_URL, params, new OkHttpUtils.UserNetCall() {
+
+        OkHttpUtils.post(AppUrl.INDEXDATA_URL).params(params).execute(new JsonCallBack<String>() {
             @Override
-            public void success(Call call, String json) {
+            public void onResponse(String json) {
                 StoreInfo info = new Gson().fromJson(json, StoreInfo.class);
                 if (page == 1){
                     mCashList.clear();
@@ -117,8 +119,8 @@ public class AllSpeadCashFragment extends BaseFragment {
             }
 
             @Override
-            public void failed(Call call, IOException e) {
-
+            public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                super.onError(call, response, e);
             }
         });
 
