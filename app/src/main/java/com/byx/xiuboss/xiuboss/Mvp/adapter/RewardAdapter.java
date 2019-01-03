@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.byx.xiuboss.xiuboss.Bean.DealBean;
+import com.byx.xiuboss.xiuboss.Bean.RewardInfo;
 import com.byx.xiuboss.xiuboss.R;
 
 import java.util.List;
@@ -18,13 +18,13 @@ import java.util.List;
  */
 
 public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.VhHolder> {
-    private List<DealBean.DataBean> mList;
+    private List<RewardInfo.DataBean.ShareTasksBean> mList;
     private LayoutInflater inflater;
     private Context mContext;
-    private BackCashAdapter.OnItemClickListener mListener;
+    private RewardAdapter.OnItemClickListener mListener;
 
-    public RewardAdapter(List<DealBean.DataBean> mComOrderData, Context context) {
-        this.mList = mComOrderData;
+    public RewardAdapter(List<RewardInfo.DataBean.ShareTasksBean> mRewardList, Context context) {
+        this.mList = mRewardList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
     }
@@ -39,25 +39,21 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.VhHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull VhHolder holder, int position) {
+        RewardInfo.DataBean.ShareTasksBean stBean = mList.get(position);
+        holder.mBackMoney.setText(stBean.getReturnCash());
+        holder.mTitle.setText(stBean.getStoreName());
+        holder.mAddress.setText(stBean.getStoreAddress());
 
-        setChildInitData(holder, mList.get(position), position);
         setOnClickListener(holder, mList.get(position), position);
     }
 
-    private void setOnClickListener(VhHolder holder, final DealBean.DataBean dataBean, final int position) {
+    private void setOnClickListener(VhHolder holder, final RewardInfo.DataBean.ShareTasksBean dataBean, final int position) {
 
         holder.itemView.setOnClickListener(view -> {
            // mListener.onItemClick(position, dataBean);
         });
 
     }
-
-
-    private void setChildInitData(VhHolder cVh, DealBean.DataBean dataBean, int position) {
-        if (dataBean == null) return;
-
-    }
-
     @Override
     public int getItemCount() {
         return mList.size();
@@ -78,12 +74,12 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.VhHolder> 
         }
     }
 
-    public void setOnItemClickListener(BackCashAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(RewardAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, DealBean.DataBean categorysBean);
+        void onItemClick(int position, RewardInfo.DataBean.ShareTasksBean rdst);
 
     }
 }

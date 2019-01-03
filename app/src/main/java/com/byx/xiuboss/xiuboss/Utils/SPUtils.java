@@ -20,7 +20,7 @@ public class SPUtils {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "share_data";
+    public static final String FILE_NAME = "login_sucess";
 
     private SharedPreferences sp;
     private volatile static SPUtils instance;
@@ -33,7 +33,7 @@ public class SPUtils {
         if (instance == null) {
             synchronized (SPUtils.class) {
                 if (instance == null) {
-                    instance = new SPUtils(context, context.getResources().getString(R.string.app_name));
+                    instance = new SPUtils(context, FILE_NAME);
                 }
             }
         }

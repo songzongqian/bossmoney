@@ -2,73 +2,63 @@
 <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FDF8F3">
+    android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/mCardView"
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="2dp"
-        app:cardCornerRadius="1dp"
-        app:contentPadding="2dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:background="#FEF8E3"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mBackMoney"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#C6A04D"
+            android:textSize="16sp" />
 
         <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FEF8E3"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/mBackMoney"
-                android:layout_width="70dp"
+                android:id="@+id/mTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#C6A04D"
-                android:gravity="center"
-                android:textSize="16sp"/>
+                android:text="   "
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <com.zhy.autolayout.AutoLinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/mAddress"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="vertical"
-                android:layout_weight="1">
-                <TextView
-                    android:id="@+id/mTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="   "
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:id="@+id/mAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="   "
-                    android:layout_marginTop="2dp"
-                    android:textSize="12sp"
-                    android:textColor="#9B9B9B"/>
-            </com.zhy.autolayout.AutoLinearLayout>
-
-           <TextView
-               android:id="@+id/mInvite"
-               android:layout_width="73dp"
-               android:layout_height="26dp"
-               android:gravity="center"
-               android:textSize="12sp"
-               android:textColor="#C6A04D"
-               android:text="去邀请"
-               android:background="@drawable/shape_score_bg"/>
-
+                android:layout_marginTop="2dp"
+                android:text="   "
+                android:textColor="#9B9B9B"
+                android:textSize="12sp" />
         </com.zhy.autolayout.AutoLinearLayout>
 
+        <TextView
+            android:id="@+id/mInvite"
+            android:layout_width="73dp"
+            android:layout_height="26dp"
+            android:background="@drawable/shape_score_bg"
+            android:gravity="center"
+            android:text="去邀请"
+            android:textColor="#C6A04D"
+            android:textSize="12sp" />
 
-    </android.support.v7.widget.CardView>
+    </com.zhy.autolayout.AutoLinearLayout>
+
 
 </com.zhy.autolayout.AutoRelativeLayout>

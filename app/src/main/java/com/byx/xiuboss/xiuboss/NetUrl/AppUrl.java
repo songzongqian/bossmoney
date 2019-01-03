@@ -5,7 +5,8 @@ public class AppUrl {
     static String testUrl="https://dev.ourdaidai.com";//测试环境
     static String OnlineUrl="https://www.ourdaidai.com";//线上环境
 
-    static String BaseUrl = OnlineUrl;//正式环境
+    //static String BaseUrl = OnlineUrl;//正式环境
+    static String BaseUrl = testUrl;//测试环境
 
 
     /**登录接口**/
@@ -70,11 +71,14 @@ public class AppUrl {
     /**检测应用是否更新的接口*/
     public static final String GET_VERSIONCODE = "https://www.ourdaidai.com/api/checkVersion";
 
-    /**检测应用是否更新的接口*/
-    public static final String INDEXDATA_URL = BaseUrl+"/CI/ST12.php/Customer/OrderList";
+    /**首页数据*/
+    public static final String INDEXDATA_URL = BaseUrl+"/CI/ST12.php/StoreInfo/Home";
 
+    /**收款记录*/
+    public static final String  ORDERLIST_URL= BaseUrl+"/CI/ST12.php/Customer/OrderList";
 
-
+    /**返现接口数据*/
+    public static final String GETCASH_URL = BaseUrl+"/CI/ST12.php/StoreInfo/GetCash";
 
 
 }

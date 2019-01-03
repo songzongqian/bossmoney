@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.byx.xiuboss.xiuboss.Bean.DealBean;
+import com.byx.xiuboss.xiuboss.Bean.RewardInfo;
 import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.DateTimeUtils;
@@ -64,7 +65,7 @@ public class BackCashAdapter extends RecyclerView.Adapter<BackCashAdapter.VhHold
 
     private void setOnClickListener(VhHolder holder, final StoreInfo.DataBean.OrderListBean dataBean, final int position) {
 
-        holder.itemView.setOnClickListener(view->{
+        holder.itemView.setOnClickListener(view -> {
             mListener.onItemClick(position, dataBean);
         });
 
@@ -81,7 +82,6 @@ public class BackCashAdapter extends RecyclerView.Adapter<BackCashAdapter.VhHold
         TextView mTime;
         TextView mCash;
         TextView mBack;
-
 
 
         public VhHolder(View childView) {

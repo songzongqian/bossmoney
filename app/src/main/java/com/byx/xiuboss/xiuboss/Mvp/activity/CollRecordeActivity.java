@@ -3,17 +3,40 @@ package com.byx.xiuboss.xiuboss.Mvp.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.byx.xiuboss.xiuboss.Bean.ReceipeInfo;
+import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.CollRecordeAdapter;
+import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
+import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.SPUtils;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+
+/*收款记录*/
 
 public class CollRecordeActivity extends BaseActivity {
+
+    @BindView(R.id.mEmptyView)
+    LinearLayout mEmptyView;
 
     @BindView(R.id.head_back)
     RelativeLayout mHeadBack;
@@ -31,12 +54,18 @@ public class CollRecordeActivity extends BaseActivity {
     TextView mBackMoney;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
+    private String openId;
+    private int page;
+    private int size;
+    private List<ReceipeInfo.DataBean.OrderListBean>mOrderList = new ArrayList<>();
+    private CollRecordeAdapter mRecordeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coll_recorde);
         ButterKnife.bind(this);
+        openId = getIntent().getStringExtra("openId");
         setStatusBar(true);
         initView();
         initData();
@@ -44,15 +73,72 @@ public class CollRecordeActivity extends BaseActivity {
 
     private void initView() {
 
+        mHeadTitle.setText("收款记录");
+        mHeadBack.setOnClickListener(v -> {
+            finish();
+        });
+
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(manager);
 
-      //  CollRecordeAdapter recordeAdapter = new CollRecordeAdapter(null,this);
-       // mRecyclerView.setAdapter(recordeAdapter);
+        mRecordeAdapter = new CollRecordeAdapter(mOrderList,this);
+        mRecyclerView.setAdapter(mRecordeAdapter);
 
+        mRecordeAdapter.setOnItemClickListener((position, orderBean) -> {
+
+        });
     }
 
     private void initData() {
 
+        requestRecordeData();
+
+    }
+    public void requestRecordeData(){
+        String sid = SPUtils.getInstance(this).getString("sid");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String date = format.format(new Date(System.currentTimeMillis()));
+        Map<String,String> params = new HashMap<>();
+        params.put("source","android");
+        params.put("sid",sid);
+        params.put("date",date);
+        params.put("openId",openId);
+        params.put("startPos",String.valueOf(page));
+        params.put("step",String.valueOf(size));
+        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.ORDERLIST_URL, params, new OkHttpUtils.UserNetCall() {
+            @Override
+            public void success(Call call, String json) {
+                ReceipeInfo info = new Gson().fromJson(json, ReceipeInfo.class);
+
+                if (info.getCode() == 2000){
+                    setRecipeInfo(info.getData());
+                    if (page == 1){
+                        mOrderList.clear();
+                    }
+                    if (info.getCode() == 2000){
+                        mOrderList.addAll(info.getData().getOrderList());
+                        mRecordeAdapter.notifyDataSetChanged();
+                    }
+                    if (mOrderList.size() == 0){
+                        mEmptyView.setVisibility(View.VISIBLE);
+                    }else{
+                        mEmptyView.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void failed(Call call, IOException e) {
+
+            }
+        });
+    }
+
+    private void setRecipeInfo(ReceipeInfo.DataBean data) {
+
+        Glide.with(this).load(data.getCustomerAvatar()).into(mIcon);
+        mName.setText(data.getCustomerName());
+        mSpeedMoney.setText(data.getTotalIncome());
+        mBackMoney.setText(data.getReturnOrderTotal());
     }
 }

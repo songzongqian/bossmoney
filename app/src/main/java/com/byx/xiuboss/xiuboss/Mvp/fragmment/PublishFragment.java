@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,9 +30,11 @@ import com.byx.xiuboss.xiuboss.Utils.DisplayUtil;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoLinearLayout;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +45,7 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -99,7 +103,8 @@ public class PublishFragment extends BaseFragment {
     private void initView() {
         mChangeStoreIcon.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SwichActivity.class);
-            intent.putExtra("id", /*sid*/"111");
+            String sid = SPUtils.getInstance(getActivity()).getString("sid");
+            intent.putExtra("id", sid);
             getActivity().startActivityForResult(intent,0x111);
             getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_silent);
         });
@@ -115,30 +120,41 @@ public class PublishFragment extends BaseFragment {
 
     public void requestIndexData() {
 
-        //Map<String,String>parmas = new HashMap<>();
-        //OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.INDEXDATA_URL,parmas,null);
-        ((MainActivity)getActivity()).cancelDialog();
-        mTabTitles.add("全部(173)");
-        mTabTitles.add("返现(23)");
+        Map<String,String>parmas = new HashMap<>();
+        String sid = SPUtils.getInstance(getActivity()).getString("sid");
+        parmas.put("source","android");
+        parmas.put("sid",sid);
+        //parmas.put("token","49e1tBbQn-uRAuUxFCIyVby5klNeYZ1UIKkUmfuWAzbXyox4lb9heQ");
 
+        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.INDEXDATA_URL, parmas, new OkHttpUtils.UserNetCall() {
+            @Override
+            public void success(Call call, String json) {
+                ((MainActivity)getActivity()).cancelDialog();
+                StoreInfo info = new Gson().fromJson(json, StoreInfo.class);
+                if (info.getCode() == 2000){
+                    setIndexData(info.getData());
+                }
+            }
 
-        /*StoreInfo info = new StoreInfo();
-        StoreInfo.DataBean data = info.getData();
-        setIndexData(data);*/
+            @Override
+            public void failed(Call call, IOException e) {
+
+            }
+        });
+
 
     }
 
     /*设置数据*/
     private void setIndexData(StoreInfo.DataBean infoBean) {
         mStoreName.setText(infoBean.getStoreName());
-        mAllIcome.setText(infoBean.getTotalIncome());
+        mAllIcome.setText(TextUtils.isEmpty(infoBean.getTotalIncome())?"0":infoBean.getTotalIncome());
         mBackPropt.setText("其中休休返现收入占比 "+infoBean.getTotalReturnRatio());
         mTabTitles.clear();
         mTabTitles.add("全部("+infoBean.getOrderCount()+")");
         mTabTitles.add("返现("+infoBean.getReturnOrderCount()+")");
 
         BackCashFragmentAdapter mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
-        ((AllSpeadCashFragment)mFragments.get(0)).setSpeadCashList(infoBean.getOrderList());
         mViewPager.setAdapter(mAdapter);
         mSlideTabLayout.setViewPager(mViewPager);
 

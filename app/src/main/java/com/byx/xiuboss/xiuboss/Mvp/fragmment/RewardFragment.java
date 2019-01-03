@@ -13,15 +13,28 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.byx.xiuboss.xiuboss.Bean.RewardInfo;
+import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
 import com.byx.xiuboss.xiuboss.Mvp.activity.TipsActivity;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.RewardAdapter;
+import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
+import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
+import com.google.gson.Gson;
 import com.zhy.autolayout.AutoLinearLayout;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +78,11 @@ public class RewardFragment extends BaseFragment {
     RecyclerView mRecyclerView;
     Unbinder unbinder;
 
+    private int page;
+    private int size;
+    private List<RewardInfo.DataBean.ShareTasksBean>mRewardList = new ArrayList<>();
+    private RewardAdapter mRewardAdapter;
+
     public RewardFragment() {
         // Required empty public constructor
     }
@@ -92,11 +110,67 @@ public class RewardFragment extends BaseFragment {
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(manager);
-        //RewardAdapter mRewardAdapter = new RewardAdapter(null,getActivity());
-        //mRecyclerView.setAdapter(mRewardAdapter);
+        mRewardAdapter = new RewardAdapter(mRewardList,getActivity());
+        mRecyclerView.setAdapter(mRewardAdapter);
+
+        mRewardAdapter.setOnItemClickListener((position, rdst) -> {
+
+        });
     }
 
     private void initData() {
+        requestCashData();
+    }
+
+    public void requestCashData(){
+
+        String sid = SPUtils.getInstance(getActivity()).getString("sid");
+
+        Map<String,String> params = new HashMap<>();
+        params.put("source","android");
+        params.put("sid",sid);
+        params.put("startPos",String.valueOf(page));
+        params.put("step",String.valueOf(size));
+        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.GETCASH_URL, params, new OkHttpUtils.UserNetCall() {
+            @Override
+            public void success(Call call, String json) {
+                RewardInfo info = new Gson().fromJson(json, RewardInfo.class);
+                if (page == 1){
+                    mRewardList.clear();
+                }
+                List<RewardInfo.DataBean.ShareTasksBean> shareTasks = info.getData().getShareTasks();
+                if (info.getCode() == 2000){
+                    info.getData();
+                    mRewardList.addAll(info.getData().getShareTasks());
+                    mRewardAdapter.notifyDataSetChanged();
+                }
+                if (mRewardList.size() == 0){
+                   // mEmptyView.setVisibility(View.VISIBLE);
+                }else{
+                   // mEmptyView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void failed(Call call, IOException e) {
+
+            }
+        });
+
+    }
+    public void setRewardInfo(RewardInfo.DataBean dataBean){
+
+        mLeveGap.setText(dataBean.getStepTitle());
+        mGradeMoney.setText(dataBean.getReturnCash());
+        mNextGradeOne.setText(dataBean.getNextStepTitle());
+        mNextGradeTwo.setText(dataBean.getNextReturnCash());
+        mCurLeverScore.setText(dataBean.getCreditScore());
+        mNextLeverScore.setText(dataBean.getNextCreditScore());
+        mCurLever.setText(dataBean.getStepTitle());
+        mNextLever.setText(dataBean.getNextStepTitle());
+        mCurScore.setText(dataBean.getCreditScore());
+        mGapScore.setText("0"); //还差多少分
+        mNextGrade.setText(dataBean.getNextStepTitle());
 
     }
 

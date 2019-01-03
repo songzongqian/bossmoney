@@ -16,6 +16,7 @@ public class StoreInfo {
 
     private int code;
     private String message;
+    private String msg;
     private DataBean data;
 
     public int getCode() {
@@ -32,6 +33,14 @@ public class StoreInfo {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public DataBean getData() {

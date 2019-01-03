@@ -237,6 +237,7 @@ public class OkHttpUtils {
      */
     public void postDataAsynToUi(String url, Map<String, String> bodyParams, final UserNetCall userNetCall) {
         this.mUserNetCall = userNetCall;
+        bodyParams.put("debug","1");
         //1构造RequestBody
         RequestBody body = setRequestBody(bodyParams);
         //2 构造Request

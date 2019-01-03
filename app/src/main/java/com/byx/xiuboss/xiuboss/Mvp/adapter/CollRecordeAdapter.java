@@ -9,37 +9,22 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.byx.xiuboss.xiuboss.Bean.DealBean;
-import com.byx.xiuboss.xiuboss.Bean.SwichBean;
+import com.byx.xiuboss.xiuboss.Bean.ReceipeInfo;
 import com.byx.xiuboss.xiuboss.R;
-import com.zhy.autolayout.utils.AutoUtils;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by wangwenjie001 on 2018/10/5.
  */
 
 public class CollRecordeAdapter extends RecyclerView.Adapter<CollRecordeAdapter.VhHolder> {
-    private List<DealBean.DataBean> mList;
+    private List<ReceipeInfo.DataBean.OrderListBean> mList;
     private LayoutInflater inflater;
     private Context mContext;
-    private BackCashAdapter.OnItemClickListener mListener;
+    private CollRecordeAdapter.OnItemClickListener mListener;
 
-    public CollRecordeAdapter(List<DealBean.DataBean> mComOrderData, Context context) {
+    public CollRecordeAdapter(List<ReceipeInfo.DataBean.OrderListBean> mComOrderData, Context context) {
         this.mList = mComOrderData;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
@@ -56,21 +41,20 @@ public class CollRecordeAdapter extends RecyclerView.Adapter<CollRecordeAdapter.
     @Override
     public void onBindViewHolder(@NonNull VhHolder holder, int position) {
 
-        setChildInitData(holder, mList.get(position), position);
-        setOnClickListener(holder, mList.get(position), position);
+        ReceipeInfo.DataBean.OrderListBean orderListBean = mList.get(position);
+        holder.mTitle.setText(orderListBean.getInfo());
+        holder.mTime.setText(orderListBean.getDatetime());
+        holder.mCash.setText(orderListBean.getTotal());
+        holder.mBack.setText(orderListBean.getReturnCash());
+
+        setOnClickListener(holder, orderListBean, position);
     }
 
-    private void setOnClickListener(VhHolder holder, final DealBean.DataBean dataBean, final int position) {
+    private void setOnClickListener(VhHolder holder, final ReceipeInfo.DataBean.OrderListBean dataBean, final int position) {
 
         holder.itemView.setOnClickListener(view -> {
            // mListener.onItemClick(position, dataBean);
         });
-
-    }
-
-
-    private void setChildInitData(VhHolder cVh, DealBean.DataBean dataBean, int position) {
-        if (dataBean == null) return;
 
     }
 
@@ -94,12 +78,12 @@ public class CollRecordeAdapter extends RecyclerView.Adapter<CollRecordeAdapter.
         }
     }
 
-    public void setOnItemClickListener(BackCashAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(CollRecordeAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, DealBean.DataBean categorysBean);
+        void onItemClick(int position, ReceipeInfo.DataBean.OrderListBean orderBean);
 
     }
 }
