@@ -16,7 +16,9 @@ import com.byx.xiuboss.xiuboss.Mvp.adapter.BalanceAdapter;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
 import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.GetHeaderPwd;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
@@ -90,7 +92,7 @@ public class WithDrawActivity extends BaseActivity {
         smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshLayout) {
-                refreshMore();
+               // refreshMore();
                 smartRefreshLayout.finishLoadmore();
             }
         });
@@ -128,23 +130,31 @@ public class WithDrawActivity extends BaseActivity {
     }
 
     private void initData() {
+        if(headerMap!=null){
+            headerMap.clear();
+        }
 
-
-        /*headerMap.put("sid",sid);
+        String timeFlag = GetHeaderPwd.getTimeFlag();
+        headerMap.put("appid","148");
+        headerMap.put("sid",sid);
         headerMap.put("startPos",page+"");
         headerMap.put("source","android");
         headerMap.put("sid",sid);
-        headerMap.put("step",10+"");*/
+        headerMap.put("step",10+"");
+        headerMap.put("time",timeFlag);
+        String[] array={"appid","sid","startPos","source","step","time"};
+        String md5 = GetHeaderPwd.getMd5(headerMap, array);
 
-
-
-
+        RequestHeaders headers=new RequestHeaders();
+        headers.put("sign",md5);
         requestParams = new RequestParams();
         requestParams.put("sid",sid);
         requestParams.put("startPos",page+"");
         requestParams.put("source","android");
         requestParams.put("step",10+"");
-        requestParams.put("debug",1+"");
+        requestParams.put("time",timeFlag);
+
+        //requestParams.put("debug",1+"");
         OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).execute(new MyJsonCallBack<MyBalanceBean>() {
 
             @Override
@@ -161,6 +171,7 @@ public class WithDrawActivity extends BaseActivity {
             @Override
             public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
                 super.onError(call, response, e);
+                e.printStackTrace();
             }
         });
 

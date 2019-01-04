@@ -29,11 +29,18 @@ public class GetHeaderPwd {
             sb.append(array1[x]);
         }
         String valueStr = sb.toString();
+        System.out.println("需要机密的字符串"+valueStr);
         String headerMd5 = Base64Utils.MD5(valueStr);
+        System.out.println("加密后的header"+headerMd5);
         return  headerMd5;
     }
 
 
-
+    public static  String getTimeFlag(){
+        long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
+        String  xxx=String.valueOf(time);
+        System.out.println("时间戳"+xxx);
+        return xxx;
+    }
 
 }

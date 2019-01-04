@@ -84,6 +84,12 @@ public class AppUrl {
 
     public static final String CASHRECORD_URL = BaseUrl+"/CI/ST12.php/StoreInfo/GetCashList";
 
+   /**我的页面**/
+
+   public static final String NEWMY_URL = BaseUrl+"/CI/ST12.php/StoreMy/myHome";
+
+
+
 
 
 }

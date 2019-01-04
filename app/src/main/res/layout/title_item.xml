@@ -15,6 +15,7 @@
         >
 
         <ImageView
+            android:paddingTop="20px"
             android:id="@+id/title_back_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
     </RelativeLayout>
 
     <TextView
+        android:paddingTop="20px"
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +36,7 @@
         android:layout_centerVertical="true"
         android:textSize="18sp"
         android:text="我的页面"
-        android:textColor="#FFFFFF"
+        android:textColor="#FDE3B6"
         />
 
     <RelativeLayout

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/indexorder_f" android:state_selected="false"/>
-    <item android:drawable="@drawable/indexorder_s" android:state_selected="true"/>
+    <item android:drawable="@drawable/nav_icon_find_def" android:state_selected="false"/>
+    <item android:drawable="@drawable/nav_icon_find_pre" android:state_selected="true"/>
 </selector>

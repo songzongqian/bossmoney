@@ -66,7 +66,7 @@ public class HistoryRecordActivity extends BaseActivity {
 
 
     private void initView() {
-        titleText.setText("提现记录");
+        titleText.setText("收款明细");
         rlSave.setVisibility(View.GONE);
         //获取Sid
         SharedPreferences share = getSharedPreferences("login_sucess", MODE_PRIVATE);

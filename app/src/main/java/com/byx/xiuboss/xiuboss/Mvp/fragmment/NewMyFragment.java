@@ -29,6 +29,8 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.byx.xiuboss.xiuboss.Bean.MyFragmentBean;
 import com.byx.xiuboss.xiuboss.Bean.SwitchBean;
 import com.byx.xiuboss.xiuboss.Mvp.activity.HelpActivity;
@@ -53,6 +55,7 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
 import okhttp3.Response;
+import retrofit2.http.PATCH;
 
 public class NewMyFragment extends BaseFragment {
 
@@ -136,18 +139,21 @@ public class NewMyFragment extends BaseFragment {
             RequestParams params = new RequestParams();
             params.put("sid", sid);
             params.put("mobile", mobile1);
-            OkHttpUtils.post(AppUrl.MYPAGE_URL).params(params).execute(new MyJsonCallBack<MyFragmentBean>() {
+            params.put("debug","1");
+            OkHttpUtils.post(AppUrl.NEWMY_URL).params(params).execute(new MyJsonCallBack<MyFragmentBean>() {
 
                 @Override
                 public void onResponse(MyFragmentBean myFragmentBean) {
                     if (myFragmentBean != null && myFragmentBean.getCode() == 2000) {
                         middleBean=myFragmentBean;
                         tvShopName.setText(myFragmentBean.getData().getTitle());
-                        tvBiLi.setText(myFragmentBean.getData().getAmount());//返现比例
-                        Glide.with(getActivity()).load(myFragmentBean.getData().getLogo()).into(ivAvatar);
+                        tvBiLi.setText(myFragmentBean.getData().getReturnratio()+"%");//返现比例
+                        RequestOptions requestOptions = new RequestOptions()
+                                .error(R.mipmap.my_icon_portrait_s)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL);
+                        Glide.with(getActivity()).load(myFragmentBean.getData().getLogo()).apply(requestOptions).into(ivAvatar);
                         userName.setText(myFragmentBean.getData().getUsername());
                         identity.setText(myFragmentBean.getData().getRole());
-
                     } else {
 
                     }

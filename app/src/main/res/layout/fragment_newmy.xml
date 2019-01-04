@@ -139,7 +139,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
-                app:srcCompat="@mipmap/index_icon_code" />
+                app:srcCompat="@mipmap/my_icon_money" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
-                app:srcCompat="@mipmap/index_icon_code" />
+                app:srcCompat="@mipmap/my_icon_voice" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -228,7 +228,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
-                app:srcCompat="@mipmap/index_icon_code" />
+                app:srcCompat="@mipmap/my_icon_service" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -269,7 +269,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
-                app:srcCompat="@mipmap/index_icon_code" />
+                app:srcCompat="@mipmap/my_icon_problem" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -303,7 +303,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
-                app:srcCompat="@mipmap/index_icon_code" />
+                app:srcCompat="@mipmap/my_icon_set" />
 
             <TextView
                 android:layout_width="wrap_content"
