@@ -11,7 +11,7 @@
         android:layout_height="237dp"
         android:background="#D45047"
         android:orientation="vertical"
-        android:paddingTop="20dp">
+        android:paddingTop="25dp">
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"

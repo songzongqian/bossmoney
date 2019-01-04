@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.JsonCallBack;
 import com.lzy.okhttputils.model.RequestParams;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 
@@ -45,6 +46,9 @@ public class AllSpeadCashFragment extends BaseFragment {
     RecyclerView mRecyclerView;
     @BindView(R.id.mEmptyView)
     AutoRelativeLayout mEmptyView;
+    @BindView(R.id.smartRefreshLayout)
+    SmartRefreshLayout smartRefreshLayout;
+
     Unbinder unbinder;
     private View mView;
     private int page = 1;
@@ -78,6 +82,16 @@ public class AllSpeadCashFragment extends BaseFragment {
             Intent intent = new Intent(getActivity(), CollRecordeActivity.class);
             startActivity(intent);
         });
+        smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            if (page>1){
+                page = 1;
+            }
+            initData();
+        });
+        smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            page ++;
+            initData();
+        });
     }
 
     public void setBackCashData(){
@@ -102,6 +116,8 @@ public class AllSpeadCashFragment extends BaseFragment {
         OkHttpUtils.post(AppUrl.INDEXDATA_URL).params(params).execute(new JsonCallBack<String>() {
             @Override
             public void onResponse(String json) {
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
                 StoreInfo info = new Gson().fromJson(json, StoreInfo.class);
                 if (page == 1){
                     mCashList.clear();
@@ -121,6 +137,8 @@ public class AllSpeadCashFragment extends BaseFragment {
             @Override
             public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
                 super.onError(call, response, e);
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
             }
         });
 

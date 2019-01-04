@@ -19,6 +19,7 @@ import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class BackCashFragment extends BaseFragment {
     RecyclerView mRecyclerView;
     @BindView(R.id.mEmptyView)
     AutoRelativeLayout mEmptyView;
+    @BindView(R.id.smartRefreshLayout)
+    SmartRefreshLayout smartRefreshLayout;
     Unbinder unbinder;
     private View mView;
 
@@ -77,6 +80,16 @@ public class BackCashFragment extends BaseFragment {
             Intent intent = new Intent(getActivity(), CollRecordeActivity.class);
             startActivity(intent);
         });
+        smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            if (page>1){
+                page = 1;
+            }
+            initData();
+        });
+        smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            page ++;
+            initData();
+        });
     }
 
     public void requestCashData(){
@@ -94,6 +107,8 @@ public class BackCashFragment extends BaseFragment {
         OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.INDEXDATA_URL, params, new OkHttpUtils.UserNetCall() {
             @Override
             public void success(Call call, String json) {
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
                 StoreInfo info = new Gson().fromJson(json, StoreInfo.class);
                 if (page == 1){
                     mCashList.clear();
@@ -112,7 +127,8 @@ public class BackCashFragment extends BaseFragment {
 
             @Override
             public void failed(Call call, IOException e) {
-
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
             }
         });
 

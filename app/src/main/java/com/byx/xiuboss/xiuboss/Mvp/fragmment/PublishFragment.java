@@ -34,6 +34,8 @@ import com.google.gson.Gson;
 import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoLinearLayout;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -148,11 +150,11 @@ public class PublishFragment extends BaseFragment {
     /*设置数据*/
     private void setIndexData(StoreInfo.DataBean infoBean) {
         mStoreName.setText(infoBean.getStoreName());
-        mAllIcome.setText("￥"+ infoBean.getTotalIncome());
-        mBackPropt.setText("其中休休返现收入占比 "+infoBean.getTotalReturnRatio());
+        mAllIcome.setText("￥"+ (TextUtils.isEmpty(infoBean.getTotalIncome())?"0":infoBean.getTotalIncome()));
+        mBackPropt.setText("其中休休返现收入占比 "+(TextUtils.isEmpty(infoBean.getTotalReturnRatio())?"0":infoBean.getTotalReturnRatio()));
         mTabTitles.clear();
-        mTabTitles.add("全部("+infoBean.getOrderCount()+")");
-        mTabTitles.add("返现("+infoBean.getReturnOrderCount()+")");
+        mTabTitles.add("全部("+(TextUtils.isEmpty(infoBean.getOrderCount())?"0":infoBean.getOrderCount())+")");
+        mTabTitles.add("返现("+(TextUtils.isEmpty(infoBean.getReturnOrderCount())?"0":infoBean.getReturnOrderCount())+")");
         mViewPager.removeAllViews();
         BackCashFragmentAdapter mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
         mViewPager.setAdapter(mAdapter);
