@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.byx.xiuboss.xiuboss.Bean.BillTestSecondBean;
 import com.byx.xiuboss.xiuboss.Bean.TurnoverTwoData;
 import com.byx.xiuboss.xiuboss.Mvp.activity.CollectDetailActivity;
+import com.byx.xiuboss.xiuboss.Mvp.activity.SettlementActivity;
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.DateTimeUtils;
 import com.byx.xiuboss.xiuboss.Utils.DatetoLong;
@@ -78,7 +79,8 @@ public class BillSecondAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CollectDetailActivity.class);
+                //Intent intent = new Intent(context, CollectDetailActivity.class);
+                Intent intent = new Intent(context, SettlementActivity.class);
                 Bundle bundle= new Bundle();
                 bundle.putString("sid",mySid);
                 bundle.putString("stat_day",secondList.get(position).getStat_day());

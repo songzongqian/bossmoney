@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
 import com.byx.xiuboss.xiuboss.MainActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.SwichActivity;
+import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashAdapter;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashFragmentAdapter;
 import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
@@ -75,6 +76,7 @@ public class PublishFragment extends BaseFragment {
 
     private ArrayList<BaseFragment>mFragments = new ArrayList<>();
     private ArrayList<String> mTabTitles = new ArrayList<>();
+    private BackCashFragmentAdapter mAdapter;
 
 
     public PublishFragment() {
@@ -109,9 +111,13 @@ public class PublishFragment extends BaseFragment {
             intent.putExtra("id", sid);
             startActivityForResult(intent,0x111);
             getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_silent);
+            /*初始化Fragment的数据*/
+            ((AllSpeadCashFragment)mFragments.get(0)).initRequest();
+            ((BackCashFragment)mFragments.get(1)).initRequest();
         });
         mFragments.add(new AllSpeadCashFragment());
         mFragments.add(new BackCashFragment());
+
     }
 
     @Override
@@ -155,8 +161,7 @@ public class PublishFragment extends BaseFragment {
         mTabTitles.clear();
         mTabTitles.add("全部("+(TextUtils.isEmpty(infoBean.getOrderCount())?"0":infoBean.getOrderCount())+")");
         mTabTitles.add("返现("+(TextUtils.isEmpty(infoBean.getReturnOrderCount())?"0":infoBean.getReturnOrderCount())+")");
-        mViewPager.removeAllViews();
-        BackCashFragmentAdapter mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
+        mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
         mViewPager.setAdapter(mAdapter);
         mSlideTabLayout.setViewPager(mViewPager);
 

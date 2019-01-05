@@ -126,9 +126,9 @@
         <activity android:name=".Mvp.activity.CollectDetailActivity" />
         <activity android:name=".Mvp.activity.HelpActivity" />
         <activity android:name=".Mvp.activity.NewLoginActivity" />
-        <activity android:name=".Mvp.activity.WalletActivity"/>
-        <activity android:name=".Mvp.activity.WithDrawActivity"/>
-        <activity android:name=".Mvp.activity.HistoryRecordActivity"/>
+        <activity android:name=".Mvp.activity.WalletActivity" />
+        <activity android:name=".Mvp.activity.WithDrawActivity" />
+        <activity android:name=".Mvp.activity.HistoryRecordActivity" />
 
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -180,14 +180,16 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <!-- Optional 微信分享回调,wxapi必须在包名路径下，否则回调不成功 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".Mvp.activity.CollRecordeActivity"></activity>
+        <activity android:name=".Mvp.activity.CollRecordeActivity" />
+        <activity android:name=".Mvp.activity.SettlementActivity" />
+        <activity android:name=".Mvp.activity.SettRecordActivity"></activity>
     </application>
 
 </manifest>

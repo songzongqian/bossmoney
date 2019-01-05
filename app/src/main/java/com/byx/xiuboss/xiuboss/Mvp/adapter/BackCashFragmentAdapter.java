@@ -1,9 +1,12 @@
 package com.byx.xiuboss.xiuboss.Mvp.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 
 import com.byx.xiuboss.xiuboss.Mvp.fragmment.BackCashFragment;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
@@ -40,4 +43,10 @@ public class BackCashFragmentAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mTabTitles.get(position);
     }
+
+    /*@Override
+    public int getItemPosition(@NonNull Object object) {
+       // return super.getItemPosition(object);
+        return PagerAdapter.POSITION_NONE;
+    }*/
 }

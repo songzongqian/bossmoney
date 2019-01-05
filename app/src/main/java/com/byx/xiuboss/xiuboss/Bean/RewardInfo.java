@@ -75,14 +75,31 @@ public class RewardInfo {
         private String reciveStatus;
         private String curScore;
         private String shareReturnCash;
-
+        private String signtime;
         private String stepTitle;
         private String creditScore;
         private String returnCash;
         private String nextStepTitle;
         private String nextCreditScore;
         private String nextReturnCash;
+        private String nextGetCashTime;
         private List<ShareTasksBean> shareTasks;
+
+        public String getNextGetCashTime() {
+            return nextGetCashTime;
+        }
+
+        public void setNextGetCashTime(String nextGetCashTime) {
+            this.nextGetCashTime = nextGetCashTime;
+        }
+
+        public String getSigntime() {
+            return signtime;
+        }
+
+        public void setSigntime(String signtime) {
+            this.signtime = signtime;
+        }
 
         public String getReciveStatus() {
             return reciveStatus;
