@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_item" />
+
+
+    <TextView
+        android:id="@+id/login_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50px"
+        android:text="验证码登录"
+        android:textColor="#333333"
+        android:textSize="26px" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35px"
+                android:layout_marginTop="25px"
+                android:text="+86"
+                android:textColor="#000000"
+                android:textSize="16px" />
+
+            <com.byx.xiuboss.xiuboss.Mvp.view.ClearWriteEditText
+                android:id="@+id/login_userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="94px"
+                android:layout_marginTop="25px"
+                android:layout_marginRight="40px"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="输入您的手机号"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#2C2C2C"
+                android:textColorHint="#999999"
+                android:textSize="16px" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/login_userName"
+                android:layout_marginLeft="40px"
+                android:layout_marginTop="12px"
+                android:layout_marginRight="40px"
+                android:background="#999999" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_Password"
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:layout_marginTop="20px"
+            >
+
+
+            <com.byx.xiuboss.xiuboss.Mvp.view.ClearWriteEditText
+                android:id="@+id/login_passWord"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="40px"
+                android:layout_marginTop="30px"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="#2C2C2C"
+                android:textColorHint="#999999"
+                android:textSize="16px" />
+
+
+            <ImageView
+                android:id="@+id/iv_eye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40px"
+                android:background="@mipmap/login_icon_show" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="40px"
+                android:layout_marginTop="5px"
+                android:layout_marginRight="40px"
+                android:layout_below="@id/iv_eye"
+                android:background="#999999" />
+        </RelativeLayout>
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="46px"
+            android:layout_marginLeft="30dip"
+            android:layout_marginTop="20px"
+            android:layout_marginRight="30dip"
+            android:background="@drawable/button_tz"
+            android:text="登录"
+            android:textColor="#FDE3B6"
+            android:textSize="18px"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_getCode"
+            android:layout_width="match_parent"
+            android:layout_height="46px"
+            android:layout_marginLeft="30dip"
+            android:layout_marginTop="20px"
+            android:layout_marginRight="30dip"
+            android:background="@drawable/button_tz"
+            android:text="获取短信验证码"
+            android:textColor="#FDE3B6"
+            android:textSize="18px" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60px"
+        android:layout_margin="5px"
+        android:id="@+id/rl_loginTip"
+        >
+
+        <TextView
+            android:id="@+id/tv_loginTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码登录"
+            android:textSize="16px"
+            android:layout_centerInParent="true"
+            android:textColor="#333333"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

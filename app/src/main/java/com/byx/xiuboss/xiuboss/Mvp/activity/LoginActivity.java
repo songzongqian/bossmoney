@@ -1,213 +1,118 @@
 package com.byx.xiuboss.xiuboss.Mvp.activity;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.byx.xiuboss.xiuboss.Jgim.utils.BitmapLoader;
-import com.byx.xiuboss.xiuboss.Jgim.utils.LoginController;
-import com.byx.xiuboss.xiuboss.Jgim.utils.SharePreferenceManager;
-import com.byx.xiuboss.xiuboss.Jgim.utils.SoftKeyBoardStateHelper;
+import com.byx.xiuboss.xiuboss.Application.JgApplication;
+import com.byx.xiuboss.xiuboss.Bean.LoginBean;
+import com.byx.xiuboss.xiuboss.Bean.MsgCodeBean;
+import com.byx.xiuboss.xiuboss.Jgim.utils.ToastUtil;
+import com.byx.xiuboss.xiuboss.MainActivity;
 import com.byx.xiuboss.xiuboss.Mvp.view.ClearWriteEditText;
+import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
+import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
 import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.Base64Utils;
+import com.byx.xiuboss.xiuboss.Utils.GetHeaderPwd;
+import com.byx.xiuboss.xiuboss.Utils.RexUtils;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.RequestHeaders;
+import com.lzy.okhttputils.model.RequestParams;
 
-import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import cn.jpush.im.android.api.JMessageClient;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
- * 用户登录页面
+ * 1月份用户登录页面
  */
-public class LoginActivity extends BaseActivity implements View.OnFocusChangeListener, View.OnClickListener {
-    public ClearWriteEditText mLogin_userName;
-    public ClearWriteEditText mLogin_passWord;
-    public Button mBtn_login;
-    public Button mBtn_logins;
-    public TextView mLogin_register;
-    private LoginController mLoginController;
-    private ImageView mDe_login_logo;
-    private RelativeLayout mBackground;
-    private LinearLayout mLl_name_psw;
-    private boolean mLogoShow = true;
-    public TextView mLogin_desc;
-    private ImageView mLogin_userLogo;
-    private ImageView mLogin_pswLogo;
-    private View mUserLine;
-    //内部测试环境使用,发布时会置为false;此处对开发者来说即使打开也是没有效果的.
-    private boolean isTestVisibility = true;
-    private ImageView imgfinsh;
-    private RelativeLayout translate;
-    private TextView titleText;
-    private TextView forgetPassword;
-    private ImageView ivBack;
+public class LoginActivity extends BaseActivity {
+    @BindView(R.id.title_back_image)
+    ImageView titleBackImage;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
+    @BindView(R.id.title_text)
+    TextView titleText;
+    @BindView(R.id.wechat_showpup)
+    ImageView wechatShowpup;
+    @BindView(R.id.rl_save)
+    RelativeLayout rlSave;
+    @BindView(R.id.login_Title)
+    TextView loginTitle;
+    @BindView(R.id.login_userName)
+    ClearWriteEditText loginUserName;
+    @BindView(R.id.rl_userName)
+    RelativeLayout rlUserName;
+    @BindView(R.id.login_passWord)
+    ClearWriteEditText loginPassWord;
+    @BindView(R.id.iv_eye)
+    ImageView ivEye;
+    @BindView(R.id.rl_Password)
+    RelativeLayout rlPassword;
+    @BindView(R.id.btn_login)
+    Button btnLogin;
+    @BindView(R.id.btn_getCode)
+    Button btnGetCode;
+    @BindView(R.id.tv_loginTip)
+    TextView tvLoginTip;
+    @BindView(R.id.rl_loginTip)
+    RelativeLayout rlLoginTip;
+    int flag=0;
+    private int flagPoint = 0;
+    private String passWord;
+    private String version;
+    private Set<String> pushTag = new HashSet<>();
+    private String userName;
+    Map<String,String> headerMap=new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-    initView();
-    initData();
-    mLoginController = new LoginController(this);
-    mBtn_login.setOnClickListener(mLoginController);
-    mLogin_register.setOnClickListener(mLoginController);
-}
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.login_userName:
-            case R.id.login_passWord:
-                if (getLogoShow()) {
-                    mLl_name_psw.startAnimation(moveToView(0.0f, 0.0f, 0.32f, 0.0f));
-                    setLogoShow(false);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-
-
-    public void setLogoShow(boolean isLogoShow) {
-        mLogoShow = isLogoShow;
-    }
-
-    public boolean getLogoShow() {
-        return mLogoShow;
-    }
-
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        switch (v.getId()) {
-            case R.id.login_userName:
-                if (hasFocus) {
-                    //mLogin_pswLogo.setImageResource(R.drawable.login_psw_press);
-                    mBtn_login.setVisibility(View.GONE);
-                    mBtn_logins.setVisibility(View.VISIBLE);
-                } else {
-                    //mLogin_pswLogo.setImageResource(R.drawable.login_psw_normal);
-                    mBtn_login.setVisibility(View.GONE);
-                    mBtn_logins.setVisibility(View.VISIBLE);
-                }
-                if (hasFocus && getLogoShow()) {
-                    setLogoShow(false);
-                }
-                break;
-            case R.id.login_passWord:
-                if (hasFocus) {
-                    //mLogin_pswLogo.setImageResource(R.drawable.login_psw_press);
-                    mBtn_login.setVisibility(View.VISIBLE);
-                    mBtn_logins.setVisibility(View.GONE);
-                } else {
-                    //mLogin_pswLogo.setImageResource(R.drawable.login_psw_normal);
-                    mBtn_login.setVisibility(View.VISIBLE);
-                    mBtn_logins.setVisibility(View.GONE);
-                }
-                if (hasFocus && getLogoShow()) {
-                    setLogoShow(false);
-                }
-                break;
-            case R.id.title_back_image:
-                finish();
-                break;
-        }
-    }
-
-    private void initData() {
-        mLogin_userName.setOnFocusChangeListener(this);
-        mLogin_passWord.setOnFocusChangeListener(this);
-        mLogin_userName.setOnClickListener(this);
-        mLogin_passWord.setOnClickListener(this);
-        SoftKeyBoardStateHelper helper = new SoftKeyBoardStateHelper(findViewById(R.id.ll_name_psw));
-        helper.addSoftKeyboardStateListener(new SoftKeyBoardStateHelper.SoftKeyboardStateListener() {
-            @Override
-            public void onSoftKeyboardOpened(int keyboardHeightInPx) {
-                //软键盘弹起
-            }
-
-            @Override
-            public void onSoftKeyboardClosed() {
-                //软键盘关闭
-
-            }
-        });
-
-    }
-
-
-    public TranslateAnimation moveToView(float a, float b, float c, float d) {
-        TranslateAnimation mHiddenAction = new TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, a,
-                Animation.RELATIVE_TO_SELF, b,
-                Animation.RELATIVE_TO_SELF, c,
-                Animation.RELATIVE_TO_SELF, d);
-        mHiddenAction.setDuration(250);
-        return mHiddenAction;
+        setContentView(R.layout.activity_indexlogin);
+        ButterKnife.bind(this);
+        initView();
+        initData();
     }
 
 
     private void initView() {
-        ivBack = findViewById(R.id.title_back_image);
-        mLogin_userName = (ClearWriteEditText) findViewById(R.id.login_userName);
-        mLogin_passWord = (ClearWriteEditText) findViewById(R.id.login_passWord);
-        mBtn_login = (Button) findViewById(R.id.btn_login);
-        mBtn_logins = (Button) findViewById(R.id.btn_logins);
-        mDe_login_logo = (ImageView) findViewById(R.id.de_login_logo);
-        mLogin_register = (TextView) findViewById(R.id.login_register);
-        mLl_name_psw = (LinearLayout) findViewById(R.id.ll_name_psw);
-        translate = (RelativeLayout) findViewById(R.id.translate);
-        titleText = findViewById(R.id.title_text);
-        forgetPassword = findViewById(R.id.forgetPassword);
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(LoginActivity.this,Login_RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCallPopupWindow("0330-3576321");
-            }
-        });
-        mUserLine = findViewById(R.id.user_line);
-        titleText.setText("登录");
-        //退出登录重现上次的账号以及头像
-        String userName =   SharePreferenceManager.getCachedUsername();
-        String userAvatar = SharePreferenceManager.getCachedAvatarPath();
-        Bitmap bitmap = BitmapLoader.getBitmapFromFile(userAvatar, mAvatarSize, mAvatarSize);
-        if (bitmap != null) {
-            mDe_login_logo.setImageBitmap(bitmap);
-        } else {
-            mDe_login_logo.setImageResource(R.mipmap.logo_sp);
-        }
-        mLogin_userName.setText(userName);
-        if (userName != null)
-            mLogin_userName.setSelection(userName.length());//设置光标位置
+        setStatusBar(true);
+        titleText.setVisibility(View.INVISIBLE);
+        rlPassword.setVisibility(View.INVISIBLE);
+        tvLoginTip.setText("密码登录");
+        loginTitle.setText("验证码登录");
+        btnGetCode.setVisibility(View.VISIBLE);
+        btnLogin.setVisibility(View.INVISIBLE);
+        btnGetCode.setAlpha(0.4f);
 
         //当把用户名删除后头像要换成默认的
-        mLogin_userName.addTextChangedListener(new TextWatcher() {
+        loginUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -215,11 +120,13 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mDe_login_logo.setImageResource(R.mipmap.logo_sp);
-                if (mLogin_userName.getText().length() == 0 || mLogin_passWord.getText().length() == 0) {
-                    mBtn_login.setEnabled(false);
+                if (loginUserName.getText().length() == 0 ) {
+                    btnGetCode.setEnabled(false);
+                    btnGetCode.setAlpha(0.4f);
+
                 } else {
-                    mBtn_login.setEnabled(true);
+                    btnGetCode.setEnabled(true);
+                    btnGetCode.setAlpha(1.0f);
                 }
             }
             @Override
@@ -230,17 +137,25 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 
 
 
-        mLogin_passWord.addTextChangedListener(new TextWatcher(){
+
+        loginPassWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mLogin_userName.getText().length() == 0 || mLogin_passWord.getText().length() == 0) {
-                    mBtn_login.setEnabled(false);
+
+                if (loginPassWord.getText().length() == 0 ) {
+                    btnLogin.setEnabled(false);
+                    btnLogin.setAlpha(0.4f);
+
                 } else {
-                    mBtn_login.setEnabled(true);
+                    btnLogin.setEnabled(true);
+                    btnLogin.setAlpha(1.0f);
                 }
+
             }
 
             @Override
@@ -248,82 +163,196 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 
             }
         });
+    }
+
+    private void initData() {
+
 
     }
 
-    public String getUserId() {
-        return mLogin_userName.getText().toString().trim();
-    }
+    @OnClick({R.id.rl_back, R.id.iv_eye, R.id.btn_login, R.id.btn_getCode, R.id.rl_loginTip})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_back:
+                finish();
+                break;
+            case R.id.iv_eye:
 
-    public String getPassword() {
-        return mLogin_passWord.getText().toString().trim();
-    }
+                if(flagPoint==0){
+                    //显示明文
+                    passWord = loginPassWord.getText().toString().trim();
+                    if(TextUtils.isEmpty(passWord)){
+                        ivEye.setBackgroundResource(R.mipmap.login_icon_hide);
+                        flagPoint=1;
+                    }else{
+                        loginPassWord.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        loginPassWord.setSelection(passWord.length());
+                        ivEye.setBackgroundResource(R.mipmap.login_icon_hide);
+                        flagPoint=1;
+                    }
+                }else if(flagPoint==1){
+                    //显示密文
+                    passWord = loginPassWord.getText().toString().trim();
+                    if(TextUtils.isEmpty(passWord)){
+                        ivEye.setBackgroundResource(R.mipmap.login_icon_show);
+                        flagPoint=0;
+                    }else{
+                        loginPassWord.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        loginPassWord.setSelection(passWord.length());
+                        ivEye.setBackgroundResource(R.mipmap.login_icon_show);
+                        flagPoint=0;
+                    }
+                }
 
-    public static Boolean invokeIsTestEvn() {
-        try {
-            Method method = JMessageClient.class.getDeclaredMethod("isTestEnvironment");
-            Object result = method.invoke(null);
-            return (Boolean) result;
-        } catch (Exception e) {
-            e.printStackTrace();
+                break;
+            case R.id.btn_login:
+                //点击密码登录
+                userName = loginUserName.getText().toString().trim();
+                passWord = loginPassWord.getText().toString().trim();
+                if (TextUtils.isEmpty(userName) || RexUtils.isMobileNO(userName) == false) {
+                    Toast.makeText(LoginActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+                }
+                if (TextUtils.isEmpty(passWord)){
+                    Toast.makeText(LoginActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                }
+                //手机号和密码不能为空
+                if (!TextUtils.isEmpty(userName) && RexUtils.isMobileNO(userName) && !TextUtils.isEmpty(passWord)) {
+                    PackageManager packageManager =LoginActivity.this.getPackageManager();
+                    try {
+                        PackageInfo packInfo = packageManager.getPackageInfo(LoginActivity.this.getPackageName(), 0);
+                        version = packInfo.versionName;
+                        System.out.println("当前的版本号" + version);
+                    } catch (PackageManager.NameNotFoundException e){
+                        e.printStackTrace();
+                    }
+
+
+                    if(headerMap!=null){
+                        headerMap.clear();
+                    }
+                    String md5Pwd = Base64Utils.MD5(passWord);
+                    String timeFlag = GetHeaderPwd.getTimeFlag();
+                    headerMap.put("mobile",userName);
+                    headerMap.put("password",passWord);
+                    headerMap.put("source","android");
+                    headerMap.put("version",version);
+                    headerMap.put("t",timeFlag);
+
+                    String[] array={"mobile","password","source","version","t"};
+                    String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
+
+                    RequestHeaders headers=new RequestHeaders();
+                    headers.put("sign",md5);
+                    headers.put("appid","148");
+
+
+                    RequestParams requestParams = new RequestParams();
+                    requestParams.put("mobile", userName);
+                    requestParams.put("password", passWord);
+                    requestParams.put("source", "android");
+                    requestParams.put("version", version);
+                    requestParams.put("t",timeFlag);
+
+                    OkHttpUtils.post(AppUrl.LOGINNEW_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<LoginBean>() {
+                        @Override
+                        public void onResponse(LoginBean loginBean) {
+                          if (loginBean != null && loginBean.getCode() == 2000) {
+                                SharedPreferences share = LoginActivity.this.getSharedPreferences("login_sucess", LoginActivity.this.MODE_PRIVATE);
+                                //获取第一个店铺的sid
+                                List<LoginBean.DataBean.SidBean> sid = loginBean.getData().getSid();
+                                String firstSid = loginBean.getData().getSid().get(0).getSid();
+                                pushTag.add(firstSid);
+                                String mycookie = loginBean.getData().getMycookie();
+                                SharedPreferences.Editor edit = share.edit();
+                                edit.putString("sid", firstSid);
+                                edit.putString("mycookie", mycookie);
+                                edit.putString("id", loginBean.getData().getId());
+                                edit.putString("mobile", loginBean.getData().getMobile());
+                                edit.putString("payMobile", sid.get(0).getManagerMobile());
+                                Log.e("boss", "managerMobile号码" + sid.get(0).getManagerMobile());
+                                edit.putString("managerMobile", sid.get(0).getManagerMobile());
+                                edit.putString("homeTitle", sid.get(0).getTitle());
+                                edit.putString("userId", userName);
+                                edit.putBoolean("isLogin", true);
+                                edit.commit();
+
+
+                                //开始新的推送注册方式
+                                JPushInterface.setTags(LoginActivity.this, 0, pushTag);
+                                JPushInterface.resumePush(JgApplication.context);
+                                ToastUtil.shortToast(LoginActivity.this, "登陆成功");
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+
+
+
+
+                            } else if (loginBean != null && loginBean.getCode() == -1) {
+                                ToastUtil.shortToast(LoginActivity.this, "密码错误");
+                            }
+
+                        }
+
+                        @Override
+                        public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                            super.onError(call, response, e);
+                            ToastUtil.shortToast(LoginActivity.this, "密码错误");
+                        }
+                    });
+
+                }
+
+                break;
+            case R.id.btn_getCode:
+                //点击获取验证码
+               String  mobile = loginUserName.getText().toString().trim();
+                if (!TextUtils.isEmpty(mobile) && RexUtils.isMobileNO(mobile)){
+                    //输入手机号码
+                    RequestParams params = new RequestParams();
+                    params.put("mobile", mobile);
+                    params.put("debug","1");
+                    OkHttpUtils.post(AppUrl.GET_LOGINCODE).params(params).execute(new MyJsonCallBack<MsgCodeBean>() {
+
+                        @Override
+                        public void onResponse(MsgCodeBean msgCodeBean) {
+                            if (msgCodeBean != null && msgCodeBean.getCode() == 2000){
+                                Intent intent=new Intent(LoginActivity.this,PwdLoginActivity.class);
+                                intent.putExtra("mobile",mobile);
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                            super.onError(call, response, e);
+                        }
+                    });
+
+                }else{
+                    Toast.makeText(LoginActivity.this, "请输入正确的手机号码", Toast.LENGTH_LONG).show();
+                 }
+                break;
+            case R.id.rl_loginTip:
+                //切换登录方式
+                if(flag==0){
+                    //切换到密码登录
+                    tvLoginTip.setText("验证码登录");
+                    loginTitle.setText("密码登录");
+                    rlPassword.setVisibility(View.VISIBLE);
+                    btnGetCode.setVisibility(View.INVISIBLE);
+                    btnLogin.setVisibility(View.VISIBLE);
+                    flag=1;
+                }else if(flag==1){
+                    //切换到验证码登录
+                    flag=0;
+                    tvLoginTip.setText("密码登录");
+                    loginTitle.setText("验证码登录");
+                    rlPassword.setVisibility(View.INVISIBLE);
+                    btnGetCode.setVisibility(View.VISIBLE);
+                    btnLogin.setVisibility(View.INVISIBLE);
+                }
+                break;
         }
-        return false;
     }
-
-    public static void swapEnvironment(Context context, boolean isTest) {
-        try {
-            Method method = JMessageClient.class.getDeclaredMethod("swapEnvironment", Context.class, Boolean.class);
-            method.invoke(null, context, isTest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private void showCallPopupWindow(final String call){
-        View contentView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.popup_call, null, false);
-       final PopupWindow window = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        TextView callName = contentView.findViewById(R.id.call_name);
-        final TextView callNumber = contentView.findViewById(R.id.call_number);
-        TextView callDial = contentView.findViewById(R.id.call_dial);
-        TextView callCancel = contentView.findViewById(R.id.call_cancel);
-        callName.setVisibility(View.GONE);
-        callNumber.setText(call);
-        callDial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               call(call);
-            }
-        });
-        callCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                window.dismiss();
-            }
-        });
-        window.setOutsideTouchable(true);
-        window.setTouchable(true);
-        backgroundAlpha(0.5f);
-        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                backgroundAlpha(1.0f);
-            }
-        });
-        window.showAtLocation(LayoutInflater.from(LoginActivity.this).inflate(R.layout.activity_login, null), Gravity.CENTER, 0, 0);
-    }
-    /**
-     * 调用拨号界面	 * @param phone 电话号码
-     */
-    private void call(String phone) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        Uri data = Uri.parse("tel:" + phone);
-        intent.setData(data);
-        startActivity(intent);
-    }
-    private void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        getWindow().setAttributes(lp);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    }
-
 }

@@ -96,7 +96,7 @@ public class Login_RegisterActivity extends BaseActivity implements View.OnClick
                         startActivity(intent);
                     }
                 }, 1000);*/
-                Intent intent = new Intent(Login_RegisterActivity.this, NewLoginActivity.class);
+                Intent intent = new Intent(Login_RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_Register:

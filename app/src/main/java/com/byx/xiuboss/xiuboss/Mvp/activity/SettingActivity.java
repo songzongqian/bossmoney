@@ -99,11 +99,10 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.button_exit:
-                //JMessageClient.logout();
                 JPushInterface.stopPush(JgApplication.context);
                 SharedPreferences loginSuccess = this.getSharedPreferences("login_sucess", MODE_PRIVATE);
                 loginSuccess.edit().putBoolean("isLogin",false).commit();
-                Intent logoutIntent = new Intent(this, NewLoginActivity.class);
+                Intent logoutIntent = new Intent(this, LoginActivity.class);
                 logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(logoutIntent);
                 break;

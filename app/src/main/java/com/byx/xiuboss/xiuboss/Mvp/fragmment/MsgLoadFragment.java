@@ -150,7 +150,6 @@ public class MsgLoadFragment extends BaseFragment {
 
 
         RequestHeaders  headers=new RequestHeaders();
-
         RequestParams requestParams = new RequestParams();
         requestParams.put("mobile", mobile);
         requestParams.put("sms", smCode);

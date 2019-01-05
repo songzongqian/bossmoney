@@ -136,28 +136,26 @@ public class WithDrawActivity extends BaseActivity {
         }
 
         String timeFlag = GetHeaderPwd.getTimeFlag();
-        headerMap.put("appid","148");
         headerMap.put("sid",sid);
         headerMap.put("startPos",page+"");
         headerMap.put("source","android");
-        headerMap.put("sid",sid);
         headerMap.put("step",10+"");
-        headerMap.put("time",timeFlag);
-        String[] array={"appid","sid","startPos","source","step","time"};
-        String md5 = GetHeaderPwd.getMd5(headerMap, array);
+        headerMap.put("t",timeFlag);
+
+        String[] array={"sid","startPos","source","step","t"};
+        String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
 
         RequestHeaders headers=new RequestHeaders();
         headers.put("sign",md5);
+        headers.put("appid","148");
         requestParams = new RequestParams();
         requestParams.put("sid",sid);
         requestParams.put("startPos",page+"");
         requestParams.put("source","android");
         requestParams.put("step",10+"");
-        requestParams.put("time",timeFlag);
+        requestParams.put("t",timeFlag);
 
-        //requestParams.put("debug",1+"");
-        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).execute(new MyJsonCallBack<MyBalanceBean>() {
-
+        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<MyBalanceBean>() {
             @Override
             public void onResponse(MyBalanceBean myBalanceBean) {
                 if(myBalanceBean!=null && myBalanceBean.getCode()==2000){

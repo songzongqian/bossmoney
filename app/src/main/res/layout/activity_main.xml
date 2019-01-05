@@ -159,7 +159,7 @@
                 android:textSize="8sp"
                 android:textColor="#FFFFFF"
                 android:background="@mipmap/bottom_icon_red"
-                android:visibility="visible" />
+                android:visibility="invisible" />
         </RelativeLayout>
 
 

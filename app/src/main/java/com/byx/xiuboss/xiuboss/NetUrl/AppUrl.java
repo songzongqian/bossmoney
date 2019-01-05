@@ -159,5 +159,15 @@ public class AppUrl {
      **/
     public static final String RESULTSETTLE_URL = BaseUrl + "/CI/ST12.php/Customer/settleAccounts";
 
+    /** 新版登录**/
+
+    public static final String LOGINNEW_URL = BaseUrl + "/CI/ST12.php/Login/login";
+
+    /**设置比例**/
+
+    public static final String CASHRADIO_URL = BaseUrl + "/CI/ST12.php/StoreInfo/Set";
+
+
+
 
 }

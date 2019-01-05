@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.byx.xiuboss.xiuboss.Bean.MyFragmentBean;
+import com.byx.xiuboss.xiuboss.Bean.RatioBean;
 import com.byx.xiuboss.xiuboss.Bean.SwitchBean;
 import com.byx.xiuboss.xiuboss.Mvp.activity.HelpActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.OnLineServiceActivity;
@@ -40,13 +41,17 @@ import com.byx.xiuboss.xiuboss.Mvp.activity.WalletActivity;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
 import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.GetHeaderPwd;
 import com.byx.xiuboss.xiuboss.Utils.NetUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,6 +114,7 @@ public class NewMyFragment extends BaseFragment {
     private PopupWindow window;
     final List<String> mOptionsItems = new ArrayList<>();
     MyFragmentBean middleBean;
+    Map<String,String> headerMap=new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -136,16 +142,32 @@ public class NewMyFragment extends BaseFragment {
             sid = sharedPreferences.getString("sid", "");
             mobile1 = sharedPreferences.getString("mobile", "");
             managerMobile1 = sharedPreferences.getString("managerMobile", "");
+
+
+            String timeFlag = GetHeaderPwd.getTimeFlag();
+            headerMap.put("sid",sid);
+            headerMap.put("mobile",mobile1);
+            headerMap.put("t",timeFlag);
+
+            String[] array={"sid","mobile","t"};
+            String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
+
+            RequestHeaders headers= new RequestHeaders();
+            headers.put("sign",md5);
+            headers.put("appid","148");
+
             RequestParams params = new RequestParams();
             params.put("sid", sid);
             params.put("mobile", mobile1);
-            params.put("debug","1");
-            OkHttpUtils.post(AppUrl.NEWMY_URL).params(params).execute(new MyJsonCallBack<MyFragmentBean>() {
+            params.put("t",timeFlag);
+           // params.put("debug","1");
+            OkHttpUtils.post(AppUrl.NEWMY_URL).headers(headers).params(params).execute(new MyJsonCallBack<MyFragmentBean>() {
 
                 @Override
                 public void onResponse(MyFragmentBean myFragmentBean) {
+                    System.out.println(myFragmentBean);
                     if (myFragmentBean != null && myFragmentBean.getCode() == 2000) {
-                        middleBean=myFragmentBean;
+                        middleBean= myFragmentBean;
                         tvShopName.setText(myFragmentBean.getData().getTitle());
                         tvBiLi.setText(myFragmentBean.getData().getReturnratio()+"%");//返现比例
                         RequestOptions requestOptions = new RequestOptions()
@@ -157,7 +179,6 @@ public class NewMyFragment extends BaseFragment {
                     } else {
 
                     }
-
                 }
 
                 @Override
@@ -214,8 +235,33 @@ public class NewMyFragment extends BaseFragment {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3 ,View v) {
                         String tx = mOptionsItems.get(options1);
-                        tvBiLi.setText(tx+"%");
                         //上传比例到服务器
+                        RequestParams requestParams=new RequestParams();
+                        requestParams.put("sid",sid);
+                        requestParams.put("setKey","cashRatio");
+                        requestParams.put("setValue",tx);
+                        requestParams.put("source","android");
+                        requestParams.put("debug","1");
+                        OkHttpUtils.post(AppUrl.CASHRADIO_URL).params(requestParams).execute(new MyJsonCallBack<RatioBean>() {
+
+                            @Override
+                            public void onResponse(RatioBean ratioBean) {
+                                if(ratioBean!=null && ratioBean.getCode()==2000){
+                                    tvBiLi.setText(tx+"%");
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                                super.onError(call, response, e);
+                                e.printStackTrace();
+                            }
+                        });
+
+
+
                     }
                 }).build();
                 pvOptions.setPicker(mOptionsItems);
@@ -422,4 +468,16 @@ public class NewMyFragment extends BaseFragment {
         intent.setData(data);
         getActivity().startActivity(intent);
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //Fragment失去焦点
+        } else {
+            initData();
+        }
+    }
+
+
 }
