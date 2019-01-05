@@ -78,6 +78,7 @@ public class BackCashFragment extends BaseFragment {
 
         mCashAdapter.setOnItemClickListener((position, sorb) -> {
             Intent intent = new Intent(getActivity(), CollRecordeActivity.class);
+            intent.putExtra("uid",sorb.getUid());
             startActivity(intent);
         });
         smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
@@ -132,6 +133,9 @@ public class BackCashFragment extends BaseFragment {
             }
         });
 
+    }
+    public void initRequest(){
+        page = 1;
     }
 
 

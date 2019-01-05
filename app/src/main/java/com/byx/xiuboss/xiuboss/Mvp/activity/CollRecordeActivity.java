@@ -59,13 +59,14 @@ public class CollRecordeActivity extends BaseActivity {
     private int size = 10;
     private List<ReceipeInfo.DataBean.OrderListBean>mOrderList = new ArrayList<>();
     private CollRecordeAdapter mRecordeAdapter;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coll_recorde);
         ButterKnife.bind(this);
-
+        uid = getIntent().getStringExtra("uid");
         setStatusBar(true);
         initView();
         initData();
@@ -96,14 +97,13 @@ public class CollRecordeActivity extends BaseActivity {
     }
     public void requestRecordeData(){
         String sid = SPUtils.getInstance(this).getString("sid");
-        String openId = SPUtils.getInstance(this).getString("id");
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         String date = format.format(new Date(System.currentTimeMillis()));
         Map<String,String> params = new HashMap<>();
         params.put("source","android");
         params.put("sid",sid);
         params.put("date",date);
-        params.put("openId",openId);
+        params.put("openId",uid);
         params.put("startPos",String.valueOf(page));
         params.put("step",String.valueOf(size));
         OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.ORDERLIST_URL, params, new OkHttpUtils.UserNetCall() {
@@ -139,7 +139,7 @@ public class CollRecordeActivity extends BaseActivity {
 
         Glide.with(this).load(data.getCustomerAvatar()).into(mIcon);
         mName.setText(data.getCustomerName());
-        mSpeedMoney.setText(data.getTotalIncome());
-        mBackMoney.setText(data.getReturnOrderTotal());
+        mSpeedMoney.setText("￥ "+data.getTotalIncome());
+        mBackMoney.setText("共返现￥"+data.getReturnOrderTotal());
     }
 }

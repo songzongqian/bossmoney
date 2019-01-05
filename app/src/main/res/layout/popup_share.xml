@@ -5,7 +5,7 @@
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="166dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/button_shap_xiuxiu"
         android:orientation="vertical">
@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="22dp"
             android:gravity="center">
 
 
@@ -84,13 +84,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="10dp"
             android:background="#F6F6F6" />
 
-        <Button
+        <TextView
             android:id="@+id/cancel"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:background="#FFFFFF"
             android:text="取消"
             android:textColor="#666666"

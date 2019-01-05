@@ -80,6 +80,7 @@ public class AllSpeadCashFragment extends BaseFragment {
 
         mCashAdapter.setOnItemClickListener((position, sorb) -> {
             Intent intent = new Intent(getActivity(), CollRecordeActivity.class);
+            intent.putExtra("uid",sorb.getUid());
             startActivity(intent);
         });
         smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
@@ -122,7 +123,6 @@ public class AllSpeadCashFragment extends BaseFragment {
                 if (page == 1){
                     mCashList.clear();
                 }
-
                 if (info.getCode() == 2000){
                     mCashList.addAll(info.getData().getOrderList());
                     mCashAdapter.notifyDataSetChanged();
@@ -141,7 +141,9 @@ public class AllSpeadCashFragment extends BaseFragment {
                 smartRefreshLayout.finishLoadMore();
             }
         });
-
+    }
+    public void initRequest(){
+        page = 1;
     }
 
 

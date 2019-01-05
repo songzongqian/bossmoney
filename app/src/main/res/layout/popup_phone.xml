@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="232px"
-    android:layout_marginLeft="30px"
-    android:layout_marginRight="30px"
     android:background="@drawable/button_shap_xiuxiu"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="57px"
-        android:text="选择联系客服"
         android:gravity="center"
+        android:text="选择联系客服"
         android:textColor="#333333"
-        android:textSize="18px"
-        />
+        android:textSize="18px" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#F6F6F6"
-        />
+        android:background="#F6F6F6" />
+
     <RelativeLayout
         android:id="@+id/manager"
         android:layout_width="match_parent"
@@ -33,12 +30,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginTop="18px"
             android:layout_marginLeft="25px"
+            android:layout_marginTop="18px"
             android:text="商户经理"
-            android:textSize="16px"
             android:textColor="#666666"
-            />
+            android:textSize="16px" />
 
         <TextView
             android:id="@+id/managerMobile"
@@ -48,12 +44,10 @@
             android:layout_alignTop="@+id/manager_name"
             android:layout_marginRight="42px"
             android:text="0710-3780521"
-            android:textSize="16px"
             android:textColor="#999999"
-            />
+            android:textSize="16px" />
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/imageView3"
             android:layout_width="8px"
             android:layout_height="14px"
@@ -62,13 +56,15 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="25px"
             android:layout_marginTop="23px"
+            android:visibility="gone"
             app:srcCompat="@drawable/my_icon_next" />
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#F6F6F6"
-        />
+        android:background="#F6F6F6" />
+
     <RelativeLayout
         android:id="@+id/Customerservice"
         android:layout_width="match_parent"
@@ -79,13 +75,12 @@
             android:id="@+id/customerservice_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18px"
-            android:layout_marginLeft="25px"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="18px"
             android:text="客服电话"
-            android:textSize="16px"
             android:textColor="#666666"
-            />
+            android:textSize="16px" />
 
         <TextView
             android:id="@+id/mobile"
@@ -95,26 +90,25 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="42px"
             android:text="0330-3576321"
-            android:textSize="16px"
             android:textColor="#999999"
-            />
+            android:textSize="16px" />
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/imageView4"
             android:layout_width="8px"
             android:layout_height="14px"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_marginRight="25px"
             android:layout_marginTop="23px"
+            android:visibility="gone"
             app:srcCompat="@drawable/my_icon_next" />
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#F6F6F6"
-        />
+        android:background="#F6F6F6" />
 
 
     <RelativeLayout
@@ -127,22 +121,21 @@
             android:id="@+id/tv_online"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18px"
-            android:layout_marginLeft="25px"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="18px"
             android:text="联系在线客服"
-            android:textSize="16px"
             android:textColor="#666666"
-            />
+            android:textSize="16px" />
     </RelativeLayout>
+
     <Button
         android:id="@+id/cancel"
         android:layout_width="match_parent"
         android:layout_height="57px"
-        android:text="取消"
         android:background="#FFFFFF"
-        android:textSize="18px"
+        android:text="取消"
         android:textColor="#666666"
-        />
+        android:textSize="18px" />
 
 </LinearLayout>

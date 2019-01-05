@@ -97,6 +97,12 @@ public class HistoryRecordActivity extends BaseActivity {
 
 
     private void initData() {
+
+        showDialog();
+        getEmptyView().setOnClickListener(v -> {
+            initData();
+        });
+
         secondParams = new RequestParams();
         secondParams.put("sid",sid);
         secondParams.put("start",pageIndexSecond+"");
@@ -104,13 +110,13 @@ public class HistoryRecordActivity extends BaseActivity {
 
             @Override
             public void onResponse(BillTestSecondBean billTestSecondBean) {
+                cancelDialog();
                 if (billTestSecondBean != null && billTestSecondBean.getCode() == 2000) {
                     dataSecondList = billTestSecondBean.getData();
                     billSecondAdapter = new BillSecondAdapter(HistoryRecordActivity.this, dataSecondList, sid);
                     recycler.setAdapter(billSecondAdapter);
                     billSecondAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override

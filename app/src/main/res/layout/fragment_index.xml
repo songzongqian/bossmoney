@@ -937,12 +937,12 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/gif_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@mipmap/gift_img_light"
-        android:visibility="gone" />
+    android:id="@+id/gif_light"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="@mipmap/gift_img_light"
+    android:visibility="gone" />
 
 
 </RelativeLayout>

@@ -132,6 +132,15 @@ public class StoreInfo {
             private String returnCash;
             private String datetime;
             private String orderSn;
+            private String uid;
+
+            public String getUid() {
+                return uid;
+            }
+
+            public void setUid(String uid) {
+                this.uid = uid;
+            }
 
             public String getCustomerAvatar() {
                 return customerAvatar;

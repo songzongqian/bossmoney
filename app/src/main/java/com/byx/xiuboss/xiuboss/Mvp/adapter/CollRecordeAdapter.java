@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.byx.xiuboss.xiuboss.Bean.ReceipeInfo;
 import com.byx.xiuboss.xiuboss.R;
+
 import java.util.List;
 
 /**
@@ -44,8 +46,8 @@ public class CollRecordeAdapter extends RecyclerView.Adapter<CollRecordeAdapter.
         ReceipeInfo.DataBean.OrderListBean orderListBean = mList.get(position);
         holder.mTitle.setText(orderListBean.getInfo());
         holder.mTime.setText(orderListBean.getDatetime());
-        holder.mCash.setText(orderListBean.getTotal());
-        holder.mBack.setText(orderListBean.getReturnCash());
+        holder.mCash.setText("￥ " + orderListBean.getTotal());
+        holder.mBack.setText("返现￥" + orderListBean.getReturnCash());
 
         setOnClickListener(holder, orderListBean, position);
     }
@@ -53,7 +55,7 @@ public class CollRecordeAdapter extends RecyclerView.Adapter<CollRecordeAdapter.
     private void setOnClickListener(VhHolder holder, final ReceipeInfo.DataBean.OrderListBean dataBean, final int position) {
 
         holder.itemView.setOnClickListener(view -> {
-           // mListener.onItemClick(position, dataBean);
+            // mListener.onItemClick(position, dataBean);
         });
 
     }
