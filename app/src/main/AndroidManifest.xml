@@ -129,6 +129,8 @@
         <activity android:name=".Mvp.activity.WalletActivity" />
         <activity android:name=".Mvp.activity.WithDrawActivity" />
         <activity android:name=".Mvp.activity.HistoryRecordActivity" />
+        <activity android:name=".Mvp.activity.PwdLoginActivity"/>
+        <activity android:name=".Mvp.activity.FindWebViewActivity"/>
 
         <service
             android:name="cn.jpush.android.service.PushService"

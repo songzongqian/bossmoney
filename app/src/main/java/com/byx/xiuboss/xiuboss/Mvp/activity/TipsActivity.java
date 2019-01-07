@@ -1,7 +1,11 @@
 package com.byx.xiuboss.xiuboss.Mvp.activity;
 
+
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -9,12 +13,13 @@ import android.widget.TextView;
 
 import com.byx.xiuboss.xiuboss.Bean.Level;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.LevelAdapter;
-import com.byx.xiuboss.xiuboss.Mvp.adapter.TipsAdapter;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.R;
+import com.byx.xiuboss.xiuboss.Utils.GetHeaderPwd;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.JsonCallBack;
+import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
 
 import java.util.ArrayList;
@@ -29,69 +34,85 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 public class TipsActivity extends BaseActivity {
-
-    @BindView(R.id.lv)
-    ListView lv;
     @BindView(R.id.title_back_image)
     ImageView titleBackImage;
-    @BindView(R.id.title_text)
-    TextView titleText;
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
-    @BindView(R.id.textView37)
-    TextView textView37;
+    @BindView(R.id.title_text)
+    TextView titleText;
+    @BindView(R.id.wechat_showpup)
+    ImageView wechatShowpup;
+    @BindView(R.id.rl_save)
+    RelativeLayout rlSave;
+    @BindView(R.id.reward_rules)
+    ImageView rewardRules;
+    @BindView(R.id.tv_left)
+    TextView tvLeft;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
+    @BindView(R.id.tv_top)
+    TextView tvTop;
+    @BindView(R.id.tv_left_bottom)
+    TextView tvLeftBottom;
+    @BindView(R.id.tv_title_bottom)
+    TextView tvTitleBottom;
+    @BindView(R.id.tv_right_bottom)
+    TextView tvRightBottom;
+    @BindView(R.id.tv_bottom)
+    TextView tvBottom;
+    @BindView(R.id.lv)
+    ListView lv;
+
     private List<Level.DataBean> mLevelList = new ArrayList<>();
-
-    private String[] grddeList = {"Lv1", "Lv2", "Lv3", "Lv4", "Lv5", "Lv6", "Lv7",
-            "Lv8", "Lv9", "Lv10", "Lv11", "Lv12", "Lv13", "Lv14",
-            "Lv15", "Lv16", "Lv17", "Lv18", "Lv19", "Lv20", "Lv21", "Lv22"};
-    private String[] moneyList = {"200元", "500元", "1000元", "1500元", "2000元",
-            "3000元", "5000元", "7500元", "10000元", "12500元", "15000元",
-            "20000元", "25000元", "30000元", "40000元", "50000元", "60000元",
-            "70000元", "80000元", "90000元", "100000元", "150000元"};
-    private String[] rewardList = {"0.3元", "0.46元", "0.96元", "1.50元", "2.06元",
-            "3.18元", "5.45元", "8.40元", "11.50元", "14.88元", "18.30元",
-            "25.00元", "32.25元", "39.90元", "54.80元", "70.50元", "87.00元",
-            "102.90元", "118.40元", "134.10元", "150.00元", "229.50元"};
     private LevelAdapter levelAdapter;
-
+    Map<String,String> headerMap=new HashMap<>();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tips);
         ButterKnife.bind(this);
-        titleText.setText("奖励规则");
+        setStatusBar(true);
+        initView();
         initAdapter();
         initData();
     }
 
-    private void initData() {
-        showDialog();
-        getEmptyView().setOnClickListener(v -> {
-            initData();
-        });
-        requestStep();
 
-    }
 
     private void initAdapter() {
-        //TipsAdapter adapter = new TipsAdapter(grddeList, moneyList, rewardList, TipsActivity.this);
-        //lv.setAdapter(adapter);
         levelAdapter = new LevelAdapter(mLevelList, this);
         lv.setAdapter(levelAdapter);
-
     }
 
-    public void requestStep() {
-
+    private void initData() {
         String sid = SPUtils.getInstance(this).getString("sid");
+
+        if(headerMap!=null){
+            headerMap.clear();
+        }
+
+        String timeFlag = GetHeaderPwd.getTimeFlag();
+        headerMap.put("sid",sid);
+        headerMap.put("source","android");
+        headerMap.put("t",timeFlag);
+
+        String[] array={"sid","source","t"};
+        String md5 = GetHeaderPwd.getMd5(headerMap,array,timeFlag);
+
+        RequestHeaders headers=new RequestHeaders();
+        headers.put("sign",md5);
+        headers.put("appid","148");
+
+
         RequestParams params = new RequestParams();
         params.put("source", "android");
         params.put("sid", sid);
-        params.put("debug", "1");
+        params.put("t", timeFlag);
 
 
-        OkHttpUtils.post(AppUrl.RETURNCASH_URL).params(params).execute(new JsonCallBack<Level>() {
+        OkHttpUtils.post(AppUrl.RETURNCASH_URL).params(params).headers(headers).execute(new JsonCallBack<Level>() {
             @Override
             public void onResponse(Level level) {
                 cancelDialog();
@@ -104,15 +125,40 @@ public class TipsActivity extends BaseActivity {
             @Override
             public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
                 super.onError(call, response, e);
-                cancelDialog();
             }
         });
+    }
+
+    private void initView() {
+        titleText.setText("奖励规则");
+        rlSave.setVisibility(View.GONE);
+        AssetManager mgr = getAssets();
+//根据路径得到Typeface
+        Typeface tfMao = Typeface.createFromAsset(mgr, "fonts/PingFang Regular.otf");
+
+        Typeface tf = Typeface.createFromAsset(mgr, "fonts/Arial Black.TTF");
+//设置字体
+        tvLeft.setTypeface(tf);
+        tvRight.setTypeface(tf);
+        tvTop.setTypeface(tfMao);
+        tvTitle.setTypeface(tfMao);
+
+        tvLeftBottom.setTypeface(tf);
+        tvRightBottom.setTypeface(tf);
+        tvTitleBottom.setTypeface(tfMao);
+        tvBottom.setTypeface(tfMao);
+
 
     }
 
-
-    @OnClick(R.id.rl_back)
-    public void onViewClicked() {
-        finish();
+    @OnClick({R.id.rl_back, R.id.title_text})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_back:
+                finish();
+                break;
+            case R.id.title_text:
+                break;
+        }
     }
 }

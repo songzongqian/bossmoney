@@ -3,140 +3,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
+    android:background="#FDF8F3"
     android:orientation="vertical"
     tools:context="com.byx.xiuboss.xiuboss.Mvp.activity.ReceivablesActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#FFFFFF">
+    <include layout="@layout/title_item"/>
 
 
-        <RelativeLayout
-            android:id="@+id/rl_finish"
-            android:layout_width="50px"
-            android:layout_height="40dp">
 
-            <ImageView
-                android:id="@+id/title_back_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15px"
-                android:background="@drawable/black_back" />
-        </RelativeLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="收款" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#F6F6F6" />
-
-
-    <LinearLayout
-        android:id="@+id/ll_content"
-        android:layout_width="match_parent"
-        android:layout_height="260px"
-        android:layout_marginLeft="15px"
-        android:layout_marginRight="15px"
-        android:layout_marginTop="15px"
-        android:background="@drawable/button_shap_xiuxiu"
-        android:orientation="vertical">
-
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35px"
-            android:layout_marginTop="15px">
-
-            <ImageView
-                android:id="@+id/shoukuan"
-                android:layout_width="26px"
-                android:layout_height="26px"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15px"
-                android:src="@mipmap/index_icon_receivables" />
-
-
-            <TextView
-                android:id="@+id/shopTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="50px"
-                android:text=""
-                android:textColor="#666666"
-                android:textSize="16px" />
-
-            <TextView
-                android:id="@+id/text_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10px"
-                android:text="和客户确定好金额之后输入"
-                android:textColor="#666666"
-                android:textSize="12px" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60px"
+            android:layout_height="150px"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:layout_marginTop="20px"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+
 
             <TextView
-                android:id="@+id/user_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15px"
-                android:layout_marginTop="25dp"
-                android:text="￥"
-                android:textColor="#333333"
-                android:textSize="26px"
-                android:textStyle="bold" />
+                android:text="收款金额"
+                android:textSize="14px"
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="15px"/>
 
-            <com.byx.xiuboss.xiuboss.Mvp.view.ClearWriteEditText
-                android:id="@+id/et_money"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
-                android:background="@null"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:hint="请输入收款金额"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="#2C2C2C"
-                android:textColorHint="#C8C8C8"
-                android:textSize="26px" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/user_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15px"
+                    android:text="￥"
+                    android:textColor="#333333"
+                    android:textSize="26px"
+                    android:textStyle="bold" />
+
+                <com.byx.xiuboss.xiuboss.Mvp.view.ClearWriteEditText
+                    android:id="@+id/et_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40dp"
+
+                    android:background="@null"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="请输入收款金额"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#2C2C2C"
+                    android:textColorHint="#C8C8C8"
+                    android:textSize="26px" />
 
 
-        </RelativeLayout>
+            </LinearLayout>
 
-        <View
-            android:id="@+id/user_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_below="@id/login_userName"
-            android:layout_marginTop="17px"
-            android:background="#F6F6F6" />
+
+
+            <View
+                android:id="@+id/user_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/et_money"
+                android:layout_marginTop="5px"
+                android:background="#F6F6F6" />
+
+
+        </LinearLayout>
+
+
 
 
         <RelativeLayout
@@ -153,21 +100,8 @@
                 android:layout_marginTop="20px"
                 android:background="@drawable/button_shape"
                 android:text="确认"
-                android:textColor="#999999"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dip"
-                android:layout_marginRight="30dip"
-                android:layout_marginTop="20px"
-                android:background="@drawable/button_tz"
-                android:text="确认"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                android:textSize="14sp" />
 
         </RelativeLayout>
 
@@ -175,4 +109,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+

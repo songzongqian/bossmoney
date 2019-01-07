@@ -70,17 +70,16 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
     private static int REQUEST_PERMISSION_CODE = 1;
     private PermissionHelper mPermissionHelper;
     private WeChatBean weChatBean;
-    private String extra;
-    private PopupWindow window;
-    private TextView  topTitle;
-    private ImageView imgQrcode;
-    private TextView tvSave;
-    private TextView tvShare;
-    private Button bindCollect;
+
     private String sidNumber;
     WeChatBean middleBean;
     private int REQUEST_CODE_SCAN = 111;
     private RelativeLayout rlBack;
+    private TextView topTitle;
+    private ImageView imgQrcode;
+    private Button btnSave;
+    private RelativeLayout rlBind;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,12 +93,11 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
 
 
     private void initView() {
-        rlBack = findViewById(R.id.rl_back);
+        RelativeLayout rlBack = findViewById(R.id.rl_back);
         topTitle = findViewById(R.id.title_text);
-        imgQrcode = findViewById(R.id.wechat_two);
-        tvSave = findViewById(R.id.textView26);
-        tvShare = findViewById(R.id.textView27);
-        bindCollect = findViewById(R.id.btn_bind);
+        imgQrcode = findViewById(R.id.iv_weChat);
+        btnSave = findViewById(R.id.btn_save);
+        rlBind = findViewById(R.id.rl_bind);
         rlBack.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -125,7 +123,7 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
                             .error(R.mipmap.defaults);
                     Glide.with(PayCodeActivity.this).load(weChatBean.getData()).apply(options).into(imgQrcode);
                     //保存相册
-                    tvSave.setOnClickListener(new View.OnClickListener() {
+                    btnSave.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view){
                             mPermissionHelper.requestPermissions();
@@ -139,25 +137,10 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
                         }
                     });
 
-                    //分享
-                    tvShare.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view){
-                            showPopupWindow();
-                            backgroundAlpha(0.5f);
-                            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                                @Override
-                                public void onDismiss() { backgroundAlpha(1.0f);
-                                }
-                            });
 
-
-
-                        }
-                    });
 
                     //扫码绑定店铺
-                    bindCollect.setOnClickListener(new View.OnClickListener() {
+                    rlBind.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view){
                             //调起摄像头开始扫描数据扫一扫
@@ -213,83 +196,6 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
 
     }
 
-
-    private void showPopupWindow() {
-        View contentView = LayoutInflater.from(this).inflate(R.layout.popup_share, null, false);
-        window = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        RelativeLayout weChat = contentView.findViewById(R.id.rl_weChat);
-        RelativeLayout weFriend = contentView.findViewById(R.id.rl_weFriend);
-
-        weChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(PayCodeActivity.this,WeChatActivity.class);
-                intent.putExtra("sid",sidNumber);
-
-                startActivity(intent);
-            }
-        });
-
-        weFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(PayCodeActivity.this,"朋友圈",Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        Button cancel = contentView.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (window != null) {
-                    window.dismiss();
-                }
-            }
-        });
-        window.setBackgroundDrawable(new BitmapDrawable());
-        window.setOutsideTouchable(true);
-        window.setTouchable(true);
-        View rootview = LayoutInflater.from(PayCodeActivity.this).inflate(R.layout.activity_we_chater, null);
-        window.showAtLocation(rootview,  Gravity.BOTTOM, 0, 0);
-    }
-
-
-    public void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = PayCodeActivity.this.getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        PayCodeActivity.this.getWindow().setAttributes(lp);
-        PayCodeActivity.this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    }
-
-
-
-    /**
-     * View截图
-     *
-     * @param
-     * @return
-     */
-    public Bitmap loadBitmapFromView(View view) {
-        // View view = LayoutInflater.from(WeChatActivity.this).inflate(R.layout.activity_we_chat, null);
-        if (view == null) {
-            return null;
-        }
-        WindowManager manager = getWindowManager();
-        DisplayMetrics metrics = new DisplayMetrics();
-        manager.getDefaultDisplay().getMetrics(metrics);
-        int width = metrics.widthPixels;  //以要素为单位
-        int height = metrics.heightPixels;
-        view.setDrawingCacheEnabled(true);
-        //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
-        view.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
-        //这个方法也非常重要，设置布局的尺寸和位置
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-        //获得绘图缓存中的Bitmap
-        view.buildDrawingCache();
-        return view.getDrawingCache();
-    }
 
 
 

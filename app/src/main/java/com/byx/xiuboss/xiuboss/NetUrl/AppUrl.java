@@ -168,6 +168,11 @@ public class AppUrl {
     public static final String CASHRADIO_URL = BaseUrl + "/CI/ST12.php/StoreInfo/Set";
 
 
+    /**发现页面**/
+
+    public static final String FIND_URL = BaseUrl + "/CI/ST12.php/StoreInfo/Finds";
+
+
 
 
 }

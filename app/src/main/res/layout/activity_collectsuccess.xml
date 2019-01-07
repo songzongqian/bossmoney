@@ -5,87 +5,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F8F8F8"
+    android:background="#FDF8F3"
     tools:context="com.byx.xiuboss.xiuboss.Mvp.activity.CompletedActivity">
     <include layout="@layout/title_item"/>
-
-    <RelativeLayout
-        android:background="#FFFFFF"
+    
+    
+    
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350px"
-        android:layout_marginTop="10px"
-        >
+        android:layout_height="386px"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="#FFFFFF">
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="76px"
             android:layout_height="76px"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="28px"
             app:srcCompat="@mipmap/index_icon_sign" />
 
+
         <TextView
-            android:id="@+id/textView38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView5"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30px"
             android:text="收款成功"
-             android:textSize="16px"
             android:textColor="#666666"
-            />
+            android:textSize="14px" />
 
-        <TextView
-           android:visibility="gone"
-            android:id="@+id/Put_forward"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/textView38"
-            android:layout_marginTop="3px"
-            android:text="2018-10-01 10:14:54"
-            android:textSize="12px"
-            android:textColor="#999999"
-            />
+            android:layout_marginTop="15px"
+            >
 
-        <TextView
-            android:layout_marginTop="5px"
-            android:id="@+id/Account_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/Put_forward"
-            android:layout_centerHorizontal="true"
-            android:text="到账时间：10月02日"
-            android:textColor="#999999"
-            android:textSize="20px"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:text="￥"
+                android:textColor="#333333"
+                android:textSize="26px"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="220px"
-            android:layout_height="42px"
-            android:layout_below="@+id/Account_money"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14px"
-            android:text="查看余额"
-            android:textSize="18px"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_reward"
-            />
+           <TextView
+               android:id="@+id/tv_money"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="1900"
+               android:textSize="40px"
+               android:textColor="#333333"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_bill"
             android:layout_width="220px"
             android:layout_height="42px"
-            android:layout_below="@+id/button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15px"
-            android:text="查看账单"
+            android:layout_marginTop="38px"
+            android:text="继续收款"
             android:textSize="18px"
-            android:textColor="#999999"
-            android:background="@drawable/button_rewardwhite"
+            android:textColor="#D45047"
+            android:background="@drawable/button_edge"
             />
-    </RelativeLayout>
+
+    </LinearLayout>
+
+
 </LinearLayout>

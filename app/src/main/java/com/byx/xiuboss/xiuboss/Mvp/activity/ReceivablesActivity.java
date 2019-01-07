@@ -38,17 +38,13 @@ import okhttp3.Response;
 
 
 public class ReceivablesActivity extends BaseActivity {
-    private ImageView btn_back;
     private ClearWriteEditText editText;
-    private Button btnSure;
     private int REQUEST_CODE_SCAN = 111;
     private Button btnSureBottom;
     private String sidNumber;
     private String collectAmout;
     private SharedPreferences loginSucess;
-    private RelativeLayout rlFinish;
-    private String shopName;
-    private TextView shopTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +52,6 @@ public class ReceivablesActivity extends BaseActivity {
         setContentView(R.layout.activity_receivables);
         loginSucess = this.getSharedPreferences("login_sucess", MODE_PRIVATE);
         sidNumber = loginSucess.getString("sid", "");
-        shopName = loginSucess.getString("homeTitle", "");
         initView();
     }
 
@@ -68,53 +63,21 @@ public class ReceivablesActivity extends BaseActivity {
     }
 
     private void initView() {
-        rlFinish = findViewById(R.id.rl_finish);
+        setStatusBar(true);
+        RelativeLayout rlBack=findViewById(R.id.rl_back);
+        TextView tvTitle=findViewById(R.id.title_text);
         editText = findViewById(R.id.et_money);
-        btnSure = findViewById(R.id.btn_sure);
-        btnSureBottom = findViewById(R.id.btn_login);
-        shopTitle = findViewById(R.id.shopTitle);
-        shopTitle.setText(shopName);
+        btnSureBottom = findViewById(R.id.btn_sure);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        rlFinish.setOnClickListener(new View.OnClickListener() {
+        tvTitle.setText("扫码收款");
+        rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 finish();
             }
         });
 
 
-
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus){
-                    btnSure.setVisibility(View.GONE);
-                    btnSureBottom.setVisibility(View.VISIBLE);
-                }else{
-                    btnSureBottom.setVisibility(View.GONE);
-                    btnSure.setVisibility(View.VISIBLE);
-
-                }
-
-            }
-        });
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
 
 

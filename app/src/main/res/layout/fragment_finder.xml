@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDF8F3"
-    android:orientation="vertical">
+   >
 
 
     <LinearLayout
@@ -130,34 +130,57 @@
                 app:srcCompat="@mipmap/common"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
+
+
+
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <android.support.v7.widget.RecyclerView
+               android:id="@+id/recycler"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentStart="true"
+               android:layout_alignParentTop="true">
+
+           </android.support.v7.widget.RecyclerView>
+
+
+           <RelativeLayout
+               android:id="@+id/rl_empty_internet"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@drawable/internet"
+               android:visibility="gone"
+               >
+
+               <ImageView
+                   android:id="@+id/iv_internet"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:background="@mipmap/icon_empty"
+                   android:scaleType="centerCrop"
+                   android:layout_centerInParent="true"
+                   />
+
+               <TextView
+                   android:id="@+id/tv_internet"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_below="@+id/iv_internet"
+                   android:text="咦？怎么木有网了呢~"
+                   android:textColor="#333333"/>
+           </RelativeLayout>
+
+       </RelativeLayout>
+
+
     </LinearLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/rl_empty_internet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/internet"
-        android:visibility="gone"
-        >
 
-        <ImageView
-            android:id="@+id/iv_internet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/icon_empty"
-            android:scaleType="centerCrop"
-            android:layout_centerInParent="true"
-            />
-
-        <TextView
-            android:id="@+id/tv_internet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/iv_internet"
-            android:text="咦？怎么木有网了呢~"
-            android:textColor="#333333"/>
-    </RelativeLayout>
 
 </RelativeLayout>

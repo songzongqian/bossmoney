@@ -1,96 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.byx.xiuboss.xiuboss.Mvp.activity.TipsActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/title_item" />
 
-    <ImageView
-        android:id="@+id/reward_rules"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="151dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/include"
-        android:background="@mipmap/icon_reward_rules" />
+        <include
+            android:id="@+id/include"
+            layout="@layout/title_item" />
 
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/reward_rules"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="13dp"
-        android:text="什么是会员等级？"
-        android:textColor="#333333"
-        android:textSize="14sp" />
+        <ImageView
+            android:id="@+id/reward_rules"
+            android:layout_width="match_parent"
+            android:layout_height="151dp"
 
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:layout_alignLeft="@+id/textView27"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/textView27"
-        android:layout_below="@+id/textView27"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
-        android:text="账户余额达到等级对应所需金额标准后，自动升级到对应等级可以领取对应等级的奖励。领取奖励24小时内不可提现。等级奖励标准如下："
-        android:textColor="#666666"
-        android:textSize="12sp" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/include"
+            android:background="@mipmap/icon_reward_rules" />
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView32"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+           >
 
-        <TextView
-            android:id="@+id/textView34"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="等级"
-            android:textColor="#666666"
-            android:textSize="14sp" />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center_horizontal"
+              >
 
-        <TextView
-            android:id="@+id/textView37"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="信誉积分"
-            android:textColor="#666666"
-            android:textSize="14sp" />
+               <TextView
+                   android:id="@+id/tv_left"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="“"
+                   android:textSize="20px"
+                   android:layout_gravity="center_horizontal"
+                   android:textColor="#BA9E4D"/>
 
-        <TextView
-            android:id="@+id/textView36"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="奖励"
-            android:textColor="#666666"
-            android:textSize="14sp" />
+               <TextView
+                   android:id="@+id/tv_title"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="什么是会员等级"
+                   android:textSize="15px"
+                   android:layout_marginLeft="10px"
+                   android:textColor="#2A241F"/>
+
+               <TextView
+                   android:id="@+id/tv_right"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="”"
+                   android:layout_marginLeft="10px"
+                   android:textSize="20px"
+                   android:textColor="#BA9E4D"/>
+
+           </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_top"
+                android:layout_marginTop="8px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:textSize="13px"
+                android:textColor="#2A241F"
+                android:text="会员等级是根据当前您所拥有的信誉分来进行评判您的等级，当您的信誉分达到标准后将自动进行升级到相应的等级，并且领取相对应的奖励金。"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="25px"
+                >
+
+                <TextView
+                    android:id="@+id/tv_left_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="“"
+                    android:textSize="20px"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#BA9E4D"/>
+
+                <TextView
+                    android:id="@+id/tv_title_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="什么是信用分"
+                    android:layout_marginLeft="10px"
+                    android:textSize="15px"
+                    android:textColor="#2A241F"/>
+
+                <TextView
+                    android:id="@+id/tv_right_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="”"
+                    android:layout_marginLeft="10px"
+                    android:textSize="20px"
+                    android:textColor="#BA9E4D"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_bottom"
+                android:layout_marginTop="8px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:textSize="13px"
+                android:textColor="#2A241F"
+                android:text="信誉分是用来保障商家信誉的一种保障措施，每位入住的商家将会得到初始基础分200分，当您的收入累计增加的时候会增涨行为分，基础分加行为分将组成信誉分。当信誉分达到标准可领取奖励金，且每24小时只能领取一次，届时，信誉分相对应的奖励金将会自动发放到商户账户中，信誉分越高，奖励金越高哦！"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView32"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="等级"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView37"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="信誉积分"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView36"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="奖励"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
 
 
-    </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
 
-    <ListView
-        android:id="@+id/lv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout"
-        android:divider="@null"></ListView>
+            <ListView
+                android:id="@+id/lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"></ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 </RelativeLayout>

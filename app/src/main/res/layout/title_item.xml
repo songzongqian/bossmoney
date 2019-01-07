@@ -44,6 +44,7 @@
         android:layout_width="100px"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
+        android:visibility="gone"
        >
 
         <ImageView

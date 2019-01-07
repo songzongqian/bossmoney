@@ -4,6 +4,7 @@ package com.byx.xiuboss.xiuboss.Mvp.fragmment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -26,12 +27,15 @@ import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashAdapter;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashFragmentAdapter;
 import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
+import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.DisplayUtil;
+import com.byx.xiuboss.xiuboss.Utils.GetHeaderPwd;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoLinearLayout;
 
@@ -49,6 +53,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import okhttp3.Call;
+import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -77,6 +82,7 @@ public class PublishFragment extends BaseFragment {
     private ArrayList<BaseFragment>mFragments = new ArrayList<>();
     private ArrayList<String> mTabTitles = new ArrayList<>();
     private BackCashFragmentAdapter mAdapter;
+    Map<String,String> headerMap=new HashMap<>();
 
 
     public PublishFragment() {
@@ -90,7 +96,6 @@ public class PublishFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_publish, container, false);
         unbinder = ButterKnife.bind(this, view);
-
         initView();
         initData();
         return view;
@@ -128,44 +133,58 @@ public class PublishFragment extends BaseFragment {
 
     public void requestIndexData() {
 
-        Map<String,String>parmas = new HashMap<>();
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
-        parmas.put("source","android");
-        parmas.put("sid",sid);
-        //parmas.put("token","49e1tBbQn-uRAuUxFCIyVby5klNeYZ1UIKkUmfuWAzbXyox4lb9heQ");
 
-        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.INDEXDATA_URL, parmas, new OkHttpUtils.UserNetCall() {
+        if(headerMap!=null){
+            headerMap.clear();
+        }
+
+        String timeFlag = GetHeaderPwd.getTimeFlag();
+        headerMap.put("sid",sid);
+        headerMap.put("source","android");
+        headerMap.put("t",timeFlag);
+
+        String[] array={"sid","source","t"};
+        String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
+
+        RequestHeaders headers=new RequestHeaders();
+        headers.put("sign",md5);
+        headers.put("appid","148");
+
+        RequestParams requestParams=new RequestParams();
+        requestParams.put("source","android");
+        requestParams.put("sid",sid);
+        requestParams.put("t",timeFlag);
+
+
+        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.INDEXDATA_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<StoreInfo>() {
+
             @Override
-            public void success(Call call, String json) {
-                ((MainActivity)getActivity()).cancelDialog();
-                StoreInfo info = new Gson().fromJson(json, StoreInfo.class);
-                if (info.getCode() == 2000){
-                    setIndexData(info.getData());
+            public void onResponse(StoreInfo storeInfo) {
+                if(storeInfo!=null && storeInfo.getCode()==2000){
+                    StoreInfo.DataBean infoBean = storeInfo.getData();
+                    mStoreName.setText(infoBean.getStoreName());
+                    mAllIcome.setText("￥"+ (TextUtils.isEmpty(infoBean.getTotalIncome())?"0":infoBean.getTotalIncome()));
+                    mBackPropt.setText("其中休休返现收入占比 "+(TextUtils.isEmpty(infoBean.getTotalReturnRatio())?"0":infoBean.getTotalReturnRatio()));
+                    mTabTitles.clear();
+                    mTabTitles.add("全部("+(TextUtils.isEmpty(infoBean.getOrderCount())?"0":infoBean.getOrderCount())+")");
+                    mTabTitles.add("返现("+(TextUtils.isEmpty(infoBean.getReturnOrderCount())?"0":infoBean.getReturnOrderCount())+")");
+                    mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
+                    mViewPager.setAdapter(mAdapter);
+                    mSlideTabLayout.setViewPager(mViewPager);
                 }
+
             }
 
             @Override
-            public void failed(Call call, IOException e) {
-
+            public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                super.onError(call, response, e);
             }
         });
 
 
     }
 
-    /*设置数据*/
-    private void setIndexData(StoreInfo.DataBean infoBean) {
-        mStoreName.setText(infoBean.getStoreName());
-        mAllIcome.setText("￥"+ (TextUtils.isEmpty(infoBean.getTotalIncome())?"0":infoBean.getTotalIncome()));
-        mBackPropt.setText("其中休休返现收入占比 "+(TextUtils.isEmpty(infoBean.getTotalReturnRatio())?"0":infoBean.getTotalReturnRatio()));
-        mTabTitles.clear();
-        mTabTitles.add("全部("+(TextUtils.isEmpty(infoBean.getOrderCount())?"0":infoBean.getOrderCount())+")");
-        mTabTitles.add("返现("+(TextUtils.isEmpty(infoBean.getReturnOrderCount())?"0":infoBean.getReturnOrderCount())+")");
-        mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
-        mViewPager.setAdapter(mAdapter);
-        mSlideTabLayout.setViewPager(mViewPager);
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
