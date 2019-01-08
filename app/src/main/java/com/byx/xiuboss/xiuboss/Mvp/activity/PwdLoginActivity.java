@@ -69,7 +69,7 @@ public class PwdLoginActivity extends BaseActivity {
     private String version;
     private String mobile;
     private Set<String> pushTag = new HashSet<>();
-    Map<String,String> headerMap=new HashMap<>();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,25 +144,7 @@ public class PwdLoginActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        if(headerMap!=null){
-            headerMap.clear();
-        }
 
-        //传递Map
-        String timeFlag = GetHeaderPwd.getTimeFlag();
-        headerMap.put("mobile",mobile);
-        headerMap.put("sms",code);
-        headerMap.put("source","android");
-        headerMap.put("version",version);
-        headerMap.put("t",timeFlag);
-        //传递数组
-        String[] array={"mobile","password","source","version","t"};
-
-        String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
-        //传递请求头
-        RequestHeaders headers=new RequestHeaders();
-        headers.put("sign",md5);
-        headers.put("appid","148");
 
 
         RequestParams requestParams = new RequestParams();
@@ -170,9 +152,9 @@ public class PwdLoginActivity extends BaseActivity {
         requestParams.put("sms", code);
         requestParams.put("source", "android");
         requestParams.put("version", version);
-        requestParams.put("t",timeFlag);
 
-        OkHttpUtils.post(AppUrl.LOGIN_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<LoginBean>() {
+
+        OkHttpUtils.post(AppUrl.LOGIN_URL).params(requestParams).execute(new MyJsonCallBack<LoginBean>() {
 
             @Override
             public void onResponse(LoginBean loginBean) {
@@ -241,6 +223,7 @@ public class PwdLoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
+                finish();
                 break;
             case R.id.title_text:
                 break;

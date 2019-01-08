@@ -115,22 +115,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         try {
             PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
             version = packInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e){
             e.printStackTrace();
         }
 
-        String testUrl="https://devapi.ourxiuxiu.com/api/checkVersion";
+
         if(NetUtils.isConnected(MainActivity.this)){
             RequestParams requestParams=new RequestParams();
             requestParams.put("source","android");
             requestParams.put("os","cmandroid");
             requestParams.put("version",version);
-            OkHttpUtils.post(testUrl).params(requestParams).execute(new MyJsonCallBack<VersionBean>() {
+            OkHttpUtils.post(AppUrl.GET_ISNO_VERSION).params(requestParams).execute(new MyJsonCallBack<VersionBean>() {
 
                 @Override
                 public void onResponse(VersionBean versionBean) {
                     if(versionBean!=null && versionBean.getCode()==2000){
                         String enable = versionBean.getData().getEnable();
+                        System.out.println("MainActivity返回的版本值"+enable);
                         if(enable.equals("1")){
                             //当前版本可用
 

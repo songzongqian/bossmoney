@@ -170,6 +170,10 @@ public class AppUrl {
 
     public static final String FIND_URL = BaseUrl + "/CI/ST12.php/StoreInfo/Finds";
 
+    /**检测应用是否更新的接口*/
+
+    public static final String GET_ISNO_VERSION = BaseUrl+"/api/checkVersion";
+
 
 
 

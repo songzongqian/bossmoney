@@ -1,13 +1,16 @@
 package com.byx.xiuboss.xiuboss.Mvp.fragmment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -56,6 +59,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,6 +136,7 @@ public class PublishFragment extends BaseFragment {
     }
 
     public void requestIndexData() {
+        SharedPreferences loginSucess = getActivity().getSharedPreferences("login_sucess", MODE_PRIVATE);
 
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
 
@@ -174,6 +179,43 @@ public class PublishFragment extends BaseFragment {
                     mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
                     mViewPager.setAdapter(mAdapter);
                     mSlideTabLayout.setViewPager(mViewPager);
+
+                    String pop_up_status = infoBean.getPop_up_status();//1
+                    String pop_up_text = infoBean.getPop_up_text();//1.1.2
+                    String note = infoBean.getPop_up_settles(); //文本内容
+
+                    String versionNumber = loginSucess.getString("versionName", "");
+                    if(pop_up_status!=null){
+                        if(pop_up_status.equals("1")){
+                            //
+                            //弹窗
+                            if (pop_up_text.equals(versionNumber)) {
+                                //版本号一致
+
+                            } else {
+                                //版本号不一致
+                                loginSucess.edit().putString("versionName", pop_up_text).commit();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setTitle("休休小提示")
+                                        .setMessage(note)
+                                        .setCancelable(false)
+                                        .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        }else if(pop_up_status.equals("2")){
+
+                        }
+                    }
+
+
+
+
+
                 }
 
             }
@@ -195,6 +237,17 @@ public class PublishFragment extends BaseFragment {
             if (resultCode == RESULT_OK){
                 initData();
             }
+        }
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //Fragment失去焦点
+        } else {
+            initData();
         }
     }
 }

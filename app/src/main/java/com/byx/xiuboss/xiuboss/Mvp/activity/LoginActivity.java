@@ -311,7 +311,6 @@ public class LoginActivity extends BaseActivity {
                     //输入手机号码
                     RequestParams params = new RequestParams();
                     params.put("mobile", mobile);
-                    params.put("debug","1");
                     OkHttpUtils.post(AppUrl.GET_LOGINCODE).params(params).execute(new MyJsonCallBack<MsgCodeBean>() {
 
                         @Override

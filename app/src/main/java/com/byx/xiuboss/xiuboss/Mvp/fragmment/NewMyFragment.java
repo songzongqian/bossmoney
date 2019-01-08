@@ -143,6 +143,9 @@ public class NewMyFragment extends BaseFragment {
             mobile1 = sharedPreferences.getString("mobile", "");
             managerMobile1 = sharedPreferences.getString("managerMobile", "");
 
+            if(headerMap!=null){
+                headerMap.clear();
+            }
 
             String timeFlag = GetHeaderPwd.getTimeFlag();
             headerMap.put("sid",sid);
@@ -160,7 +163,6 @@ public class NewMyFragment extends BaseFragment {
             params.put("sid", sid);
             params.put("mobile", mobile1);
             params.put("t",timeFlag);
-           // params.put("debug","1");
             OkHttpUtils.post(AppUrl.NEWMY_URL).headers(headers).params(params).execute(new MyJsonCallBack<MyFragmentBean>() {
 
                 @Override
@@ -236,13 +238,40 @@ public class NewMyFragment extends BaseFragment {
                     public void onOptionsSelect(int options1, int option2, int options3 ,View v) {
                         String tx = mOptionsItems.get(options1);
                         //上传比例到服务器
+
+
+                        if(headerMap!=null){
+                            headerMap.clear();
+                        }
+
+                        String timeFlag = GetHeaderPwd.getTimeFlag();//获取时间戳
+                        headerMap.put("sid",sid);
+                        headerMap.put("setKey","cashRatio");
+                        headerMap.put("setValue",tx);
+                        headerMap.put("source","android");
+                        headerMap.put("t",timeFlag);
+
+
+                        //创建参数数组
+                        String[] array={"sid","setKey","setValue","source","t"};
+
+                        //获取参数拼成的字符串的MD5加密值
+                        String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
+
+                        //创建请求头
+                        RequestHeaders headers=new RequestHeaders();
+                        headers.put("sign",md5);
+                        headers.put("appid","148");
+
+
+
                         RequestParams requestParams=new RequestParams();
                         requestParams.put("sid",sid);
                         requestParams.put("setKey","cashRatio");
                         requestParams.put("setValue",tx);
                         requestParams.put("source","android");
-                        requestParams.put("debug","1");
-                        OkHttpUtils.post(AppUrl.CASHRADIO_URL).params(requestParams).execute(new MyJsonCallBack<RatioBean>() {
+                        requestParams.put("t",timeFlag);
+                        OkHttpUtils.post(AppUrl.CASHRADIO_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<RatioBean>() {
 
                             @Override
                             public void onResponse(RatioBean ratioBean) {
