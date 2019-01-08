@@ -192,7 +192,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".Mvp.activity.CollRecordeActivity" />
         <activity android:name=".Mvp.activity.SettlementActivity" />
-        <activity android:name=".Mvp.activity.SettRecordActivity"></activity>
+        <activity android:name=".Mvp.activity.SettRecordActivity" />
+        <activity android:name=".Mvp.activity.SharedActivity"></activity>
     </application>
 
 </manifest>

@@ -155,7 +155,7 @@ public class WithDrawActivity extends BaseActivity {
         requestParams.put("step",10+"");
         requestParams.put("t",timeFlag);
 
-        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<MyBalanceBean>() {
+        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams)./*headers(headers).*/execute(new MyJsonCallBack<MyBalanceBean>() {
             @Override
             public void onResponse(MyBalanceBean myBalanceBean) {
                 if(myBalanceBean!=null && myBalanceBean.getCode()==2000){

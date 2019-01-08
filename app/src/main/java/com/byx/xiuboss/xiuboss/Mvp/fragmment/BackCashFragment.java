@@ -3,6 +3,7 @@ package com.byx.xiuboss.xiuboss.Mvp.fragmment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,8 @@ import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.callback.JsonCallBack;
+import com.lzy.okhttputils.model.RequestParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -34,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,7 +100,8 @@ public class BackCashFragment extends BaseFragment {
     public void requestCashData(){
 
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
-        Map<String,String> params = new HashMap<>();
+        //Map<String,String> params = new HashMap<>();
+        RequestParams params = new RequestParams();
         params.put("source","android");
         params.put("sid",sid);
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -105,9 +110,10 @@ public class BackCashFragment extends BaseFragment {
         params.put("orderType","2");
         params.put("startPos",String.valueOf(page));
         params.put("step",String.valueOf(size));
-        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.INDEXDATA_URL, params, new OkHttpUtils.UserNetCall() {
+
+        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.INDEXDATA_URL).params(params).execute(new JsonCallBack<String>() {
             @Override
-            public void success(Call call, String json) {
+            public void onResponse(String json) {
                 smartRefreshLayout.finishRefresh();
                 smartRefreshLayout.finishLoadMore();
                 StoreInfo info = new Gson().fromJson(json, StoreInfo.class);
@@ -127,7 +133,8 @@ public class BackCashFragment extends BaseFragment {
             }
 
             @Override
-            public void failed(Call call, IOException e) {
+            public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                super.onError(call, response, e);
                 smartRefreshLayout.finishRefresh();
                 smartRefreshLayout.finishLoadMore();
             }

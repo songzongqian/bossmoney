@@ -118,7 +118,7 @@ public class FindFragment extends BaseFragment {
             requestParams.put("source", "android");
             requestParams.put("sid", sid);
             requestParams.put("t",timeFlag);
-            OkHttpUtils.post(AppUrl.FIND_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<FindBean>() {
+            OkHttpUtils.post(AppUrl.FIND_URL).params(requestParams)/*.headers(headers)*/.execute(new MyJsonCallBack<FindBean>() {
 
                 @Override
                 public void onResponse(FindBean findBean) {

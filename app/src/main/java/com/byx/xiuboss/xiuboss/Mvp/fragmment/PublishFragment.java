@@ -83,10 +83,10 @@ public class PublishFragment extends BaseFragment {
     Unbinder unbinder;
 
 
-    private ArrayList<BaseFragment>mFragments = new ArrayList<>();
+    private ArrayList<BaseFragment> mFragments = new ArrayList<>();
     private ArrayList<String> mTabTitles = new ArrayList<>();
     private BackCashFragmentAdapter mAdapter;
-    Map<String,String> headerMap=new HashMap<>();
+    Map<String, String> headerMap = new HashMap<>();
 
 
     public PublishFragment() {
@@ -106,8 +106,8 @@ public class PublishFragment extends BaseFragment {
     }
 
     private void initData() {
-        ((MainActivity)getActivity()).showDialog();
-        ((MainActivity)getActivity()).getEmptyView().setOnClickListener(v -> {
+        ((MainActivity) getActivity()).showDialog();
+        ((MainActivity) getActivity()).getEmptyView().setOnClickListener(v -> {
             initData();
         });
         requestIndexData();
@@ -118,11 +118,11 @@ public class PublishFragment extends BaseFragment {
             Intent intent = new Intent(getActivity(), SwichActivity.class);
             String sid = SPUtils.getInstance(getActivity()).getString("sid");
             intent.putExtra("id", sid);
-            startActivityForResult(intent,0x111);
-            getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_silent);
+            startActivityForResult(intent, 0x111);
+            getActivity().overridePendingTransition(R.anim.bottom_in, R.anim.bottom_silent);
             /*初始化Fragment的数据*/
-            ((AllSpeadCashFragment)mFragments.get(0)).initRequest();
-            ((BackCashFragment)mFragments.get(1)).initRequest();
+            ((AllSpeadCashFragment) mFragments.get(0)).initRequest();
+            ((BackCashFragment) mFragments.get(1)).initRequest();
         });
         mFragments.add(new AllSpeadCashFragment());
         mFragments.add(new BackCashFragment());
@@ -139,44 +139,24 @@ public class PublishFragment extends BaseFragment {
         SharedPreferences loginSucess = getActivity().getSharedPreferences("login_sucess", MODE_PRIVATE);
 
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
-
-        if(headerMap!=null){
-            headerMap.clear();
-        }
-
-        String timeFlag = GetHeaderPwd.getTimeFlag();
-        headerMap.put("sid",sid);
-        headerMap.put("source","android");
-        headerMap.put("t",timeFlag);
-
-        String[] array={"sid","source","t"};
-        String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
-
-        RequestHeaders headers=new RequestHeaders();
-        headers.put("sign",md5);
-        headers.put("appid","148");
-
-        RequestParams requestParams=new RequestParams();
-        requestParams.put("source","android");
-        requestParams.put("sid",sid);
-        requestParams.put("t",timeFlag);
-
-
-        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.INDEXDATA_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<StoreInfo>() {
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("source", "android");
+        requestParams.put("sid", sid);
+        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.INDEXDATA_URL).params(requestParams).execute(new MyJsonCallBack<StoreInfo>() {
 
             @Override
             public void onResponse(StoreInfo storeInfo) {
-                ((MainActivity)getActivity()).cancelDialog();
-                if(storeInfo!=null && storeInfo.getCode()==2000){
+                ((MainActivity) getActivity()).cancelDialog();
+                if (storeInfo != null && storeInfo.getCode() == 2000) {
                     System.out.println("数据请求成功");
                     StoreInfo.DataBean infoBean = storeInfo.getData();
                     mStoreName.setText(infoBean.getStoreName());
-                    mAllIcome.setText("￥"+ (TextUtils.isEmpty(infoBean.getTotalIncome())?"0":infoBean.getTotalIncome()));
-                    mBackPropt.setText("其中休休返现收入占比 "+(TextUtils.isEmpty(infoBean.getTotalReturnRatio())?"0":infoBean.getTotalReturnRatio()));
+                    mAllIcome.setText("￥" + (TextUtils.isEmpty(infoBean.getTotalIncome()) ? "0" : infoBean.getTotalIncome()));
+                    mBackPropt.setText("其中休休返现收入占比 " + (TextUtils.isEmpty(infoBean.getTotalReturnRatio()) ? "0" : infoBean.getTotalReturnRatio()));
                     mTabTitles.clear();
-                    mTabTitles.add("全部("+(TextUtils.isEmpty(infoBean.getOrderCount())?"0":infoBean.getOrderCount())+")");
-                    mTabTitles.add("返现("+(TextUtils.isEmpty(infoBean.getReturnOrderCount())?"0":infoBean.getReturnOrderCount())+")");
-                    mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles,mFragments);
+                    mTabTitles.add("全部(" + (TextUtils.isEmpty(infoBean.getOrderCount()) ? "0" : infoBean.getOrderCount()) + ")");
+                    mTabTitles.add("返现(" + (TextUtils.isEmpty(infoBean.getReturnOrderCount()) ? "0" : infoBean.getReturnOrderCount()) + ")");
+                    mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles, mFragments);
                     mViewPager.setAdapter(mAdapter);
                     mSlideTabLayout.setViewPager(mViewPager);
 
@@ -233,8 +213,8 @@ public class PublishFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0x111){
-            if (resultCode == RESULT_OK){
+        if (requestCode == 0x111) {
+            if (resultCode == RESULT_OK) {
                 initData();
             }
         }

@@ -193,6 +193,15 @@ public class RewardInfo {
             private String storeName;
             private String storeAddress;
             private String ssid;
+            private String openKey;
+
+            public String getOpenKey() {
+                return openKey;
+            }
+
+            public void setOpenKey(String openKey) {
+                this.openKey = openKey;
+            }
 
             public String getReturnCash() {
                 return returnCash;

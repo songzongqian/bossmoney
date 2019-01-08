@@ -9,12 +9,16 @@ import com.lzy.okhttputils.callback.AbsCallback;
 import com.lzy.okhttputils.https.HttpsUtils;
 import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
+import com.lzy.okhttputils.utils.GetHeaderPwd;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -100,6 +104,24 @@ public abstract class BaseRequest<R extends BaseRequest> {
     }
 
     public R params(RequestParams params) {
+        String timeFlag = GetHeaderPwd.getTimeFlag();
+        params.put("t",timeFlag);
+        Map<String, String> headerMap = new HashMap<>();
+        ArrayList<String> keyList = new ArrayList();
+        for (String key : params.urlParamsMap.keySet()) {
+            Log.i("TAG", "params:  ===" + key + "" + params.urlParamsMap.get(key));
+            headerMap.put(key, params.urlParamsMap.get(key));
+            keyList.add(key);
+        }
+        headerMap.put("t", timeFlag);
+
+        String[] array = keyList.toArray(new String[keyList.size()]);
+        String md5 = GetHeaderPwd.getMd5(headerMap, array, timeFlag);
+        RequestHeaders headers = new RequestHeaders();
+        headers.put("sign", md5);
+        headers.put("appid", "148");
+        headers(headers);
+        params.put("t", timeFlag);
         this.params.put(params);
         return (R) this;
     }
@@ -132,7 +154,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
         this.mCallback = callback;
     }
 
-    /** 将传递进来的参数拼接成 url */
+    /**
+     * 将传递进来的参数拼接成 url
+     */
     protected String createUrlFromParams(String url, Map<String, String> params) {
         try {
             StringBuilder sb = new StringBuilder();
@@ -151,7 +175,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
         return url;
     }
 
-    /** 通用的拼接请求头 */
+    /**
+     * 通用的拼接请求头
+     */
     protected Request.Builder appendHeaders(Request.Builder requestBuilder) {
         Headers.Builder headerBuilder = new Headers.Builder();
         ConcurrentHashMap<String, String> headerMap = headers.headersMap;
@@ -163,10 +189,14 @@ public abstract class BaseRequest<R extends BaseRequest> {
         return requestBuilder;
     }
 
-    /** 根据不同的请求方式和参数，生成不同的RequestBody */
+    /**
+     * 根据不同的请求方式和参数，生成不同的RequestBody
+     */
     public abstract RequestBody generateRequestBody();
 
-    /** 对请求body进行包装，用于回调上传进度 */
+    /**
+     * 对请求body进行包装，用于回调上传进度
+     */
     public RequestBody wrapRequestBody(RequestBody requestBody) {
         return new ProgressRequestBody(requestBody, new ProgressRequestBody.Listener() {
             @Override
@@ -182,25 +212,33 @@ public abstract class BaseRequest<R extends BaseRequest> {
         });
     }
 
-    /** 根据不同的请求方式，将RequestBody转换成Request对象 */
+    /**
+     * 根据不同的请求方式，将RequestBody转换成Request对象
+     */
     public abstract Request generateRequest(RequestBody requestBody);
 
-    /** 根据当前的请求参数，生成对应的 Call 任务 */
+    /**
+     * 根据当前的请求参数，生成对应的 Call 任务
+     */
     public Call generateCall(Request request) {
         if (readTimeOut <= 0 && writeTimeOut <= 0 && connectTimeout <= 0 && certificates == null) {
             return OkHttpUtils.getInstance().getOkHttpClient().newCall(request);
         } else {
             OkHttpClient.Builder newClientBuilder = OkHttpUtils.getInstance().getOkHttpClient().newBuilder();
             if (readTimeOut > 0) newClientBuilder.readTimeout(readTimeOut, TimeUnit.MILLISECONDS);
-            if (writeTimeOut > 0) newClientBuilder.writeTimeout(writeTimeOut, TimeUnit.MILLISECONDS);
-            if (connectTimeout > 0) newClientBuilder.connectTimeout(connectTimeout, TimeUnit.MILLISECONDS);
+            if (writeTimeOut > 0)
+                newClientBuilder.writeTimeout(writeTimeOut, TimeUnit.MILLISECONDS);
+            if (connectTimeout > 0)
+                newClientBuilder.connectTimeout(connectTimeout, TimeUnit.MILLISECONDS);
             if (certificates != null)
                 newClientBuilder.sslSocketFactory(HttpsUtils.getSslSocketFactory(certificates, null, null));
             return newClientBuilder.build().newCall(request);
         }
     }
 
-    /** 阻塞方法，同步请求执行 */
+    /**
+     * 阻塞方法，同步请求执行
+     */
     public Response execute() throws IOException {
         RequestBody requestBody = generateRequestBody();
         final Request request = generateRequest(wrapRequestBody(requestBody));
@@ -208,7 +246,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
         return call.execute();
     }
 
-    /** 非阻塞方法，异步请求，但是回调在子线程中执行 */
+    /**
+     * 非阻塞方法，异步请求，但是回调在子线程中执行
+     */
     public <T> void execute(AbsCallback<T> callback) {
         mCallback = callback;
         if (mCallback == null) mCallback = AbsCallback.CALLBACK_DEFAULT;
@@ -248,7 +288,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
         });
     }
 
-    /** 失败回调，发送到主线程 */
+    /**
+     * 失败回调，发送到主线程
+     */
     public <T> void sendFailResultCallback(final Call call, final Response response, final Exception e, final AbsCallback<T> callback) {
         OkHttpUtils.getInstance().getDelivery().post(new Runnable() {
             @Override
@@ -259,7 +301,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
         });
     }
 
-    /** 成功回调，发送到主线程 */
+    /**
+     * 成功回调，发送到主线程
+     */
     public <T> void sendSuccessResultCallback(final T t, final Call call, final Response response, final AbsCallback<T> callback) {
         OkHttpUtils.getInstance().getDelivery().post(new Runnable() {
             @Override

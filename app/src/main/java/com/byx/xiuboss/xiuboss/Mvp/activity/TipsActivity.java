@@ -89,30 +89,11 @@ public class TipsActivity extends BaseActivity {
     private void initData() {
         String sid = SPUtils.getInstance(this).getString("sid");
 
-        if(headerMap!=null){
-            headerMap.clear();
-        }
-
-        String timeFlag = GetHeaderPwd.getTimeFlag();
-        headerMap.put("sid",sid);
-        headerMap.put("source","android");
-        headerMap.put("t",timeFlag);
-
-        String[] array={"sid","source","t"};
-        String md5 = GetHeaderPwd.getMd5(headerMap,array,timeFlag);
-
-        RequestHeaders headers=new RequestHeaders();
-        headers.put("sign",md5);
-        headers.put("appid","148");
-
-
         RequestParams params = new RequestParams();
         params.put("source", "android");
         params.put("sid", sid);
-        params.put("t", timeFlag);
 
-
-        OkHttpUtils.post(AppUrl.RETURNCASH_URL).params(params).headers(headers).execute(new JsonCallBack<Level>() {
+        OkHttpUtils.post(AppUrl.RETURNCASH_URL).params(params).execute(new JsonCallBack<Level>() {
             @Override
             public void onResponse(Level level) {
                 cancelDialog();

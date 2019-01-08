@@ -102,7 +102,7 @@ public class AllSpeadCashFragment extends BaseFragment {
     public void requestCashData(){
 
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
-        //Map<String,String>params = new HashMap<>();
+
         RequestParams params = new RequestParams();
         params.put("source","android");
         params.put("sid",sid);
@@ -110,7 +110,6 @@ public class AllSpeadCashFragment extends BaseFragment {
         String date = format.format(new Date(System.currentTimeMillis()));
         params.put("date",date);
         params.put("orderType","1");
-        params.put("debug","1");
         params.put("startPos",String.valueOf(page));
         params.put("step",String.valueOf(size));
 

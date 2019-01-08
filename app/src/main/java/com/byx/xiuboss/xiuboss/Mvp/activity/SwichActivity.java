@@ -15,6 +15,8 @@ import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.R;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.callback.JsonCallBack;
+import com.lzy.okhttputils.model.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -53,23 +55,20 @@ public class SwichActivity extends BaseActivity {
 
         SharedPreferences login_sucess = getSharedPreferences("login_sucess", MODE_PRIVATE);
         String id = login_sucess.getString("id", "");
-        Map<String,String> tags= new HashMap<>();
-        tags.put("id",id);
+        //Map<String,String> params= new HashMap<>();
+        RequestParams params = new RequestParams();
+        params.put("id", id);
 
-        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.SWITCH_SHOP_URL, tags, new OkHttpUtils.UserNetCall() {
+        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.SWITCH_SHOP_URL).params(params).execute(new JsonCallBack<String>() {
             @Override
-            public void success(Call call, String json) {
-                Gson gson=new Gson();
+            public void onResponse(String json) {
+                Gson gson = new Gson();
                 SwichBean swichBean = gson.fromJson(json, SwichBean.class);
-                if (swichBean.getCode() == 2000){
+                if (swichBean.getCode() == 2000) {
                     mSwichList.clear();
                     mSwichList.addAll(swichBean.getData());
                     adapter.notifyDataSetChanged();
                 }
-            }
-            @Override
-            public void failed(Call call, IOException e) {
-
             }
         });
 
@@ -86,18 +85,18 @@ public class SwichActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.bottom_silent,R.anim.bottom_out);
+                overridePendingTransition(R.anim.bottom_silent, R.anim.bottom_out);
             }
         });
         swichRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new SwichAdapter(id_dian,mSwichList,SwichActivity.this,SwichActivity.this);
+        adapter = new SwichAdapter(id_dian, mSwichList, SwichActivity.this, SwichActivity.this);
         swichRecycler.setAdapter(adapter);
-        adapter.setListener((position,dataBean)->{
-            for(int i=0;i<mSwichList.size();i++){
-                if (i == position){
+        adapter.setListener((position, dataBean) -> {
+            for (int i = 0; i < mSwichList.size(); i++) {
+                if (i == position) {
                     mSwichList.get(i).setSelect(true);
-                }else{
+                } else {
                     mSwichList.get(i).setSelect(false);
                 }
             }
@@ -117,7 +116,7 @@ public class SwichActivity extends BaseActivity {
             EventBus.getDefault().post(dataBean.getId());
             setResult(RESULT_OK);
             finish();
-            overridePendingTransition(R.anim.bottom_silent,R.anim.bottom_out);
+            overridePendingTransition(R.anim.bottom_silent, R.anim.bottom_out);
         });
 
     }

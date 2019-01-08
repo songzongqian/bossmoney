@@ -18,6 +18,8 @@ import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.callback.JsonCallBack;
+import com.lzy.okhttputils.model.RequestParams;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -57,7 +59,7 @@ public class CollRecordeActivity extends BaseActivity {
 
     private int page = 1;
     private int size = 10;
-    private List<ReceipeInfo.DataBean.OrderListBean>mOrderList = new ArrayList<>();
+    private List<ReceipeInfo.DataBean.OrderListBean> mOrderList = new ArrayList<>();
     private CollRecordeAdapter mRecordeAdapter;
     private String uid;
 
@@ -79,10 +81,10 @@ public class CollRecordeActivity extends BaseActivity {
             finish();
         });
 
-        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
 
-        mRecordeAdapter = new CollRecordeAdapter(mOrderList,this);
+        mRecordeAdapter = new CollRecordeAdapter(mOrderList, this);
         mRecyclerView.setAdapter(mRecordeAdapter);
 
         mRecordeAdapter.setOnItemClickListener((position, orderBean) -> {
@@ -91,55 +93,55 @@ public class CollRecordeActivity extends BaseActivity {
     }
 
     private void initData() {
-
         requestRecordeData();
 
     }
-    public void requestRecordeData(){
+
+    public void requestRecordeData() {
         String sid = SPUtils.getInstance(this).getString("sid");
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         String date = format.format(new Date(System.currentTimeMillis()));
-        Map<String,String> params = new HashMap<>();
-        params.put("source","android");
-        params.put("sid",sid);
-        params.put("date",date);
-        params.put("openId",uid);
-        params.put("startPos",String.valueOf(page));
-        params.put("step",String.valueOf(size));
-        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.ORDERLIST_URL, params, new OkHttpUtils.UserNetCall() {
-            @Override
-            public void success(Call call, String json) {
-                ReceipeInfo info = new Gson().fromJson(json, ReceipeInfo.class);
+        //Map<String,String> params = new HashMap<>();
+        RequestParams params = new RequestParams();
+        params.put("source", "android");
+        params.put("sid", sid);
+        params.put("date", date);
+        params.put("openId", uid);
+        params.put("startPos", String.valueOf(page));
+        params.put("step", String.valueOf(size));
 
-                if (info.getCode() == 2000){
-                    setRecipeInfo(info.getData());
-                    if (page == 1){
-                        mOrderList.clear();
-                    }
-                    if (info.getCode() == 2000){
-                        mOrderList.addAll(info.getData().getOrderList());
-                        mRecordeAdapter.notifyDataSetChanged();
-                    }
-                    if (mOrderList.size() == 0){
-                        mEmptyView.setVisibility(View.VISIBLE);
-                    }else{
-                        mEmptyView.setVisibility(View.GONE);
+        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.ORDERLIST_URL).params(params).execute(new JsonCallBack<String>() {
+            @Override
+            public void onResponse(String json) {
+                if (json != null) {
+                    ReceipeInfo info = new Gson().fromJson(json, ReceipeInfo.class);
+
+                    if (info.getCode() == 2000) {
+                        setRecipeInfo(info.getData());
+                        if (page == 1) {
+                            mOrderList.clear();
+                        }
+                        if (info.getCode() == 2000) {
+                            mOrderList.addAll(info.getData().getOrderList());
+                            mRecordeAdapter.notifyDataSetChanged();
+                        }
+                        if (mOrderList.size() == 0) {
+                            mEmptyView.setVisibility(View.VISIBLE);
+                        } else {
+                            mEmptyView.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
-
-            @Override
-            public void failed(Call call, IOException e) {
-
-            }
         });
+
     }
 
     private void setRecipeInfo(ReceipeInfo.DataBean data) {
 
         Glide.with(this).load(data.getCustomerAvatar()).into(mIcon);
         mName.setText(data.getCustomerName());
-        mSpeedMoney.setText("￥ "+data.getTotalIncome());
-        mBackMoney.setText("共返现￥"+data.getReturnOrderTotal());
+        mSpeedMoney.setText("￥ " + data.getTotalIncome());
+        mBackMoney.setText("共返现￥" + data.getReturnOrderTotal());
     }
 }

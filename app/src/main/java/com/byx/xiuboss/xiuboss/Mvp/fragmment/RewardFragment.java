@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.webkit.JavascriptInterface;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,7 @@ import com.byx.xiuboss.xiuboss.Bean.StoreInfo;
 import com.byx.xiuboss.xiuboss.Jgim.utils.ToastUtil;
 import com.byx.xiuboss.xiuboss.MainActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.PayCodeActivity;
+import com.byx.xiuboss.xiuboss.Mvp.activity.SharedActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.TipsActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.WeChatActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.WithDrawActivity;
@@ -57,7 +59,9 @@ import com.byx.xiuboss.xiuboss.Utils.ShareUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.google.gson.Gson;
 import com.lzy.okhttputils.callback.JsonCallBack;
+import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
+import com.lzy.okhttputils.utils.GetHeaderPwd;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.zhy.autolayout.AutoLinearLayout;
@@ -147,11 +151,7 @@ public class RewardFragment extends BaseFragment {
     private TextView mPopupContent;
     private TextView mPopupMoney;
     private Button mPopupRecord;
-    private View mSharePopupView;
-    private RewritePopwindow mSharePopupWindow;
-    private RelativeLayout mPopupShareWeChat;
-    private RelativeLayout mPopupShareFriend;
-    private TextView mPopupShareCancel;
+
     private String popuContent;
     private RewardInfo.DataBean rewardInfo;
 
@@ -189,7 +189,7 @@ public class RewardFragment extends BaseFragment {
             if (type == 0x111) { //item的点击事件
 
             } else if (type == 0x112) { //点击邀请的事件
-                initSharePopupWindow();
+                toShareActivity(String.valueOf(1));
             }
         });
         /*smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
@@ -226,6 +226,10 @@ public class RewardFragment extends BaseFragment {
             initData();
 
         });
+
+        mInvateFriend.setOnClickListener(v -> {
+            toShareActivity(String.valueOf(2));
+        });
     }
 
     private void initData() {
@@ -240,18 +244,16 @@ public class RewardFragment extends BaseFragment {
     public void requestCashData() {
 
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
-
-        Map<String, String> params = new HashMap<>();
+        RequestParams params = new RequestParams();
         params.put("source", "android");
         params.put("sid", sid);
         params.put("startPos", String.valueOf(page));
         params.put("step", String.valueOf(size));
-        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.GETCASH_URL, params, new OkHttpUtils.UserNetCall() {
+
+        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.GETCASH_URL).params(params).execute(new JsonCallBack<String>() {
             @Override
-            public void success(Call call, String json) {
+            public void onResponse(String json) {
                 ((MainActivity) getActivity()).cancelDialog();
-                /*smartRefreshLayout.finishRefresh();
-                smartRefreshLayout.finishLoadMore();*/
                 RewardInfo info = new Gson().fromJson(json, RewardInfo.class);
                 if (info != null && info.getCode() == 2000) {
                     setRewardInfo(info.getData());
@@ -272,12 +274,6 @@ public class RewardFragment extends BaseFragment {
                         }
                     }
                 }
-            }
-
-            @Override
-            public void failed(Call call, IOException e) {
-                /*smartRefreshLayout.finishRefresh();
-                smartRefreshLayout.finishLoadMore();*/
             }
         });
 
@@ -379,37 +375,6 @@ public class RewardFragment extends BaseFragment {
 
     }
 
-    private void initSharePopupWindow() {
-        if (mSharePopupView == null) {
-            mSharePopupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_share, null, false);
-            mSharePopupWindow = new RewritePopwindow(getActivity(), mSharePopupView);
-            mPopupShareWeChat = mSharePopupView.findViewById(R.id.rl_weChat);
-            mPopupShareFriend = mSharePopupView.findViewById(R.id.rl_weFriend);
-            mPopupShareCancel = mSharePopupView.findViewById(R.id.cancel);
-        }
-        mPopupShareWeChat.setOnClickListener(v -> {
-            /*Intent intent = new Intent(getActivity(), WeChatActivity.class);
-            intent.putExtra("sid", "");
-            startActivity(intent);*/
-            toShare(Wechat.Name);
-        });
-
-        mPopupShareFriend.setOnClickListener(v -> {
-            //Toast.makeText(getActivity(), "朋友圈", Toast.LENGTH_LONG).show();
-            toShare(WechatMoments.Name);
-        });
-
-        mPopupShareCancel.setOnClickListener(v -> {
-            if (mSharePopupWindow != null) {
-                mSharePopupWindow.dismiss();
-            }
-        });
-        if (mSharePopupView != null) {
-            View rootview = getActivity().getWindow().getDecorView();
-            mSharePopupWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-        }
-
-    }
 
     private void initNewsPerson(String sid, String id) {
         View newPserOnView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_person, null, false);
@@ -625,33 +590,12 @@ public class RewardFragment extends BaseFragment {
         });
     }
 
-    private void toShare(String name) {
+    private void toShareActivity(String share_type) {
 
-        ShareParams params = new ShareParams();
-        params.setShareType(Platform.SHARE_WEBPAGE);
-        params.setTitle("休休有钱");
-        params.setUrl("http://www.baidu.com");
-        params.setComment("我是用来测试的案例");
-        ShareUtils.share(name, params, new ShareUtils.OnShareListener() {
-            @Override
-            public void onShareSuccess() {
-                ToastUtil.shortToast(getActivity(), "分享成功");
-                if (mSharePopupWindow != null) {
-                    mSharePopupWindow.dismiss();
-                }
-            }
-        });
-
+        Intent intent = new Intent(getActivity(), SharedActivity.class);
+        intent.putExtra("share_type", share_type);
+        startActivity(intent);
     }
-
-    public class JsUseAppMethod extends Object {
-
-
-        public void shareWithTitleDescriptionImageURL(String title,String description,String image,String url) {
-
-        }
-    }
-
 
     @Override
     public void onDestroyView() {
