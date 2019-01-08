@@ -161,7 +161,9 @@ public class PublishFragment extends BaseFragment {
 
             @Override
             public void onResponse(StoreInfo storeInfo) {
+                ((MainActivity)getActivity()).cancelDialog();
                 if(storeInfo!=null && storeInfo.getCode()==2000){
+                    System.out.println("数据请求成功");
                     StoreInfo.DataBean infoBean = storeInfo.getData();
                     mStoreName.setText(infoBean.getStoreName());
                     mAllIcome.setText("￥"+ (TextUtils.isEmpty(infoBean.getTotalIncome())?"0":infoBean.getTotalIncome()));
