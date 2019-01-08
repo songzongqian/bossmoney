@@ -260,8 +260,8 @@ public class RewardFragment extends BaseFragment {
                         mRewardList.clear();
                         mRewardList.addAll(info.getData().getShareTasks());
                         mRewardAdapter.notifyDataSetChanged();
-                    }else{
-                        ToastUtil.shortToast(getActivity(),"没有其他商户了");
+                    } else {
+                        ToastUtil.shortToast(getActivity(), "没有其他商户了");
                     }
                     if (mRewardList.size() == 0) {
                         mEmptyView.setVisibility(View.VISIBLE);
@@ -625,7 +625,7 @@ public class RewardFragment extends BaseFragment {
         });
     }
 
-    private void toShare(String name){
+    private void toShare(String name) {
 
         ShareParams params = new ShareParams();
         params.setShareType(Platform.SHARE_WEBPAGE);
@@ -635,14 +635,23 @@ public class RewardFragment extends BaseFragment {
         ShareUtils.share(name, params, new ShareUtils.OnShareListener() {
             @Override
             public void onShareSuccess() {
-                ToastUtil.shortToast(getActivity(),"分享成功");
-                if (mSharePopupWindow!=null){
+                ToastUtil.shortToast(getActivity(), "分享成功");
+                if (mSharePopupWindow != null) {
                     mSharePopupWindow.dismiss();
                 }
             }
         });
 
     }
+
+    public class JsUseAppMethod extends Object {
+
+
+        public void shareWithTitleDescriptionImageURL(String title,String description,String image,String url) {
+
+        }
+    }
+
 
     @Override
     public void onDestroyView() {

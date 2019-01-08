@@ -147,8 +147,6 @@ public class AppUrl {
 
    public static final String NEWMY_URL = BaseUrl+"/CI/ST12.php/StoreMy/myHome";
 
-
-
     /**
      * 奖励荣誉分规则
      **/
