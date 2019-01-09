@@ -77,7 +77,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.order_num)
     ImageView order_num;
-
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * 修改的内容
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * */
     private BaseFragment[] fragments = {new PublishFragment(), new FindFragment(),new RewardFragment(), new NewMyFragment()};
     private PopupWindow window;
     private NiftyDialogBuilder dialogBuilder;
