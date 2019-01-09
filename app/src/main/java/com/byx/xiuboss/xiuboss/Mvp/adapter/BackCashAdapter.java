@@ -75,7 +75,7 @@ public class BackCashAdapter extends RecyclerView.Adapter<BackCashAdapter.VhHold
         } else {
             holder.mBack.setVisibility(View.GONE);
         }
-        if (!TextUtils.isEmpty(orderListBean.getUid())|| !TextUtils.equals(orderListBean.getUid(),"0")) {
+        if (!TextUtils.isEmpty(orderListBean.getUid()) && !TextUtils.equals(orderListBean.getUid(),"0")) {
             setOnClickListener(holder, mList.get(position), position);
         }
     }
