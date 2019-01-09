@@ -9,7 +9,7 @@
     android:background="#D45047"
     tools:context="com.byx.xiuboss.xiuboss.Mvp.activity.CollRecordeActivity">
 
-    <include layout="@layout/head_layout" />
+    <include layout="@layout/title_item" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

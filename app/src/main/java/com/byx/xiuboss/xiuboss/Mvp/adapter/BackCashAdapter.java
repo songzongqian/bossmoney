@@ -55,18 +55,29 @@ public class BackCashAdapter extends RecyclerView.Adapter<BackCashAdapter.VhHold
     public void onBindViewHolder(@NonNull VhHolder holder, int position) {
 
         StoreInfo.DataBean.OrderListBean orderListBean = mList.get(position);
-        Glide.with(mContext).load(orderListBean.getCustomerAvatar()).into(holder.mIcon);
-        holder.mTitle.setText(orderListBean.getNickName());
-        holder.mTime.setText(orderListBean.getDatetime());
-        holder.mCash.setText("+"+orderListBean.getTotal());
-        if (!TextUtils.isEmpty(orderListBean.getReturnCash())){
-            holder.mBack.setText("返现"+orderListBean.getReturnCash()+"元");
-        }else{
-            holder.mBack.setVisibility(View.GONE);
+        String payType = orderListBean.getPayType();
+        if (TextUtils.equals(payType, "wechat")) {
+            Glide.with(mContext).load(R.mipmap.common_wx_logo).into(holder.mIcon);
+            holder.mTitle.setText("微信用户");
+        } else if (TextUtils.equals(payType, "alipay")) {
+            Glide.with(mContext).load(R.mipmap.common_ali_logo).into(holder.mIcon);
+            holder.mTitle.setText("支付宝用户");
+        } else {
+            Glide.with(mContext).load(orderListBean.getCustomerAvatar()).into(holder.mIcon);
+            holder.mTitle.setText(orderListBean.getNickName());
         }
 
 
-        setOnClickListener(holder, mList.get(position), position);
+        holder.mTime.setText(orderListBean.getDatetime());
+        holder.mCash.setText("+" + orderListBean.getTotal());
+        if (!TextUtils.isEmpty(orderListBean.getReturnCash())) {
+            holder.mBack.setText("返现" + orderListBean.getReturnCash() + "元");
+        } else {
+            holder.mBack.setVisibility(View.GONE);
+        }
+        if (!TextUtils.isEmpty(orderListBean.getUid())) {
+            setOnClickListener(holder, mList.get(position), position);
+        }
     }
 
     private void setOnClickListener(VhHolder holder, final StoreInfo.DataBean.OrderListBean dataBean, final int position) {

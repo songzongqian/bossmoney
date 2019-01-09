@@ -41,6 +41,7 @@ import com.google.gson.Gson;
 import com.lzy.okhttputils.model.RequestHeaders;
 import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoLinearLayout;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.w3c.dom.Text;
 
@@ -79,7 +80,8 @@ public class PublishFragment extends BaseFragment {
     ViewPager mViewPager;
     @BindView(R.id.mTabLayout)
     SlidingTabLayout mSlideTabLayout;
-
+    @BindView(R.id.mEmptyView)
+    AutoRelativeLayout mEmptyView;
     Unbinder unbinder;
 
 
@@ -106,10 +108,10 @@ public class PublishFragment extends BaseFragment {
     }
 
     private void initData() {
-        ((MainActivity) getActivity()).showDialog();
+        /*((MainActivity) getActivity()).showDialog();
         ((MainActivity) getActivity()).getEmptyView().setOnClickListener(v -> {
             initData();
-        });
+        });*/
         requestIndexData();
     }
 
@@ -137,7 +139,6 @@ public class PublishFragment extends BaseFragment {
 
     public void requestIndexData() {
         SharedPreferences loginSucess = getActivity().getSharedPreferences("login_sucess", MODE_PRIVATE);
-
         String sid = SPUtils.getInstance(getActivity()).getString("sid");
         RequestParams requestParams = new RequestParams();
         requestParams.put("source", "android");
@@ -146,7 +147,7 @@ public class PublishFragment extends BaseFragment {
 
             @Override
             public void onResponse(StoreInfo storeInfo) {
-                ((MainActivity) getActivity()).cancelDialog();
+                //((MainActivity) getActivity()).cancelDialog();
                 if (storeInfo != null && storeInfo.getCode() == 2000) {
                     System.out.println("数据请求成功");
                     StoreInfo.DataBean infoBean = storeInfo.getData();
@@ -159,7 +160,7 @@ public class PublishFragment extends BaseFragment {
                     mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles, mFragments);
                     mViewPager.setAdapter(mAdapter);
                     mSlideTabLayout.setViewPager(mViewPager);
-
+                    mEmptyView.setVisibility(View.GONE);
                     String pop_up_status = infoBean.getPop_up_status();//1
                     String pop_up_text = infoBean.getPop_up_text();//1.1.2
                     String note = infoBean.getPop_up_settles(); //文本内容
@@ -171,7 +172,6 @@ public class PublishFragment extends BaseFragment {
                             //弹窗
                             if (pop_up_text.equals(versionNumber)) {
                                 //版本号一致
-
                             } else {
                                 //版本号不一致
                                 loginSucess.edit().putString("versionName", pop_up_text).commit();
@@ -191,13 +191,7 @@ public class PublishFragment extends BaseFragment {
 
                         }
                     }
-
-
-
-
-
                 }
-
             }
 
             @Override

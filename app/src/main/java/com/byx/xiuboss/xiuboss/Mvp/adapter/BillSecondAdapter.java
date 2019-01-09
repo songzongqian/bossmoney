@@ -71,11 +71,7 @@ public class BillSecondAdapter extends RecyclerView.Adapter {
             Log.e("day",day);
             secondViewHolder.textDescribe.setText("收款"+dataBean.getSum()+"笔");
             secondViewHolder.moneyTotal.setText("￥"+dataBean.getPrice());
-        }else{
-
         }
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

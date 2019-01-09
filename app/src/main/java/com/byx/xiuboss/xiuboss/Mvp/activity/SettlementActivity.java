@@ -3,6 +3,8 @@ package com.byx.xiuboss.xiuboss.Mvp.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -25,8 +27,10 @@ import butterknife.ButterKnife;
 
 public class SettlementActivity extends BaseActivity {
 
-    @BindView(R.id.head_back)
+    @BindView(R.id.rl_back)
     RelativeLayout mBack;
+    @BindView(R.id.title_text)
+    TextView mHeadTitle;
     @BindView(R.id.mTotalMoney)
     TextView mTotalMoney;
     @BindView(R.id.mBackMoney)
@@ -43,6 +47,7 @@ public class SettlementActivity extends BaseActivity {
     private TextView mPopupMobile;
     private TextView mPopupCancel;
     private TextView mPopupConfim;
+    private String mySid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +60,9 @@ public class SettlementActivity extends BaseActivity {
     }
 
     private void initView() {
-
+        mHeadTitle.setText("结算详情");
         Bundle bundle = getIntent().getExtras();
-        String sid = bundle.getString("sid");
+        mySid = bundle.getString("sid");
         //20181120
         dateTime = bundle.getString("stat_day");
 
@@ -71,7 +76,7 @@ public class SettlementActivity extends BaseActivity {
 
         mReceiptLayout.setOnClickListener(v -> {
             Intent intent = new Intent(this, SettRecordActivity.class);
-            intent.putExtra("DateTime", dateTime);
+            intent.putExtra("dateTime", dateTime);
             startActivity(intent);
         });
 
@@ -86,12 +91,11 @@ public class SettlementActivity extends BaseActivity {
     }
 
     public void requestSetAccounts() {
-        String sid = SPUtils.getInstance(this).getString(Constant.SID);
+        //String sid = SPUtils.getInstance(this).getString(Constant.SID);
         RequestParams params = new RequestParams();
         params.put("source", "android");
-        params.put("sid", sid);
+        params.put("sid",mySid );
         params.put("date", dateTime);
-        params.put("debug", "1");
         OkHttpUtils.post(AppUrl.RESULTSETTLE_URL).params(params).execute(new JsonCallBack<SettleInfo>() {
             @Override
             public void onResponse(SettleInfo settleInfo) {
@@ -107,9 +111,9 @@ public class SettlementActivity extends BaseActivity {
 
     public void setSettleInfo(SettleInfo.DataBean settleInfo) {
         mobile = settleInfo.getMobile();
-        mTotalMoney.setText("￥ " + settleInfo.getTotalIncome());
-        mBackMoney.setText("-￥ " + settleInfo.getReturnOrderTotal());
-        mResultMoney.setText("￥ " + settleInfo.getActualIncome());
+        mTotalMoney.setText("￥ " + (TextUtils.isEmpty(settleInfo.getTotalIncome()) ? "0" : settleInfo.getTotalIncome()));
+        mBackMoney.setText("-￥ " + (TextUtils.isEmpty(settleInfo.getReturnOrderTotal()) ? "0" : settleInfo.getReturnOrderTotal()));
+        mResultMoney.setText("￥ " + (TextUtils.isEmpty(settleInfo.getActualIncome()) ? "0" : settleInfo.getActualIncome()));
 
     }
 
@@ -121,9 +125,12 @@ public class SettlementActivity extends BaseActivity {
             mPopupCancel = mSharePopupView.findViewById(R.id.mCancel);
             mPopupConfim = mSharePopupView.findViewById(R.id.mConfim);
         }
-        mPopupMobile.setText("tel-" + mobile);
+        mPopupMobile.setText("Tel - " + mobile);
 
         mPopupConfim.setOnClickListener(v -> {
+            if (mConstantPopupWindow != null) {
+                mConstantPopupWindow.dismiss();
+            }
             Intent intent = new Intent(Intent.ACTION_DIAL);
             Uri data = Uri.parse("tel:" + mobile);
             intent.setData(data);
@@ -135,6 +142,10 @@ public class SettlementActivity extends BaseActivity {
                 mConstantPopupWindow.dismiss();
             }
         });
+        if (mConstantPopupWindow != null) {
+            View decorView = getWindow().getDecorView();
+            mConstantPopupWindow.showAtLocation(decorView, Gravity.CENTER, 0, 0);
+        }
 
     }
 }

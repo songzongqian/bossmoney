@@ -19,6 +19,8 @@ import com.byx.xiuboss.xiuboss.Utils.SPUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.lzy.okhttputils.callback.JsonCallBack;
+import com.lzy.okhttputils.model.RequestParams;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,9 +34,9 @@ import okhttp3.Call;
 
 public class SettRecordActivity extends BaseActivity {
 
-    @BindView(R.id.head_back)
+    @BindView(R.id.rl_back)
     RelativeLayout mBack;
-    @BindView(R.id.head_title)
+    @BindView(R.id.title_text)
     TextView mTitle;
 
     @BindView(R.id.mAllIcome)
@@ -61,7 +63,7 @@ public class SettRecordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sett_record);
         unbinder = ButterKnife.bind(this);
-        dateTime = getIntent().getStringExtra("DateTime");
+        dateTime = getIntent().getStringExtra("dateTime");
 
         setStatusBar(true);
         initView();
@@ -94,30 +96,22 @@ public class SettRecordActivity extends BaseActivity {
 
     public void requestIndexData() {
 
-        Map<String, String> parmas = new HashMap<>();
+        //Map<String, String> params = new HashMap<>();
+        RequestParams params = new RequestParams();
         String sid = SPUtils.getInstance(this).getString("sid");
-        parmas.put("source", "android");
-        parmas.put("sid", sid);
-        parmas.put("date", dateTime);
-        //parmas.put("token","49e1tBbQn-uRAuUxFCIyVby5klNeYZ1UIKkUmfuWAzbXyox4lb9heQ");
-
-        OkHttpUtils.getInstance().postDataAsynToUi(AppUrl.INDEXDATA_URL, parmas, new OkHttpUtils.UserNetCall() {
+        params.put("source", "android");
+        params.put("sid", sid);
+        params.put("date", dateTime);
+        com.lzy.okhttputils.OkHttpUtils.post(AppUrl.INDEXDATA_URL).params(params).execute(new JsonCallBack<String>() {
             @Override
-            public void success(Call call, String json) {
+            public void onResponse(String json) {
                 cancelDialog();
                 StoreInfo info = new Gson().fromJson(json, StoreInfo.class);
                 if (info.getCode() == 2000) {
                     setIndexData(info.getData());
                 }
             }
-
-            @Override
-            public void failed(Call call, IOException e) {
-
-            }
         });
-
-
     }
 
     /*设置数据*/
@@ -126,7 +120,7 @@ public class SettRecordActivity extends BaseActivity {
         if (!TextUtils.isEmpty(dateTime)) {
             resultTime = DateTimeUtils.judteTime(dateTime, this);
         }
-        mDateTime.setText(resultTime+"");
+        mDateTime.setText(resultTime + "");
         mAllIcome.setText("￥" + (TextUtils.isEmpty(infoBean.getTotalIncome()) ? "0" : infoBean.getTotalIncome()));
         mBackPropt.setText("其中休休返现收入占比 " + (TextUtils.isEmpty(infoBean.getTotalReturnRatio()) ? "0" : infoBean.getTotalReturnRatio()));
         mTabTitles.clear();

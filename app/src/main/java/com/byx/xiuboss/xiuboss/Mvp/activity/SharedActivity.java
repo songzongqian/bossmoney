@@ -40,6 +40,7 @@ public class SharedActivity extends BaseActivity {
     private String share_type;
 
     private Handler handler = new Handler(Looper.getMainLooper());
+    private String openKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class SharedActivity extends BaseActivity {
         setContentView(R.layout.activity_shared);
         ButterKnife.bind(this);
         share_type = getIntent().getStringExtra("share_type");
+        openKey = getIntent().getStringExtra("openKey");
         initView();
         initDate();
     }
@@ -118,7 +120,9 @@ public class SharedActivity extends BaseActivity {
         ShareParams params = new ShareParams();
         params.setShareType(Platform.SHARE_WEBPAGE);
         params.setTitle(title);
-        params.setUrl(url);
+        openKey = openKey+"@@"+ (System.currentTimeMillis()/1000);
+        String pathUrl = url+"&openKey="+openKey;
+        params.setUrl(pathUrl);
         params.setVenueDescription(description);
         if (!TextUtils.isEmpty(image)){
             params.setImagePath(image);

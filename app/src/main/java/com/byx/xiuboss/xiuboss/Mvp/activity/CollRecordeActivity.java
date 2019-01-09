@@ -40,12 +40,10 @@ public class CollRecordeActivity extends BaseActivity {
     @BindView(R.id.mEmptyView)
     LinearLayout mEmptyView;
 
-    @BindView(R.id.head_back)
+    @BindView(R.id.rl_back)
     RelativeLayout mHeadBack;
-    @BindView(R.id.head_title)
+    @BindView(R.id.title_text)
     TextView mHeadTitle;
-    @BindView(R.id.head_save)
-    RelativeLayout mHeadSave;
     @BindView(R.id.mIcon)
     ImageView mIcon;
     @BindView(R.id.mName)

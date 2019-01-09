@@ -169,7 +169,6 @@ public class RewardFragment extends BaseFragment {
 
         initView();
         initData();
-        showNewWindow();
         return view;
     }
 
@@ -189,19 +188,9 @@ public class RewardFragment extends BaseFragment {
             if (type == 0x111) { //item的点击事件
 
             } else if (type == 0x112) { //点击邀请的事件
-                toShareActivity(String.valueOf(1));
+                toShareActivity(String.valueOf(1), rdst.getOpenKey());
             }
         });
-        /*smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            if (page > 1) {
-                page = 1;
-            }
-            initData();
-        });
-        smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            page++;
-            initData();
-        });*/
         setOnClick();
 
     }
@@ -228,15 +217,16 @@ public class RewardFragment extends BaseFragment {
         });
 
         mInvateFriend.setOnClickListener(v -> {
-            toShareActivity(String.valueOf(2));
+            String openKey = SPUtils.getInstance(getActivity()).getString("openKey");
+            toShareActivity(String.valueOf(2), openKey);
         });
     }
 
     private void initData() {
-        ((MainActivity) getActivity()).showDialog();
+        /*((MainActivity) getActivity()).showDialog();
         ((MainActivity) getActivity()).getEmptyView().setOnClickListener(v -> {
             initData();
-        });
+        });*/
         requestCashData();
 
     }
@@ -253,7 +243,7 @@ public class RewardFragment extends BaseFragment {
         com.lzy.okhttputils.OkHttpUtils.post(AppUrl.GETCASH_URL).params(params).execute(new JsonCallBack<String>() {
             @Override
             public void onResponse(String json) {
-                ((MainActivity) getActivity()).cancelDialog();
+                //((MainActivity) getActivity()).cancelDialog();
                 RewardInfo info = new Gson().fromJson(json, RewardInfo.class);
                 if (info != null && info.getCode() == 2000) {
                     setRewardInfo(info.getData());
@@ -263,7 +253,9 @@ public class RewardFragment extends BaseFragment {
                         mRewardList.addAll(info.getData().getShareTasks());
                         mRewardAdapter.notifyDataSetChanged();
                     } else {
-                        ToastUtil.shortToast(getActivity(), "没有其他商户了");
+                        //ToastUtil.shortToast(getActivity(), "没有其他商户了");
+                        page = 1;
+                        initData();
                     }
                     if (mRewardList.size() == 0) {
                         mEmptyView.setVisibility(View.VISIBLE);
@@ -295,21 +287,6 @@ public class RewardFragment extends BaseFragment {
                 initData();
             });
         }
-
-        /*long lastTime = Long.parseLong((TextUtils.isEmpty(dataBean.getNextGetCashTime()) ? "0" : dataBean.getNextGetCashTime()));
-        long remainTime = System.currentTimeMillis() - (lastTime * 1000);
-        if (remainTime>(24*3600*1000)){
-            mTimeLayout.setVisibility(View.GONE);
-            mReceiveScore.setVisibility(View.VISIBLE);
-        }else{
-            mTimeLayout.setVisibility(View.VISIBLE);
-            mReceiveScore.setVisibility(View.GONE);
-            long time = (lastTime * 1000+(24*3600*1000)) - System.currentTimeMillis();
-            mCountDownTimer.start(time);
-            mCountDownTimer.setOnCountdownEndListener((cdt)->{
-                initData();
-            });
-        }*/
         //获取进度值 25 50 25
         int curX = Integer.parseInt(dataBean.getCurScore());
         int startX = Integer.parseInt(dataBean.getCreditScore());
@@ -342,6 +319,10 @@ public class RewardFragment extends BaseFragment {
         mNextGrade.setText(" x" + dataBean.getNextStepTitle());
 
         mCheckInTo.setText("入驻即奖励" + dataBean.getShareReturnCash() + "元");
+
+        if (dataBean.getStoreBonus().equals("1")) {
+            showNewWindow();
+        }
 
     }
 
@@ -434,6 +415,11 @@ public class RewardFragment extends BaseFragment {
                     }
                     initNewsPerson(sid, id);
                 }
+            }
+
+            @Override
+            public void onError(Call call, @Nullable Response response, @Nullable Exception e) {
+                super.onError(call, response, e);
             }
         });
 
@@ -590,10 +576,11 @@ public class RewardFragment extends BaseFragment {
         });
     }
 
-    private void toShareActivity(String share_type) {
+    private void toShareActivity(String share_type, String openKey) {
 
         Intent intent = new Intent(getActivity(), SharedActivity.class);
         intent.putExtra("share_type", share_type);
+        intent.putExtra("openKey", openKey);
         startActivity(intent);
     }
 

@@ -83,7 +83,16 @@ public class RewardInfo {
         private String nextCreditScore;
         private String nextReturnCash;
         private String nextGetCashTime;
+        private String storeBonus;
         private List<ShareTasksBean> shareTasks;
+
+        public String getStoreBonus() {
+            return storeBonus;
+        }
+
+        public void setStoreBonus(String storeBonus) {
+            this.storeBonus = storeBonus;
+        }
 
         public String getNextGetCashTime() {
             return nextGetCashTime;

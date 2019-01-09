@@ -161,6 +161,15 @@ public class StoreInfo {
             private String datetime;
             private String orderSn;
             private String uid;
+            private String payType;
+
+            public String getPayType() {
+                return payType;
+            }
+
+            public void setPayType(String payType) {
+                this.payType = payType;
+            }
 
             public String getCustomerAvatar() {
                 return customerAvatar;

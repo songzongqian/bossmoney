@@ -11,59 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="237dp"
         android:background="#D45047"
-        android:orientation="vertical"
-        android:paddingTop="25dp">
+        android:orientation="vertical">
 
-        <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="#D45047"
-            android:paddingBottom="5dp">
+        <include layout="@layout/title_item" />
 
-            <RelativeLayout
-                android:id="@+id/head_back"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:padding="5dp"
-                android:visibility="visible">
-
-                <ImageView
-                    android:id="@+id/title_back_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    app:srcCompat="@drawable/black_back" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/head_title"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="收款记录"
-                android:textColor="#FDE3B6"
-                android:textSize="18dp" />
-
-            <ImageView
-                android:id="@+id/mCloseIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:padding="5dp"
-                android:visibility="gone"
-                app:srcCompat="@mipmap/switch_icon_back" />
-
-
-        </com.zhy.autolayout.AutoRelativeLayout>
 
         <TextView
             android:id="@+id/mDateTime"
