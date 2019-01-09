@@ -130,8 +130,12 @@ public class BalanceWebActivity extends AppCompatActivity {
     public class JavaAction{
         @JavascriptInterface
         public void goBack(){
+            balanceWeb.clearCache(true);
             finish();
         }
-
     }
+
+
+
+
 }

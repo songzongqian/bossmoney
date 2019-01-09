@@ -76,26 +76,26 @@ public class BalanceAdapter extends RecyclerView.Adapter<BalanceAdapter.ViewHold
             //已到账跳转页面
             holder.status.setText("已到账");
             holder.status.setTextColor(0xFF999999);
-            holder.balance_relative.setOnClickListener(new View.OnClickListener() {
+           /* holder.balance_relative.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, CompletedActivity.class);
                     intent.putExtra("completed",lance.get(position));
                     context.startActivity(intent);
                 }
-            });
+            });*/
         }else if (i==2){
             holder.status.setText("处理中");
             holder.status.setTextColor(0xFF999999);
             //未到账跳转页面
-            holder.balance_relative.setOnClickListener(new View.OnClickListener() {
+           /* holder.balance_relative.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, AccountActivity.class);
                     intent.putExtra("account",lance.get(position));
                     context.startActivity(intent);
                 }
-            });
+            });*/
         }else if (i==3){
             holder.status.setText("提现被撤销");
             holder.status.setTextColor(0xFFFE2741);

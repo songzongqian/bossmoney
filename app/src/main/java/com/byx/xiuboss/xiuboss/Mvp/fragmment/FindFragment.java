@@ -101,11 +101,10 @@ public class FindFragment extends BaseFragment {
 
 
 
-            String timeFlag = GetHeaderPwd.getTimeFlag();
+
             RequestParams requestParams = new RequestParams();
             requestParams.put("source", "android");
             requestParams.put("sid", sid);
-            requestParams.put("t",timeFlag);
             OkHttpUtils.post(AppUrl.FIND_URL).params(requestParams).execute(new MyJsonCallBack<FindBean>() {
 
                 @Override

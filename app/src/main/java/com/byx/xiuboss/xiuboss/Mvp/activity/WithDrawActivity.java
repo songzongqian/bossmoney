@@ -93,20 +93,23 @@ public class WithDrawActivity extends BaseActivity {
         smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshLayout) {
-               // refreshMore();
+                refreshMore();
                 smartRefreshLayout.finishLoadmore();
             }
         });
     }
 
     private void refreshMore() {
-        requestParams.clear();
+        String timeFlag = GetHeaderPwd.getTimeFlag();
+        if(requestParams!=null){
+            requestParams.clear();
+        }
         page+=1;
         requestParams.put("sid",sid);
         requestParams.put("startPos",page+"");
         requestParams.put("source","android");
         requestParams.put("step",10+"");
-        requestParams.put("debug",1+"");
+        requestParams.put("t",timeFlag);
         OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).execute(new MyJsonCallBack<MyBalanceBean>() {
 
             @Override
@@ -136,18 +139,6 @@ public class WithDrawActivity extends BaseActivity {
         }
 
         String timeFlag = GetHeaderPwd.getTimeFlag();
-        headerMap.put("sid",sid);
-        headerMap.put("startPos",page+"");
-        headerMap.put("source","android");
-        headerMap.put("step",10+"");
-        headerMap.put("t",timeFlag);
-
-        String[] array={"sid","startPos","source","step","t"};
-        String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
-
-        RequestHeaders headers=new RequestHeaders();
-        headers.put("sign",md5);
-        headers.put("appid","148");
         requestParams = new RequestParams();
         requestParams.put("sid",sid);
         requestParams.put("startPos",page+"");
@@ -155,7 +146,7 @@ public class WithDrawActivity extends BaseActivity {
         requestParams.put("step",10+"");
         requestParams.put("t",timeFlag);
 
-        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams)./*headers(headers).*/execute(new MyJsonCallBack<MyBalanceBean>() {
+        OkHttpUtils.post(AppUrl.CASHRECORD_URL).params(requestParams).execute(new MyJsonCallBack<MyBalanceBean>() {
             @Override
             public void onResponse(MyBalanceBean myBalanceBean) {
                 if(myBalanceBean!=null && myBalanceBean.getCode()==2000){

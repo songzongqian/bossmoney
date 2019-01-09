@@ -154,6 +154,7 @@ public class PwdLoginActivity extends BaseActivity {
         requestParams.put("version", version);
 
 
+
         OkHttpUtils.post(AppUrl.LOGIN_URL).params(requestParams).execute(new MyJsonCallBack<LoginBean>() {
 
             @Override
@@ -185,26 +186,6 @@ public class PwdLoginActivity extends BaseActivity {
                     ToastUtil.shortToast(PwdLoginActivity.this, "登陆成功");
                     Intent intent = new Intent(PwdLoginActivity.this, MainActivity.class);
                     startActivity(intent);
-
-
-                    //填充极光推送的相关信息
-                   /* JMessageClient.login(mobile, mobile, new BasicCallback() {
-                        @Override
-                        public void gotResult(int responseCode, String responseMessage) {
-                            if (responseCode == 0) {
-                                UserInfo myInfo = JMessageClient.getMyInfo();
-                                String username = myInfo.getUserName();
-                                String appKey = myInfo.getAppKey();
-                                JPushInterface.setTags(getActivity(), 0, pushTag);
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                getActivity().startActivity(intent);
-                                ToastUtil.shortToast(getActivity(), "登陆成功");
-                                getActivity().finish();
-                            }
-                        }
-
-                    });*/
-
 
                 } else {
                     ToastUtil.shortToast(PwdLoginActivity.this, "登录失败");

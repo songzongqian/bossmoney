@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import com.byx.xiuboss.xiuboss.Bean.MyFragmentBean;
 import com.byx.xiuboss.xiuboss.Bean.RatioBean;
 import com.byx.xiuboss.xiuboss.Bean.SwitchBean;
 import com.byx.xiuboss.xiuboss.Mvp.activity.HelpActivity;
+import com.byx.xiuboss.xiuboss.Mvp.activity.LoginActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.OnLineServiceActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.SettingActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.WalletActivity;
@@ -114,7 +116,6 @@ public class NewMyFragment extends BaseFragment {
     private PopupWindow window;
     final List<String> mOptionsItems = new ArrayList<>();
     MyFragmentBean middleBean;
-    Map<String,String> headerMap=new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -143,27 +144,11 @@ public class NewMyFragment extends BaseFragment {
             mobile1 = sharedPreferences.getString("mobile", "");
             managerMobile1 = sharedPreferences.getString("managerMobile", "");
 
-            if(headerMap!=null){
-                headerMap.clear();
-            }
-
-            String timeFlag = GetHeaderPwd.getTimeFlag();
-            headerMap.put("sid",sid);
-            headerMap.put("mobile",mobile1);
-            headerMap.put("t",timeFlag);
-
-            String[] array={"sid","mobile","t"};
-            String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
-
-            RequestHeaders headers= new RequestHeaders();
-            headers.put("sign",md5);
-            headers.put("appid","148");
 
             RequestParams params = new RequestParams();
             params.put("sid", sid);
             params.put("mobile", mobile1);
-            params.put("t",timeFlag);
-            OkHttpUtils.post(AppUrl.NEWMY_URL).headers(headers).params(params).execute(new MyJsonCallBack<MyFragmentBean>() {
+            OkHttpUtils.post(AppUrl.NEWMY_URL).params(params).execute(new MyJsonCallBack<MyFragmentBean>() {
 
                 @Override
                 public void onResponse(MyFragmentBean myFragmentBean) {
@@ -177,9 +162,16 @@ public class NewMyFragment extends BaseFragment {
                                 .diskCacheStrategy(DiskCacheStrategy.ALL);
                         Glide.with(getActivity()).load(myFragmentBean.getData().getLogo()).apply(requestOptions).into(ivAvatar);
                         userName.setText(myFragmentBean.getData().getUsername());
-                        identity.setText(myFragmentBean.getData().getRole());
-                    } else {
+                        String role = myFragmentBean.getData().getRole();
+                        if(role==null || TextUtils.isEmpty(role)){
+                            identity.setText("0");
+                        }else{
+                            identity.setText(myFragmentBean.getData().getRole());
+                        }
 
+                    }else if(myFragmentBean.getCode()==4001){
+                        Intent intent= new Intent(getActivity(),LoginActivity.class);
+                        startActivity(intent);
                     }
                 }
 
@@ -238,40 +230,12 @@ public class NewMyFragment extends BaseFragment {
                     public void onOptionsSelect(int options1, int option2, int options3 ,View v) {
                         String tx = mOptionsItems.get(options1);
                         //上传比例到服务器
-
-
-                        if(headerMap!=null){
-                            headerMap.clear();
-                        }
-
-                        String timeFlag = GetHeaderPwd.getTimeFlag();//获取时间戳
-                        headerMap.put("sid",sid);
-                        headerMap.put("setKey","cashRatio");
-                        headerMap.put("setValue",tx);
-                        headerMap.put("source","android");
-                        headerMap.put("t",timeFlag);
-
-
-                        //创建参数数组
-                        String[] array={"sid","setKey","setValue","source","t"};
-
-                        //获取参数拼成的字符串的MD5加密值
-                        String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
-
-                        //创建请求头
-                        RequestHeaders headers=new RequestHeaders();
-                        headers.put("sign",md5);
-                        headers.put("appid","148");
-
-
-
                         RequestParams requestParams=new RequestParams();
                         requestParams.put("sid",sid);
                         requestParams.put("setKey","cashRatio");
                         requestParams.put("setValue",tx);
                         requestParams.put("source","android");
-                        requestParams.put("t",timeFlag);
-                        OkHttpUtils.post(AppUrl.CASHRADIO_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<RatioBean>() {
+                        OkHttpUtils.post(AppUrl.CASHRADIO_URL).params(requestParams).execute(new MyJsonCallBack<RatioBean>() {
 
                             @Override
                             public void onResponse(RatioBean ratioBean) {

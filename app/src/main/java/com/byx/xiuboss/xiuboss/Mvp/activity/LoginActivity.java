@@ -227,33 +227,13 @@ public class LoginActivity extends BaseActivity {
                     }
 
 
-                    if(headerMap!=null){
-                        headerMap.clear();
-                    }
-                    String md5Pwd = Base64Utils.MD5(passWord);
-                    String timeFlag = GetHeaderPwd.getTimeFlag();
-                    headerMap.put("mobile",userName);
-                    headerMap.put("password",passWord);
-                    headerMap.put("source","android");
-                    headerMap.put("version",version);
-                    headerMap.put("t",timeFlag);
-
-                    String[] array={"mobile","password","source","version","t"};
-                    String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
-
-                    RequestHeaders headers=new RequestHeaders();
-                    headers.put("sign",md5);
-                    headers.put("appid","148");
-
-
                     RequestParams requestParams = new RequestParams();
                     requestParams.put("mobile", userName);
                     requestParams.put("password", passWord);
                     requestParams.put("source", "android");
                     requestParams.put("version", version);
-                    requestParams.put("t",timeFlag);
 
-                    OkHttpUtils.post(AppUrl.LOGINNEW_URL).params(requestParams).headers(headers).execute(new MyJsonCallBack<LoginBean>() {
+                    OkHttpUtils.post(AppUrl.LOGINNEW_URL).params(requestParams).execute(new MyJsonCallBack<LoginBean>() {
                         @Override
                         public void onResponse(LoginBean loginBean) {
                           if (loginBean != null && loginBean.getCode() == 2000) {

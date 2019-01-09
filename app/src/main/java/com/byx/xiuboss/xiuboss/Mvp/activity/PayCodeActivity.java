@@ -225,7 +225,7 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
                                         @Override
                                         public void onResponse(String json) {
                                             System.out.println("服务器返回的绑定json值"+json);
-                                            if(json.contains("二维码绑定成功")){
+                                            if(json.startsWith("{")){
                                                 ToastUtil.shortToast(PayCodeActivity.this, "绑定成功");
                                                 dialog.dismiss();
                                             }else{
