@@ -55,6 +55,7 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        setStatusBar(true);
         titleText.setText("设置");
         initData();
         File file = new File("/data/data/com.byx.xiuboss.xiuboss/files");

@@ -9,17 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#D45047"
-            android:paddingTop="25dp"
-            android:orientation="vertical">
-
-            <include layout="@layout/title_item" />
-        </com.zhy.autolayout.AutoLinearLayout>
-
-
+        <include layout="@layout/title_item" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/smartRefreshLayout"

@@ -378,7 +378,7 @@ public class NewMyFragment extends BaseFragment {
 
     private void showPopupWindow() {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_phone, null, false);
-        window = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        window = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         RelativeLayout manager = contentView.findViewById(R.id.manager);
         TextView mobile = contentView.findViewById(R.id.mobile);
         TextView managerMobile = contentView.findViewById(R.id.managerMobile);
