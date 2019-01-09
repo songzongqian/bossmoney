@@ -64,6 +64,7 @@ public class FindFragment extends BaseFragment {
     @BindView(R.id.recycler)
     RecyclerView recycler;
     Map<String,String> headerMap = new HashMap<>();
+    private String sid;
 
 
     @Nullable
@@ -96,29 +97,16 @@ public class FindFragment extends BaseFragment {
             rlEmptyInternet.setVisibility(View.GONE);
             recycler.setVisibility(View.VISIBLE);
             SharedPreferences share = getActivity().getSharedPreferences("login_sucess", MODE_PRIVATE);
-           String  sid = share.getString("sid", "");
+            sid = share.getString("sid", "");
 
-            if(headerMap!=null){
-                headerMap.clear();
-            }
+
 
             String timeFlag = GetHeaderPwd.getTimeFlag();
-            headerMap.put("sid",sid);
-            headerMap.put("source","android");
-            headerMap.put("t",timeFlag);
-
-            String[] array={"sid","source","t"};
-            String md5 = GetHeaderPwd.getMd5(headerMap, array,timeFlag);
-
-            RequestHeaders headers=new RequestHeaders();
-            headers.put("sign",md5);
-            headers.put("appid","148");
-
             RequestParams requestParams = new RequestParams();
             requestParams.put("source", "android");
             requestParams.put("sid", sid);
             requestParams.put("t",timeFlag);
-            OkHttpUtils.post(AppUrl.FIND_URL).params(requestParams)/*.headers(headers)*/.execute(new MyJsonCallBack<FindBean>() {
+            OkHttpUtils.post(AppUrl.FIND_URL).params(requestParams).execute(new MyJsonCallBack<FindBean>() {
 
                 @Override
                 public void onResponse(FindBean findBean) {
@@ -190,7 +178,7 @@ public class FindFragment extends BaseFragment {
             case R.id.rl_payCode:
                 //收款码
                 Intent intent3 = new Intent(getActivity(), PayCodeActivity.class);
-                intent3.putExtra("sid", "111");
+                intent3.putExtra("sid", sid);
                 startActivity(intent3);
                 break;
         }

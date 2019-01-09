@@ -274,6 +274,7 @@ public class LoginActivity extends BaseActivity {
                                 edit.putString("homeTitle", sid.get(0).getTitle());
                                 edit.putString("userId", userName);
                                 edit.putBoolean("isLogin", true);
+                                edit.putString("openKey",sid.get(0).getOpenKey());
                                 edit.commit();
 
 

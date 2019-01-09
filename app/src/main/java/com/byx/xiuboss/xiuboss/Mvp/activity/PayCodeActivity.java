@@ -207,7 +207,9 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
                 final String content = data.getStringExtra(Constant.CODED_CONTENT);
+                System.out.println("扫描二维码的内容"+content);
                 String newContent = content.substring(0,content.length()-10);
+                System.out.println("截取后获取的内容"+newContent);
                 if(newContent.equals(Contast.QRCODE_URL)){
                     new AlertDialog.Builder(PayCodeActivity.this)
                             .setTitle("提示")
@@ -215,15 +217,21 @@ public class PayCodeActivity extends BaseActivity implements PermissionInterface
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(final DialogInterface dialog, int which) {
-                                    RequestParams requestParams=new RequestParams();
+                                    RequestParams requestParams = new RequestParams();
                                     requestParams.put("sid",sidNumber);
                                     requestParams.put("type","app");
-                                    OkHttpUtils.post(content).params(requestParams).execute(new MyJsonCallBack<String>() {
+                                    OkHttpUtils.get(content).params(requestParams).execute(new MyJsonCallBack<String>() {
 
                                         @Override
                                         public void onResponse(String json) {
-                                            ToastUtil.shortToast(PayCodeActivity.this, "绑定成功");
-                                            dialog.dismiss();
+                                            System.out.println("服务器返回的绑定json值"+json);
+                                            if(json.contains("二维码绑定成功")){
+                                                ToastUtil.shortToast(PayCodeActivity.this, "绑定成功");
+                                                dialog.dismiss();
+                                            }else{
+                                                ToastUtil.shortToast(PayCodeActivity.this, "绑定失败");
+                                                dialog.dismiss();
+                                            }
                                         }
 
                                         @Override

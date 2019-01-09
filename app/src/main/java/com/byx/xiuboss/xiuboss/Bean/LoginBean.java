@@ -1,10 +1,7 @@
 package com.byx.xiuboss.xiuboss.Bean;
 
-import java.util.List;
 
-/**
- * Created by wangwenjie001 on 2018/9/3.
- */
+import java.util.List;
 
 public class LoginBean {
 
@@ -12,8 +9,8 @@ public class LoginBean {
     /**
      * code : 2000
      * message : 登陆成功
-     * data : {"id":"339","uniacid":"2","title":"王文杰","nickname":"一厢情愿就得愿赌服输","openid":"o8kgz0mISiElLVlFXO_qt_Exd1js","mobile":"18301194611","password":"1a16e4dbc08e0eac3ddffb01e64322f6","salt":"iBXpPS","status":"1","addtime":"1535248028","avatar":"http://thirdwx.qlogo.cn/mmopen/GpLragm6RLum7KU5Jc5uWyo9NZPTee6bVosAnbmiaicMKibUbEZDdG6JyPibEjuictOLFMa4Q9XdUZAZwWS9HlAgAHA/132","token":"ogzftGRRNt1zYTMwAMRYffagwMFzGIMz","updatetime":0,"openid_wxapp":0,"agentid":0,"jgpush":"1","hash":"1a16e4dbc08e0eac3ddffb01e64322f6","mycookie":"eyJpZCI6IjMzOSIsInVuaWFjaWQiOiIyIiwidGl0bGUiOiJcdTczOGJcdTY1ODdcdTY3NzAiLCJuaWNrbmFtZSI6Ilx1NGUwMFx1NTNhMlx1NjBjNVx1NjEzZlx1NWMzMVx1NWY5N1x1NjEzZlx1OGQ0Y1x1NjcwZFx1OGY5MyIsIm9wZW5pZCI6Im84a2d6MG1JU2lFbExWbEZYT19xdF9FeGQxanMiLCJtb2JpbGUiOiIxODMwMTE5NDYxMSIsInBhc3N3b3JkIjoiMWExNmU0ZGJjMDhlMGVhYzNkZGZmYjAxZTY0MzIyZjYiLCJzYWx0IjoiaUJYcFBTIiwic3RhdHVzIjoiMSIsImFkZHRpbWUiOiIxNTM1MjQ4MDI4IiwiYXZhdGFyIjoiaHR0cDpcL1wvdGhpcmR3eC5xbG9nby5jblwvbW1vcGVuXC9HcExyYWdtNlJMdW03S1U1SmM1dVd5bzlOWlBUZWU2YlZvc0FuYm1pYWljTUtpYlViRVpEZEc2SnlQaWJFanVpY3RPTEZNYTRROVhkVVpBWndXUzlIbEFnQUhBXC8xMzIiLCJ0b2tlbiI6Im9nemZ0R1JSTnQxellUTXdBTVJZZmZhZ3dNRnpHSU16IiwidXBkYXRldGltZSI6IjAiLCJvcGVuaWRfd3hhcHAiOiIiLCJhZ2VudGlkIjoiMCIsImpncHVzaCI6IjEiLCJoYXNoIjoiMWExNmU0ZGJjMDhlMGVhYzNkZGZmYjAxZTY0MzIyZjYifQ==","sid":[{"sid":"111","mobile":"17771234299","title":"醉清风","managerMobile":"13681363157"},{"sid":"128","mobile":"18062266301","title":"雅斯餐饮部","managerMobile":"18034103322"}]}
-     * IM : {"code":2000,"message":"用户已被注册","data":{"avatar":"http://thirdwx.qlogo.cn/mmopen/GpLragm6RLum7KU5Jc5uWyo9NZPTee6bVosAnbmiaicMKibUbEZDdG6JyPibEjuictOLFMa4Q9XdUZAZwWS9HlAgAHA/132"}}
+     * data : {"id":"674","uniacid":"2","title":"小宋","nickname":"glider","openid":"o8kgz0qCBAohswj3Yp7J2UvAaDjw","mobile":"18612754039","password":"2f9925f733ec92dece7616e565a4bd08","salt":"wMJ6JN","status":"1","addtime":"1544836193","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/vP8UTjY7wag9NHf015xvGhNsiapIbcPtKLMncsTIZKxhcaXl8eegFUm0hOdctWg9kwPKo5nB3Rw6RJbQibH3DJ4w/132","token":"a8a8j9pbTxZMoRaM1qfv9XxsgTUffbuemaGh9RZJs2s","updatetime":0,"openid_wxapp":"oeh8u5TQr_EGBWFaSwdR_HVg3ZwM","agentid":0,"jgpush":"1","mobile2":0,"phone_type":0,"phone_token":0,"hash":"2f9925f733ec92dece7616e565a4bd08","mycookie":"eyJpZCI6IjY3NCIsInVuaWFjaWQiOiIyIiwidGl0bGUiOiJcdTVjMGZcdTViOGIiLCJuaWNrbmFtZSI6ImdsaWRlciIsIm9wZW5pZCI6Im84a2d6MHFDQkFvaHN3ajNZcDdKMlV2QWFEanciLCJtb2JpbGUiOiIxODYxMjc1NDAzOSIsInBhc3N3b3JkIjoiMmY5OTI1ZjczM2VjOTJkZWNlNzYxNmU1NjVhNGJkMDgiLCJzYWx0Ijoid01KNkpOIiwic3RhdHVzIjoiMSIsImFkZHRpbWUiOiIxNTQ0ODM2MTkzIiwiYXZhdGFyIjoiaHR0cDpcL1wvdGhpcmR3eC5xbG9nby5jblwvbW1vcGVuXC92aV8zMlwvdlA4VVRqWTd3YWc5TkhmMDE1eHZHaE5zaWFwSWJjUHRLTE1uY3NUSVpLeGhjYVhsOGVlZ0ZVbTBoT2RjdFdnOWt3UEtvNW5CM1J3NlJKYlFpYkgzREo0d1wvMTMyIiwidG9rZW4iOiJjMmMxN19nNy1XVnJtTWJhb2xlTDJsdGhWOE9BVUplTkp6S1F5ZW13aEx3IiwidXBkYXRldGltZSI6IjAiLCJvcGVuaWRfd3hhcHAiOiJvZWg4dTVUUXJfRUdCV0ZhU3dkUl9IVmczWndNIiwiYWdlbnRpZCI6IjAiLCJqZ3B1c2giOiIxIiwibW9iaWxlMiI6IiIsInBob25lX3R5cGUiOiIiLCJwaG9uZV90b2tlbiI6IiIsImhhc2giOiIyZjk5MjVmNzMzZWM5MmRlY2U3NjE2ZTU2NWE0YmQwOCJ9","sid":[{"sid":"128","managerMobile":"18062266301","title":"雅斯餐饮部","mobile":"15707225671","openKey":"242dGgDVy_Orc7ZtbLicgUzWJuYhbIhKg3L0Eo5GZuQ"},{"sid":"98","managerMobile":"17771234299","title":"雅斯超市","mobile":"0710-3780521","openKey":"ac5fs5Hhgm_NHLe7_l49ZahppX-ylIwUfUKEFZaPDg"},{"sid":"111","managerMobile":"13051786112","title":"醉清风1","mobile":"15971097126","openKey":"77b1QmDobABdJ8qAb2QcdbiGSgiW0i9dX1HUyTSW5Yk"},{"sid":"718","managerMobile":"17771241213","title":"海华副食批发","mobile":"18371004268","openKey":"f511x3Wcg6qxAvNbVuAsBjQ4f-pP6FZ85pMx8Yaz4A4"}]}
+     * IM : {"code":2000,"message":"用户已被注册","data":{"avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/vP8UTjY7wag9NHf015xvGhNsiapIbcPtKLMncsTIZKxhcaXl8eegFUm0hOdctWg9kwPKo5nB3Rw6RJbQibH3DJ4w/132"}}
      */
 
     private int code;
@@ -55,25 +52,28 @@ public class LoginBean {
 
     public static class DataBean {
         /**
-         * id : 339
+         * id : 674
          * uniacid : 2
-         * title : 王文杰
-         * nickname : 一厢情愿就得愿赌服输
-         * openid : o8kgz0mISiElLVlFXO_qt_Exd1js
-         * mobile : 18301194611
-         * password : 1a16e4dbc08e0eac3ddffb01e64322f6
-         * salt : iBXpPS
+         * title : 小宋
+         * nickname : glider
+         * openid : o8kgz0qCBAohswj3Yp7J2UvAaDjw
+         * mobile : 18612754039
+         * password : 2f9925f733ec92dece7616e565a4bd08
+         * salt : wMJ6JN
          * status : 1
-         * addtime : 1535248028
-         * avatar : http://thirdwx.qlogo.cn/mmopen/GpLragm6RLum7KU5Jc5uWyo9NZPTee6bVosAnbmiaicMKibUbEZDdG6JyPibEjuictOLFMa4Q9XdUZAZwWS9HlAgAHA/132
-         * token : ogzftGRRNt1zYTMwAMRYffagwMFzGIMz
+         * addtime : 1544836193
+         * avatar : http://thirdwx.qlogo.cn/mmopen/vi_32/vP8UTjY7wag9NHf015xvGhNsiapIbcPtKLMncsTIZKxhcaXl8eegFUm0hOdctWg9kwPKo5nB3Rw6RJbQibH3DJ4w/132
+         * token : a8a8j9pbTxZMoRaM1qfv9XxsgTUffbuemaGh9RZJs2s
          * updatetime : 0
-         * openid_wxapp : 0
+         * openid_wxapp : oeh8u5TQr_EGBWFaSwdR_HVg3ZwM
          * agentid : 0
          * jgpush : 1
-         * hash : 1a16e4dbc08e0eac3ddffb01e64322f6
-         * mycookie : eyJpZCI6IjMzOSIsInVuaWFjaWQiOiIyIiwidGl0bGUiOiJcdTczOGJcdTY1ODdcdTY3NzAiLCJuaWNrbmFtZSI6Ilx1NGUwMFx1NTNhMlx1NjBjNVx1NjEzZlx1NWMzMVx1NWY5N1x1NjEzZlx1OGQ0Y1x1NjcwZFx1OGY5MyIsIm9wZW5pZCI6Im84a2d6MG1JU2lFbExWbEZYT19xdF9FeGQxanMiLCJtb2JpbGUiOiIxODMwMTE5NDYxMSIsInBhc3N3b3JkIjoiMWExNmU0ZGJjMDhlMGVhYzNkZGZmYjAxZTY0MzIyZjYiLCJzYWx0IjoiaUJYcFBTIiwic3RhdHVzIjoiMSIsImFkZHRpbWUiOiIxNTM1MjQ4MDI4IiwiYXZhdGFyIjoiaHR0cDpcL1wvdGhpcmR3eC5xbG9nby5jblwvbW1vcGVuXC9HcExyYWdtNlJMdW03S1U1SmM1dVd5bzlOWlBUZWU2YlZvc0FuYm1pYWljTUtpYlViRVpEZEc2SnlQaWJFanVpY3RPTEZNYTRROVhkVVpBWndXUzlIbEFnQUhBXC8xMzIiLCJ0b2tlbiI6Im9nemZ0R1JSTnQxellUTXdBTVJZZmZhZ3dNRnpHSU16IiwidXBkYXRldGltZSI6IjAiLCJvcGVuaWRfd3hhcHAiOiIiLCJhZ2VudGlkIjoiMCIsImpncHVzaCI6IjEiLCJoYXNoIjoiMWExNmU0ZGJjMDhlMGVhYzNkZGZmYjAxZTY0MzIyZjYifQ==
-         * sid : [{"sid":"111","mobile":"17771234299","title":"醉清风","managerMobile":"13681363157"},{"sid":"128","mobile":"18062266301","title":"雅斯餐饮部","managerMobile":"18034103322"}]
+         * mobile2 : 0
+         * phone_type : 0
+         * phone_token : 0
+         * hash : 2f9925f733ec92dece7616e565a4bd08
+         * mycookie : eyJpZCI6IjY3NCIsInVuaWFjaWQiOiIyIiwidGl0bGUiOiJcdTVjMGZcdTViOGIiLCJuaWNrbmFtZSI6ImdsaWRlciIsIm9wZW5pZCI6Im84a2d6MHFDQkFvaHN3ajNZcDdKMlV2QWFEanciLCJtb2JpbGUiOiIxODYxMjc1NDAzOSIsInBhc3N3b3JkIjoiMmY5OTI1ZjczM2VjOTJkZWNlNzYxNmU1NjVhNGJkMDgiLCJzYWx0Ijoid01KNkpOIiwic3RhdHVzIjoiMSIsImFkZHRpbWUiOiIxNTQ0ODM2MTkzIiwiYXZhdGFyIjoiaHR0cDpcL1wvdGhpcmR3eC5xbG9nby5jblwvbW1vcGVuXC92aV8zMlwvdlA4VVRqWTd3YWc5TkhmMDE1eHZHaE5zaWFwSWJjUHRLTE1uY3NUSVpLeGhjYVhsOGVlZ0ZVbTBoT2RjdFdnOWt3UEtvNW5CM1J3NlJKYlFpYkgzREo0d1wvMTMyIiwidG9rZW4iOiJjMmMxN19nNy1XVnJtTWJhb2xlTDJsdGhWOE9BVUplTkp6S1F5ZW13aEx3IiwidXBkYXRldGltZSI6IjAiLCJvcGVuaWRfd3hhcHAiOiJvZWg4dTVUUXJfRUdCV0ZhU3dkUl9IVmczWndNIiwiYWdlbnRpZCI6IjAiLCJqZ3B1c2giOiIxIiwibW9iaWxlMiI6IiIsInBob25lX3R5cGUiOiIiLCJwaG9uZV90b2tlbiI6IiIsImhhc2giOiIyZjk5MjVmNzMzZWM5MmRlY2U3NjE2ZTU2NWE0YmQwOCJ9
+         * sid : [{"sid":"128","managerMobile":"18062266301","title":"雅斯餐饮部","mobile":"15707225671","openKey":"242dGgDVy_Orc7ZtbLicgUzWJuYhbIhKg3L0Eo5GZuQ"},{"sid":"98","managerMobile":"17771234299","title":"雅斯超市","mobile":"0710-3780521","openKey":"ac5fs5Hhgm_NHLe7_l49ZahppX-ylIwUfUKEFZaPDg"},{"sid":"111","managerMobile":"13051786112","title":"醉清风1","mobile":"15971097126","openKey":"77b1QmDobABdJ8qAb2QcdbiGSgiW0i9dX1HUyTSW5Yk"},{"sid":"718","managerMobile":"17771241213","title":"海华副食批发","mobile":"18371004268","openKey":"f511x3Wcg6qxAvNbVuAsBjQ4f-pP6FZ85pMx8Yaz4A4"}]
          */
 
         private String id;
@@ -88,10 +88,13 @@ public class LoginBean {
         private String addtime;
         private String avatar;
         private String token;
-        private int updatetime;
+        private String updatetime;
         private String openid_wxapp;
-        private int agentid;
+        private String agentid;
         private String jgpush;
+        private String mobile2;
+        private String phone_type;
+        private String phone_token;
         private String hash;
         private String mycookie;
         private List<SidBean> sid;
@@ -192,11 +195,11 @@ public class LoginBean {
             this.token = token;
         }
 
-        public int getUpdatetime() {
+        public String getUpdatetime() {
             return updatetime;
         }
 
-        public void setUpdatetime(int updatetime) {
+        public void setUpdatetime(String updatetime) {
             this.updatetime = updatetime;
         }
 
@@ -208,11 +211,11 @@ public class LoginBean {
             this.openid_wxapp = openid_wxapp;
         }
 
-        public int getAgentid() {
+        public String getAgentid() {
             return agentid;
         }
 
-        public void setAgentid(int agentid) {
+        public void setAgentid(String agentid) {
             this.agentid = agentid;
         }
 
@@ -222,6 +225,30 @@ public class LoginBean {
 
         public void setJgpush(String jgpush) {
             this.jgpush = jgpush;
+        }
+
+        public String getMobile2() {
+            return mobile2;
+        }
+
+        public void setMobile2(String mobile2) {
+            this.mobile2 = mobile2;
+        }
+
+        public String getPhone_type() {
+            return phone_type;
+        }
+
+        public void setPhone_type(String phone_type) {
+            this.phone_type = phone_type;
+        }
+
+        public String getPhone_token() {
+            return phone_token;
+        }
+
+        public void setPhone_token(String phone_token) {
+            this.phone_token = phone_token;
         }
 
         public String getHash() {
@@ -250,16 +277,18 @@ public class LoginBean {
 
         public static class SidBean {
             /**
-             * sid : 111
-             * mobile : 17771234299
-             * title : 醉清风
-             * managerMobile : 13681363157
+             * sid : 128
+             * managerMobile : 18062266301
+             * title : 雅斯餐饮部
+             * mobile : 15707225671
+             * openKey : 242dGgDVy_Orc7ZtbLicgUzWJuYhbIhKg3L0Eo5GZuQ
              */
 
             private String sid;
-            private String mobile;
-            private String title;
             private String managerMobile;
+            private String title;
+            private String mobile;
+            private String openKey;
 
             public String getSid() {
                 return sid;
@@ -269,12 +298,12 @@ public class LoginBean {
                 this.sid = sid;
             }
 
-            public String getMobile() {
-                return mobile;
+            public String getManagerMobile() {
+                return managerMobile;
             }
 
-            public void setMobile(String mobile) {
-                this.mobile = mobile;
+            public void setManagerMobile(String managerMobile) {
+                this.managerMobile = managerMobile;
             }
 
             public String getTitle() {
@@ -285,12 +314,20 @@ public class LoginBean {
                 this.title = title;
             }
 
-            public String getManagerMobile() {
-                return managerMobile;
+            public String getMobile() {
+                return mobile;
             }
 
-            public void setManagerMobile(String managerMobile) {
-                this.managerMobile = managerMobile;
+            public void setMobile(String mobile) {
+                this.mobile = mobile;
+            }
+
+            public String getOpenKey() {
+                return openKey;
+            }
+
+            public void setOpenKey(String openKey) {
+                this.openKey = openKey;
             }
         }
     }
@@ -299,7 +336,7 @@ public class LoginBean {
         /**
          * code : 2000
          * message : 用户已被注册
-         * data : {"avatar":"http://thirdwx.qlogo.cn/mmopen/GpLragm6RLum7KU5Jc5uWyo9NZPTee6bVosAnbmiaicMKibUbEZDdG6JyPibEjuictOLFMa4Q9XdUZAZwWS9HlAgAHA/132"}
+         * data : {"avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/vP8UTjY7wag9NHf015xvGhNsiapIbcPtKLMncsTIZKxhcaXl8eegFUm0hOdctWg9kwPKo5nB3Rw6RJbQibH3DJ4w/132"}
          */
 
         private int code;
@@ -332,7 +369,7 @@ public class LoginBean {
 
         public static class DataBeanX {
             /**
-             * avatar : http://thirdwx.qlogo.cn/mmopen/GpLragm6RLum7KU5Jc5uWyo9NZPTee6bVosAnbmiaicMKibUbEZDdG6JyPibEjuictOLFMa4Q9XdUZAZwWS9HlAgAHA/132
+             * avatar : http://thirdwx.qlogo.cn/mmopen/vi_32/vP8UTjY7wag9NHf015xvGhNsiapIbcPtKLMncsTIZKxhcaXl8eegFUm0hOdctWg9kwPKo5nB3Rw6RJbQibH3DJ4w/132
              */
 
             private String avatar;

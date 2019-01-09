@@ -175,6 +175,7 @@ public class PwdLoginActivity extends BaseActivity {
                     edit.putString("managerMobile", sid.get(0).getManagerMobile());
                     edit.putString("homeTitle", sid.get(0).getTitle());
                     edit.putString("userId", mobile);
+                    edit.putString("openKey",sid.get(0).getOpenKey());
                     edit.putBoolean("isLogin", true);
                     edit.commit();
 
