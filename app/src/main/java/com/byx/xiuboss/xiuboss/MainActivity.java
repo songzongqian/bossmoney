@@ -83,7 +83,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private NiftyDialogBuilder dialogBuilder;
     private OnEventReceive receive;
     private String version;
-
+/*
+*
+*
+*
+*冲突
+*
+*
+* */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
