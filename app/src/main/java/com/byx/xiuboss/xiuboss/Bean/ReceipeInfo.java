@@ -56,6 +56,15 @@ public class ReceipeInfo {
         private String totalIncome;
         private String returnOrderTotal;
         private List<OrderListBean> orderList;
+        private String payType;
+
+        public String getPayType() {
+            return payType;
+        }
+
+        public void setPayType(String payType) {
+            this.payType = payType;
+        }
 
         public String getCustomerName() {
             return customerName;

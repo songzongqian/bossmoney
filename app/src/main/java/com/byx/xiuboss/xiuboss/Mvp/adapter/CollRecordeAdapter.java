@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,8 +47,8 @@ public class CollRecordeAdapter extends RecyclerView.Adapter<CollRecordeAdapter.
         ReceipeInfo.DataBean.OrderListBean orderListBean = mList.get(position);
         holder.mTitle.setText(orderListBean.getInfo());
         holder.mTime.setText(orderListBean.getDatetime());
-        holder.mCash.setText("￥ " + orderListBean.getTotal());
-        holder.mBack.setText("返现￥" + orderListBean.getReturnCash());
+        holder.mCash.setText("￥ " + (TextUtils.isEmpty(orderListBean.getTotal())?"0":orderListBean.getTotal()));
+        holder.mBack.setText("返现￥" + (TextUtils.isEmpty(orderListBean.getReturnCash())?"0":orderListBean.getReturnCash()));
 
         setOnClickListener(holder, orderListBean, position);
     }

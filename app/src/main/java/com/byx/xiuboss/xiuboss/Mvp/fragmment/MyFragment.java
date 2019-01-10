@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -142,21 +143,24 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                 public void onResponse(MyFragmentBean myFragmentBean) {
                     if (myFragmentBean != null && myFragmentBean.getCode() == 2000) {
                         title.setText(sharedPreferences.getString("homeTitle", ""));
-                        mobile.setText(myFragmentBean.getData().getMobile());
-                        adMinistrators.setText(myFragmentBean.getData().getUsername() + " |" + myFragmentBean.getData().getRole());
-                        Glide.with(getActivity()).load(myFragmentBean.getData().getLogo()).into(imageView);
-                        Accountbalance.setText(myFragmentBean.getData().getAmount());
-                        String broadcast = myFragmentBean.getData().getBroadcast();
-                        if (broadcast.equals("1")) {
-                            isOpen.setChecked(true);
-                        } else if (broadcast.equals("0")) {
-                            isOpen.setChecked(false);
-                        }
-                        String isInBusiness = myFragmentBean.getData().getIs_in_business();
-                        if (isInBusiness.equals("1")) {
-                            storeWork.setChecked(true);
-                        } else if (isInBusiness.equals("0")) {
-                            storeWork.setChecked(false);
+                        if (myFragmentBean.getData()!=null){
+                            mobile.setText(TextUtils.isEmpty(myFragmentBean.getData().getMobile())?"  ":myFragmentBean.getData().getMobile());
+                            adMinistrators.setText(myFragmentBean.getData().getUsername() + " |" + myFragmentBean.getData().getRole());
+                            Glide.with(getActivity()).load(myFragmentBean.getData().getLogo()).into(imageView);
+                            Accountbalance.setText(myFragmentBean.getData().getAmount());
+                            String broadcast = myFragmentBean.getData().getBroadcast();
+                            if (broadcast.equals("1")) {
+                                isOpen.setChecked(true);
+                            } else if (broadcast.equals("0")) {
+                                isOpen.setChecked(false);
+                            }
+                            String isInBusiness = myFragmentBean.getData().getIs_in_business();
+                            if (isInBusiness.equals("1")) {
+                                storeWork.setChecked(true);
+                            } else if (isInBusiness.equals("0")) {
+                                storeWork.setChecked(false);
+                            }
+
                         }
 
                     } else {

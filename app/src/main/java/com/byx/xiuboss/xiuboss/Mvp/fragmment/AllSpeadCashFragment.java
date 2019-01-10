@@ -81,6 +81,9 @@ public class AllSpeadCashFragment extends BaseFragment {
         mCashAdapter.setOnItemClickListener((position, sorb) -> {
             Intent intent = new Intent(getActivity(), CollRecordeActivity.class);
             intent.putExtra("uid",sorb.getUid());
+            intent.putExtra("openId",sorb.getOpenId());
+            intent.putExtra("aliPayId",sorb.getAliPayId());
+            intent.putExtra("payType",sorb.getPayType());
             startActivity(intent);
         });
         smartRefreshLayout.setOnRefreshListener(refreshLayout -> {

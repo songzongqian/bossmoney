@@ -75,7 +75,11 @@ public class BackCashAdapter extends RecyclerView.Adapter<BackCashAdapter.VhHold
         } else {
             holder.mBack.setVisibility(View.GONE);
         }
-        if (!TextUtils.isEmpty(orderListBean.getUid()) && !TextUtils.equals(orderListBean.getUid(),"0")) {
+        if ((TextUtils.isEmpty(orderListBean.getUid()) || TextUtils.equals(orderListBean.getUid(), "0"))
+                && (TextUtils.isEmpty(orderListBean.getOpenId())|| TextUtils.equals(orderListBean.getOpenId(), "0"))
+                && (TextUtils.isEmpty(orderListBean.getAliPayId())|| TextUtils.equals(orderListBean.getAliPayId(), "0"))) {
+
+        }else{
             setOnClickListener(holder, mList.get(position), position);
         }
     }
@@ -120,4 +124,7 @@ public class BackCashAdapter extends RecyclerView.Adapter<BackCashAdapter.VhHold
         void onItemClick(int position, StoreInfo.DataBean.OrderListBean sorb);
 
     }
+
+
+
 }

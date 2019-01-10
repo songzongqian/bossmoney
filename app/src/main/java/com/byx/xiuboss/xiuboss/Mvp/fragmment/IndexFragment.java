@@ -51,6 +51,8 @@ import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoLinearLayout;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -289,13 +291,13 @@ public class IndexFragment extends BaseFragment {
                         tvShouKuanLJ.setText(amount.getAmountFee() + "元");
 
                         homeTitle.setText(loginSucess.getString("homeTitle", ""));
-                        Double xyz = Double.parseDouble(amount.getAmount());
+                        Double xyz = Double.parseDouble(TextUtils.isEmpty(amount.getAmount())?"0":amount.getAmount());
 
 
                         tvJiangLiCurrent.setText(homeBean.getData().getCurrentGrade().getF4() + "元");
                         //设置倒计时逻辑
                         //获取最新接口获取的签到时间
-                        long serverSignTime = new Long(homeBean.getData().getSigntime());
+                        long serverSignTime = new Long(TextUtils.isEmpty(homeBean.getData().getSigntime())?"0":homeBean.getData().getSigntime());
                         long serverTime = serverSignTime * 1000 + 86400000;
                         System.out.println("服务器返回的时间" + serverTime);
 
@@ -361,7 +363,7 @@ public class IndexFragment extends BaseFragment {
                             int nextMax = (int) nextScore;
                             System.out.println("nextMax的值" + nextMax);
 
-                            String currentAmount = middleBean.getData().getAmount().getAmount();//当前收款余额累计
+                            String currentAmount = TextUtils.isEmpty(middleBean.getData().getAmount().getAmount())?"0":middleBean.getData().getAmount().getAmount();//当前收款余额累计
                             double currentI2 = Double.parseDouble(currentAmount);//当前收款余额累计
 
                             if (currentI2 <= currentScore) {

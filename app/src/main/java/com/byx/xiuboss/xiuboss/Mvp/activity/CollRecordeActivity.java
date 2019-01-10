@@ -1,8 +1,10 @@
 package com.byx.xiuboss.xiuboss.Mvp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,13 +62,20 @@ public class CollRecordeActivity extends BaseActivity {
     private List<ReceipeInfo.DataBean.OrderListBean> mOrderList = new ArrayList<>();
     private CollRecordeAdapter mRecordeAdapter;
     private String uid;
+    private String openId;
+    private String aliPayId;
+    private String payType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coll_recorde);
         ButterKnife.bind(this);
-        uid = getIntent().getStringExtra("uid");
+        Intent intent = getIntent();
+        uid = intent.getStringExtra("uid");
+        openId = intent.getStringExtra("openId");
+        aliPayId = intent.getStringExtra("aliPayId");
+        payType = intent.getStringExtra("payType");
         setStatusBar(true);
         initView();
         initData();
@@ -104,7 +113,9 @@ public class CollRecordeActivity extends BaseActivity {
         params.put("source", "android");
         params.put("sid", sid);
         params.put("date", date);
-        params.put("openId", uid);
+        params.put("uid", uid);
+        params.put("openId", openId);
+        params.put("aliPayId", aliPayId);
         params.put("startPos", String.valueOf(page));
         params.put("step", String.valueOf(size));
 
@@ -137,9 +148,18 @@ public class CollRecordeActivity extends BaseActivity {
 
     private void setRecipeInfo(ReceipeInfo.DataBean data) {
 
-        Glide.with(this).load(data.getCustomerAvatar()).into(mIcon);
-        mName.setText(data.getCustomerName());
-        mSpeedMoney.setText("￥ " + data.getTotalIncome());
-        mBackMoney.setText("共返现￥" + data.getReturnOrderTotal());
+        if (TextUtils.equals(payType, "wechat")) {
+            Glide.with(this).load(R.mipmap.common_wx_logo).into(mIcon);
+            mName.setText("微信用户");
+        } else if (TextUtils.equals(payType, "alipay")) {
+            Glide.with(this).load(R.mipmap.common_ali_logo).into(mIcon);
+            mName.setText("支付宝用户");
+        } else {
+            Glide.with(this).load(data.getCustomerAvatar()).into(mIcon);
+            mName.setText(data.getCustomerName());
+        }
+
+        mSpeedMoney.setText("￥ " + (TextUtils.isEmpty(data.getTotalIncome())?"0":data.getTotalIncome()));
+        mBackMoney.setText("共返现￥" + (TextUtils.isEmpty(data.getReturnOrderTotal())?"0":data.getReturnOrderTotal()));
     }
 }

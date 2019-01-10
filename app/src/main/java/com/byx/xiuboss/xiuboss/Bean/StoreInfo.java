@@ -162,6 +162,24 @@ public class StoreInfo {
             private String orderSn;
             private String uid;
             private String payType;
+            private String openId;
+            private String aliPayId;
+
+            public String getOpenId() {
+                return openId;
+            }
+
+            public void setOpenId(String openId) {
+                this.openId = openId;
+            }
+
+            public String getAliPayId() {
+                return aliPayId;
+            }
+
+            public void setAliPayId(String aliPayId) {
+                this.aliPayId = aliPayId;
+            }
 
             public String getPayType() {
                 return payType;

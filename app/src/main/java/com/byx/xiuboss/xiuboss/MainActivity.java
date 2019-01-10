@@ -79,17 +79,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ImageView order_num;
 
     private BaseFragment[] fragments = {new PublishFragment(), new FindFragment(),new RewardFragment(), new NewMyFragment()};
+    //private BaseFragment[] fragments = {new IndexFragment(), new FindFragment(),new RewardFragment(), new MyFragment()};
     private PopupWindow window;
     private NiftyDialogBuilder dialogBuilder;
     private OnEventReceive receive;
     private String version;
 /*
-*
-*
-*
-*冲突
-*
-*
+aasd
 * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

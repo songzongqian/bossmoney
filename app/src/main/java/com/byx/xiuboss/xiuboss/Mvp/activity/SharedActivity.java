@@ -20,6 +20,8 @@ import com.byx.xiuboss.xiuboss.R;
 import com.byx.xiuboss.xiuboss.Utils.RewritePopwindow;
 import com.byx.xiuboss.xiuboss.Utils.ShareUtils;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jiguang.share.android.api.Platform;
@@ -38,9 +40,11 @@ public class SharedActivity extends BaseActivity {
     private RelativeLayout mPopupShareFriend;
     private TextView mPopupShareCancel;
     private String share_type;
+    private String APP_CATCH_NAME = "/webcatch";
 
     private Handler handler = new Handler(Looper.getMainLooper());
     private String openKey;
+    private String catchPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,17 @@ public class SharedActivity extends BaseActivity {
     private void initView() {
         WebSettings mWebSettings = mWebView.getSettings();
         mWebSettings.setJavaScriptEnabled(true);
+        mWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH); //提高h5界面的渲染
+        mWebSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); //试着从网络加载，
         mWebSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        /*dom存储功能*/
+        mWebSettings.setDomStorageEnabled(false);
+        /*app的存储功能*/
+        mWebSettings.setAppCacheEnabled(false);
+
         mWebView.addJavascriptInterface(new JsUseAppMethod(), "jsUseAppMethod");
 
-        mWebView.loadUrl("https://dev.ourdaidai.com/lizhenhu/share_for_invite/index.html?share_type="+share_type);
+        mWebView.loadUrl("https://dev.ourdaidai.com/lizhenhu/share_for_invite/index.html?share_type=" + share_type);
 
     }
 
@@ -72,11 +83,11 @@ public class SharedActivity extends BaseActivity {
 
         @JavascriptInterface
         public void shareWithTitleDescriptionImageURL(String title, String description, String image, String url) {
-            Log.i(TAG, "shareWithTitleDescriptionImageURL: "+title+" "+description+" "+image+" "+url);
+            Log.i(TAG, "shareWithTitleDescriptionImageURL: " + title + " " + description + " " + image + " " + url);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    initSharePopupWindow(title,description,image,url);
+                    initSharePopupWindow(title, description, image, url);
                 }
             });
 
@@ -96,12 +107,12 @@ public class SharedActivity extends BaseActivity {
             /*Intent intent = new Intent(getActivity(), WeChatActivity.class);
             intent.putExtra("sid", "");
             startActivity(intent);*/
-            toShare(Wechat.Name,title,description,image,url);
+            toShare(Wechat.Name, title, description, image, url);
         });
 
         mPopupShareFriend.setOnClickListener(v -> {
             //Toast.makeText(getActivity(), "朋友圈", Toast.LENGTH_LONG).show();
-            toShare(WechatMoments.Name,title,description,image,url);
+            toShare(WechatMoments.Name, title, description, image, url);
         });
 
         mPopupShareCancel.setOnClickListener(v -> {
@@ -116,15 +127,15 @@ public class SharedActivity extends BaseActivity {
 
     }
 
-    private void toShare(String shareName,String title, String description, String image, String url) {
+    private void toShare(String shareName, String title, String description, String image, String url) {
         ShareParams params = new ShareParams();
         params.setShareType(Platform.SHARE_WEBPAGE);
         params.setTitle(title);
-        openKey = openKey+"@@"+ (System.currentTimeMillis()/1000);
-        String pathUrl = url+"&openKey="+openKey;
+        openKey = openKey + "@@" + (System.currentTimeMillis() / 1000);
+        String pathUrl = url + "&openKey=" + openKey;
         params.setUrl(pathUrl);
         params.setVenueDescription(description);
-        if (!TextUtils.isEmpty(image)){
+        if (!TextUtils.isEmpty(image)) {
             params.setImagePath(image);
         }
 
@@ -142,10 +153,14 @@ public class SharedActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (mSharePopupWindow!=null){
+        if (mSharePopupWindow != null) {
             mSharePopupWindow.dismiss();
         }
+        mWebView.clearCache(true);
         super.onDestroy();
 
     }
+
+
+
 }
