@@ -325,7 +325,7 @@ public class RewardFragment extends BaseFragment {
         }
 
     }
-
+    /*领取奖励Window*/
     private void initShowWindow(String money, String content) {
 
         if (mPopupView == null) {
@@ -342,6 +342,7 @@ public class RewardFragment extends BaseFragment {
 
         mPopupClose.setOnClickListener(v -> {
             popuReceiveGrade.dismiss();
+            initData();
         });
         mPopupRecord.setOnClickListener(v -> {
             popuReceiveGrade.dismiss();

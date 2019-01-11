@@ -85,6 +85,11 @@ public class SettRecordActivity extends BaseActivity {
         mTitle.setText("收款记录");
         mFragments.add(new AllSpeadCashFragment());
         mFragments.add(new BackCashFragment());
+
+        Bundle bundle = new Bundle();
+        bundle.putString("date",dateTime);
+        ((AllSpeadCashFragment)mFragments.get(0)).setArguments(bundle);
+        ((BackCashFragment)mFragments.get(1)).setArguments(bundle);
     }
 
     @Override

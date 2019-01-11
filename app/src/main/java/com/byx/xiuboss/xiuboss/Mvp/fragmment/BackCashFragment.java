@@ -57,6 +57,7 @@ public class BackCashFragment extends BaseFragment {
     private int size = 10;
     private List<StoreInfo.DataBean.OrderListBean> mCashList = new ArrayList<>();
     private BackCashAdapter mCashAdapter;
+    private String date;
 
 
     @Override
@@ -64,6 +65,8 @@ public class BackCashFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_back_cash, container, false);
         unbinder = ButterKnife.bind(this, mView);
+        date = getArguments().getString("date");
+        String time = getArguments().getString("time");
         initView();
         initData();
         return mView;
@@ -104,8 +107,8 @@ public class BackCashFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         params.put("source","android");
         params.put("sid",sid);
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-        String date = format.format(new Date(System.currentTimeMillis()));
+        /*SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String date = format.format(new Date(System.currentTimeMillis()));*/
         params.put("date",date);
         params.put("orderType","2");
         params.put("startPos",String.valueOf(page));

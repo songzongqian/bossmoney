@@ -55,6 +55,7 @@ public class AllSpeadCashFragment extends BaseFragment {
     private int size = 10;
     private List<StoreInfo.DataBean.OrderListBean>mCashList = new ArrayList<>();
     private BackCashAdapter mCashAdapter;
+    private String date;
 
 
     @Override
@@ -62,6 +63,8 @@ public class AllSpeadCashFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_back_cash, container, false);
         unbinder = ButterKnife.bind(this, mView);
+        date = getArguments().getString("date");
+        page = 1;
         initView();
         initData();
         return mView;
@@ -109,8 +112,8 @@ public class AllSpeadCashFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         params.put("source","android");
         params.put("sid",sid);
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-        String date = format.format(new Date(System.currentTimeMillis()));
+       /* SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String date = format.format(new Date(System.currentTimeMillis()));*/
         params.put("date",date);
         params.put("orderType","1");
         params.put("startPos",String.valueOf(page));
@@ -144,9 +147,10 @@ public class AllSpeadCashFragment extends BaseFragment {
             }
         });
     }
-    public void initRequest(){
+
+    /*public void initRequest(){
         page = 1;
-    }
+    }*/
 
 
     @Override

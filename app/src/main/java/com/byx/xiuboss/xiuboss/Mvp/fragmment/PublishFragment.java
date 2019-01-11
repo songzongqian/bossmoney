@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -28,6 +30,7 @@ import com.byx.xiuboss.xiuboss.MainActivity;
 import com.byx.xiuboss.xiuboss.Mvp.activity.SwichActivity;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashAdapter;
 import com.byx.xiuboss.xiuboss.Mvp.adapter.BackCashFragmentAdapter;
+import com.byx.xiuboss.xiuboss.Mvp.adapter.IndexFragmentAdapter;
 import com.byx.xiuboss.xiuboss.Mvp.net.OkHttpUtils;
 import com.byx.xiuboss.xiuboss.NetUrl.AppUrl;
 import com.byx.xiuboss.xiuboss.NetUrl.MyJsonCallBack;
@@ -47,8 +50,11 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -87,7 +93,8 @@ public class PublishFragment extends BaseFragment {
 
     private ArrayList<BaseFragment> mFragments = new ArrayList<>();
     private ArrayList<String> mTabTitles = new ArrayList<>();
-    private BackCashFragmentAdapter mAdapter;
+    //private BackCashFragmentAdapter mAdapter;
+    private IndexFragmentAdapter mAdapter;
     Map<String, String> headerMap = new HashMap<>();
 
 
@@ -122,9 +129,7 @@ public class PublishFragment extends BaseFragment {
             intent.putExtra("id", sid);
             startActivityForResult(intent, 0x111);
             getActivity().overridePendingTransition(R.anim.bottom_in, R.anim.bottom_silent);
-            /*初始化Fragment的数据*/
-            ((AllSpeadCashFragment) mFragments.get(0)).initRequest();
-            ((BackCashFragment) mFragments.get(1)).initRequest();
+
         });
         mFragments.add(new AllSpeadCashFragment());
         mFragments.add(new BackCashFragment());
@@ -150,25 +155,15 @@ public class PublishFragment extends BaseFragment {
                 //((MainActivity) getActivity()).cancelDialog();
                 if (storeInfo != null && storeInfo.getCode() == 2000) {
                     System.out.println("数据请求成功");
-                    StoreInfo.DataBean infoBean = storeInfo.getData();
-                    mStoreName.setText(infoBean.getStoreName());
-                    mAllIcome.setText("￥" + (TextUtils.isEmpty(infoBean.getTotalIncome()) ? "0" : infoBean.getTotalIncome()));
-                    mBackPropt.setText("其中休休返现收入占比 " + (TextUtils.isEmpty(infoBean.getTotalReturnRatio()) ? "0" : infoBean.getTotalReturnRatio()));
-                    mTabTitles.clear();
-                    mTabTitles.add("全部(" + (TextUtils.isEmpty(infoBean.getOrderCount()) ? "0" : infoBean.getOrderCount()) + ")");
-                    mTabTitles.add("返现(" + (TextUtils.isEmpty(infoBean.getReturnOrderCount()) ? "0" : infoBean.getReturnOrderCount()) + ")");
-                    mAdapter = new BackCashFragmentAdapter(getChildFragmentManager(), mTabTitles, mFragments);
-                    mViewPager.setAdapter(mAdapter);
-                    mSlideTabLayout.setViewPager(mViewPager);
                     mEmptyView.setVisibility(View.GONE);
+                    StoreInfo.DataBean infoBean = storeInfo.getData();
+                    setPublishInfo(infoBean);
                     String pop_up_status = infoBean.getPop_up_status();//1
                     String pop_up_text = infoBean.getPop_up_text();//1.1.2
                     String note = infoBean.getPop_up_settles(); //文本内容
-
                     String versionNumber = loginSucess.getString("versionName", "");
-                    if(pop_up_status!=null){
-                        if(pop_up_status.equals("1")){
-                            //
+                    if (pop_up_status != null) {
+                        if (pop_up_status.equals("1")) {
                             //弹窗
                             if (pop_up_text.equals(versionNumber)) {
                                 //版本号一致
@@ -187,7 +182,7 @@ public class PublishFragment extends BaseFragment {
                                 AlertDialog alert = builder.create();
                                 alert.show();
                             }
-                        }else if(pop_up_status.equals("2")){
+                        } else if (pop_up_status.equals("2")) {
 
                         }
                     }
@@ -199,6 +194,31 @@ public class PublishFragment extends BaseFragment {
                 super.onError(call, response, e);
             }
         });
+
+
+    }
+
+    private void setPublishInfo(StoreInfo.DataBean infoBean) {
+        mStoreName.setText(infoBean.getStoreName());
+        mAllIcome.setText("￥" + (TextUtils.isEmpty(infoBean.getTotalIncome()) ? "0" : infoBean.getTotalIncome()));
+        mBackPropt.setText("其中休休返现收入占比 " + (TextUtils.isEmpty(infoBean.getTotalReturnRatio()) ? "0" : infoBean.getTotalReturnRatio()));
+        mTabTitles.clear();
+        mTabTitles.add("全部(" + (TextUtils.isEmpty(infoBean.getOrderCount()) ? "0" : infoBean.getOrderCount()) + ")");
+        mTabTitles.add("返现(" + (TextUtils.isEmpty(infoBean.getReturnOrderCount()) ? "0" : infoBean.getReturnOrderCount()) + ")");
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String dateTime = format.format(new Date(System.currentTimeMillis()));
+        Bundle bundle = new Bundle();
+        bundle.putString("date", dateTime);
+        ((AllSpeadCashFragment) mFragments.get(0)).setArguments(bundle);
+        ((BackCashFragment) mFragments.get(1)).setArguments(bundle);
+        if (mAdapter == null){
+            mAdapter = new IndexFragmentAdapter(getChildFragmentManager(), mTabTitles, mFragments);
+            mViewPager.setAdapter(mAdapter);
+            mSlideTabLayout.setViewPager(mViewPager);
+        }else{
+            mAdapter.notifyDataSetChanged();
+        }
 
 
     }
