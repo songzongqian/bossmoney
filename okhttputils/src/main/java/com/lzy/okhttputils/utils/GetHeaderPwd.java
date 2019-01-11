@@ -17,7 +17,7 @@ public class GetHeaderPwd {
         Arrays.sort(array);//对数组进行排序
 
         for(int k=0;k<array.length;k++){
-            System.out.println("排序的Key"+"  "+array[k]+"对应的value"+" "+map.get(array[k]));
+            //System.out.println("排序的Key"+"  "+array[k]+"对应的value"+" "+map.get(array[k]));
             strList.add(map.get(array[k]));
         }
         strList.add(time);
@@ -30,9 +30,9 @@ public class GetHeaderPwd {
             sb.append(array1[x]);
         }
         String valueStr = sb.toString();
-        System.out.println("需要机密的字符串"+valueStr);
+       // System.out.println("需要机密的字符串"+valueStr);
         String headerMd5 = Base64Utils.MD5(valueStr);
-        System.out.println("加密后的header"+headerMd5);
+        //System.out.println("加密后的header"+headerMd5);
         return  headerMd5;
     }
 
@@ -47,7 +47,6 @@ public class GetHeaderPwd {
         Arrays.sort(array);//对数组进行排序
 
         for(int k=0;k<array.length;k++){
-            System.out.println("排序的Key"+"  "+array[k]+"对应的value"+" "+map.get(array[k]));
             strList.add(map.get(array[k]));
         }
 
@@ -60,16 +59,16 @@ public class GetHeaderPwd {
             sb.append(array1[x]);
         }
         String valueStr = sb.toString();
-        System.out.println("需要机密的字符串"+valueStr);
+       // System.out.println("需要机密的字符串"+valueStr);
         String headerMd5 = Base64Utils.MD5(valueStr);
-        System.out.println("加密后的header"+headerMd5);
+       // System.out.println("加密后的header"+headerMd5);
         return  headerMd5;
     }
 
     public static  String getTimeFlag(){
         long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
         String  xxx=String.valueOf(time);
-        System.out.println("时间戳"+xxx);
+       // System.out.println("时间戳"+xxx);
         return xxx;
     }
 

@@ -8,13 +8,35 @@ import android.util.Log;
 
 import com.huawei.hms.support.api.push.PushReceiver;
 
+import java.io.UnsupportedEncodingException;
+
 public class MyHuaWeiReceiver extends PushReceiver {
-    /**
-     * 接收穿透消息
-     */
+
+
+
+    @Override
+    public boolean onPushMsg(Context context, byte[] msg, Bundle extras) {
+        try {
+            String content = new String(msg, "UTF-8");
+            System.out.println("华为推送的内容1"+content);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
     @Override
     public void onPushMsg(Context context, byte[] msg, String token) {
-        super.onPushMsg(context, msg, token);
+        try {
+            String content = new String(msg, "UTF-8");
+            System.out.println("华为推送的内容2"+content);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -32,6 +54,7 @@ public class MyHuaWeiReceiver extends PushReceiver {
      */
     @Override
     public void onEvent(Context context, Event event, Bundle extras) {
+
         int notifyId = extras.getInt(BOUND_KEY.pushNotifyId, 0);
         String message = extras.getString(BOUND_KEY.pushMsgKey);
         Log.i("bqt", "华为【onEvent】event=" + event + "  notifyId=" + notifyId + "  message=" + message);

@@ -109,7 +109,7 @@ public abstract class BaseRequest<R extends BaseRequest> {
         Map<String, String> headerMap = new HashMap<>();
         ArrayList<String> keyList = new ArrayList();
         for (String key : params.urlParamsMap.keySet()) {
-            Log.i("TAG", "params:  ===" + key + "" + params.urlParamsMap.get(key));
+           // Log.i("TAG", "params:  ===" + key + "" + params.urlParamsMap.get(key));
             headerMap.put(key, params.urlParamsMap.get(key));
             keyList.add(key);
         }
