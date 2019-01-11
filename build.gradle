@@ -19,7 +19,7 @@ buildscript {
 
 allprojects {
     repositories {
-
+        maven {url 'http://developer.huawei.com/repo/'}
         mavenCentral()
         jcenter(){url 'http://jcenter.bintray.com/'}
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }

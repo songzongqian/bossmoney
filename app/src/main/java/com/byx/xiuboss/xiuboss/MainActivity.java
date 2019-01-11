@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -46,6 +47,12 @@ import com.byx.xiuboss.xiuboss.Utils.UpdateAppUtils;
 import com.byx.xiuboss.xiuboss.base.BaseFragment;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.huawei.hms.api.ConnectionResult;
+import com.huawei.hms.api.HuaweiApiClient;
+import com.huawei.hms.support.api.client.PendingResult;
+import com.huawei.hms.support.api.client.ResultCallback;
+import com.huawei.hms.support.api.push.HuaweiPush;
+import com.huawei.hms.support.api.push.TokenResult;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.model.RequestParams;
 import com.zhy.autolayout.AutoRelativeLayout;
@@ -61,7 +68,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener,HuaweiApiClient.ConnectionCallbacks,HuaweiApiClient.OnConnectionFailedListener {
 
     private int currentPosition = -1;
     private long firstTime = 0;
@@ -79,14 +86,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ImageView order_num;
 
     private BaseFragment[] fragments = {new PublishFragment(), new FindFragment(),new RewardFragment(), new NewMyFragment()};
-    //private BaseFragment[] fragments = {new IndexFragment(), new FindFragment(),new RewardFragment(), new MyFragment()};
     private PopupWindow window;
     private NiftyDialogBuilder dialogBuilder;
     private OnEventReceive receive;
     private String version;
-/*
-aasd
-* */
+    private HuaweiApiClient client;
+
+    /**
+     * 修改代码
+     *
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +109,19 @@ aasd
         ButterKnife.bind(this);
         order_num.setVisibility(View.INVISIBLE);
         initView();
+        initPush();
         onEvent(0x111);
+    }
+
+    //华为push
+    private void initPush() {
+        System.out.println("初始化华为API");
+        client = new HuaweiApiClient.Builder(this)
+                .addApi(HuaweiPush.PUSH_API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        client.connect(this);
     }
 
 
@@ -122,17 +145,20 @@ aasd
             e.printStackTrace();
         }
 
+        /**
+         * 此接口比较特殊，是devAPI开头的接口
+         */
 
-        if(NetUtils.isConnected(MainActivity.this)){
+        if(NetUtils.isConnected(this)){
             RequestParams requestParams=new RequestParams();
             requestParams.put("source","android");
             requestParams.put("os","cmandroid");
             requestParams.put("version",version);
-            OkHttpUtils.post(AppUrl.GET_ISNO_VERSION).params(requestParams).execute(new MyJsonCallBack<VersionBean>() {
+            OkHttpUtils.post("https://devapi.ourxiuxiu.com/api/checkVersion").params(requestParams).execute(new MyJsonCallBack<VersionBean>() {
 
                 @Override
                 public void onResponse(VersionBean versionBean) {
-                    if(versionBean!=null && versionBean.getCode()==2000){
+                   if(versionBean!=null && versionBean.getCode()==2000){
                         String enable = versionBean.getData().getEnable();
                         System.out.println("MainActivity返回的版本值"+enable);
                         if(enable.equals("1")){
@@ -298,6 +324,50 @@ aasd
                 order_num.setVisibility(View.GONE);
             }
         }
+    }
+
+
+    /**
+     * 实现华为推送的相关接口方法
+     */
+    //连接上时
+    @Override
+    public void onConnected() {
+        getTokenAsyn();
+
+    }
+
+    private void getTokenAsyn() {
+        if(!client.isConnected()) {
+            Log.i("aaaa", "获取token失败，原因：HuaweiApiClient未连接");
+            return;
+        }
+        PendingResult<TokenResult> tokenResult = HuaweiPush.HuaweiPushApi.getToken(client);
+        tokenResult.setResultCallback(new ResultCallback<TokenResult>() {
+            @Override
+            public void onResult(TokenResult result) {
+                //这边的结果只表明接口调用成功，是否能收到响应结果只在广播中接收，广播这块后面会有讲到
+                String token = result.getTokenRes().getToken();
+                System.out.println("main中的token"+token);
+
+            }
+        });
+
+    }
+
+    //断开
+    @Override
+    public void onConnectionSuspended(int cause) {
+
+    }
+
+
+    //失败
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        int errorCode = result.getErrorCode();
+        System.out.println("华为连接失败"+errorCode);
+
     }
 
     class OnEventReceive extends BroadcastReceiver {

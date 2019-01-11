@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="138px"
+            android:layout_height="138dp"
             android:layout_marginLeft="15px"
             android:layout_marginTop="25px"
             android:layout_marginRight="15px"
@@ -26,7 +26,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="90px">
+                android:layout_height="90dp">
 
                 <TextView
                     android:id="@+id/tv_shopName"
@@ -45,13 +45,13 @@
                     android:layout_marginLeft="15px"
                     android:layout_marginTop="53px"
                     android:text="刘宁"
-                    android:textSize="12px" />
+                    android:textSize="14px" />
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="7dp"
                     android:layout_marginLeft="45px"
-                    android:layout_marginTop="56px"
+                    android:layout_marginTop="58px"
                     android:background="#999999" />
 
                 <TextView
@@ -61,7 +61,7 @@
                     android:layout_marginLeft="50px"
                     android:layout_marginTop="53px"
                     android:text="管理员"
-                    android:textSize="12px" />
+                    android:textSize="14px" />
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -71,7 +71,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="15px"
                     android:layout_marginRight="15px"
-                    android:src="@mipmap/ic_launcher" />
+                    />
             </RelativeLayout>
 
             <View
@@ -96,7 +96,7 @@
                     android:layout_marginLeft="15px"
                     android:text="返现比例"
                     android:textColor="#333333"
-                    android:textSize="14px" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_biLi"
@@ -109,7 +109,7 @@
                     android:layout_marginRight="40dp"
                     android:text="18%"
                     android:textColor="#999999"
-                    android:textSize="14px" />
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:id="@+id/button_image_two"
@@ -119,7 +119,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="18dp"
+                    android:layout_marginRight="19dp"
                     app:srcCompat="@mipmap/common" />
             </RelativeLayout>
         </LinearLayout>
@@ -128,14 +128,14 @@
         <RelativeLayout
             android:id="@+id/rl_wallet"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:layout_marginTop="20px"
             android:background="@drawable/button">
 
 
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -148,7 +148,7 @@
                 android:layout_marginLeft="65px"
                 android:text="钱包"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -172,13 +172,13 @@
         <RelativeLayout
             android:id="@+id/rl_voice"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:background="@drawable/button">
 
 
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -191,7 +191,7 @@
                 android:layout_marginLeft="65px"
                 android:text="语音播报"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <Switch
                 android:id="@+id/isOpen"
@@ -209,14 +209,14 @@
         <RelativeLayout
             android:id="@+id/rl_serviceCenter"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:layout_marginTop="20px"
             android:background="@drawable/button">
 
 
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -229,7 +229,7 @@
                 android:layout_marginLeft="65px"
                 android:text="客服中心"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -253,11 +253,11 @@
         <RelativeLayout
             android:id="@+id/rl_question"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:background="@drawable/button">
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -270,7 +270,7 @@
                 android:layout_marginLeft="65px"
                 android:text="常见问题"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -286,12 +286,12 @@
         <RelativeLayout
             android:id="@+id/rl_setting"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:layout_marginTop="8px"
             android:background="@drawable/button">
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -304,7 +304,7 @@
                 android:layout_marginLeft="65px"
                 android:text="设置"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"

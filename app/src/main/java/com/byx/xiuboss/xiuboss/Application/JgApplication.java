@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 
+import com.huawei.android.hms.agent.HMSAgent;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
@@ -19,9 +20,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.Message;
 
 
-/**
- * Created by wangwenjie001 on 2018/9/13.
- */
+
 
 public class JgApplication extends MultiDexApplication {
     public static String PICTURE_DIR = "sdcard/JChatDemo/pictures/";
@@ -42,6 +41,7 @@ public class JgApplication extends MultiDexApplication {
         JMessageClient.setDebugMode(true);
         JMessageClient.init(this);
         JPushInterface.init(this);
+        HMSAgent.init(this);
         SpeechUtility.createUtility(context, SpeechConstant.APPID +"=5b508ff4");
         PlatformConfig platformConfig= new PlatformConfig().setWechat("wxf184832284668a05","c66d35ff38e4c19b9c5b546f8bc35e84");
         JShareInterface.init(this,platformConfig);

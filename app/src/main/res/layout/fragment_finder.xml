@@ -16,14 +16,14 @@
         <RelativeLayout
             android:id="@+id/rl_history"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:layout_marginTop="20px"
             android:background="@drawable/button">
 
 
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -36,7 +36,7 @@
                 android:layout_marginLeft="65px"
                 android:text="历史收款明细"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -53,14 +53,14 @@
         <RelativeLayout
             android:id="@+id/rl_scan"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:layout_marginTop="13px"
             android:background="@drawable/button">
 
 
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -73,7 +73,7 @@
                 android:layout_marginLeft="65px"
                 android:text="扫码收款"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -97,13 +97,13 @@
         <RelativeLayout
             android:id="@+id/rl_payCode"
             android:layout_width="match_parent"
-            android:layout_height="45px"
+            android:layout_height="45dp"
             android:background="@drawable/button">
 
 
             <ImageView
-                android:layout_width="21px"
-                android:layout_height="21px"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22px"
@@ -116,7 +116,7 @@
                 android:layout_marginLeft="65px"
                 android:text="收款码"
                 android:textColor="#333333"
-                android:textSize="14px" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"

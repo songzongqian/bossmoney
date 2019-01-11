@@ -49,6 +49,20 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
+
+    <!--华为推送需要的权限-->
+
+    <!-- Android O版本调用安装需要使用该权限 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
+    <permission
+        android:name="com.byx.xiuboss.xiuboss.permission.PROCESS_PUSH_MSG"
+        android:protectionLevel="signatureOrSystem"/>
+
+    <!--接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
+    <uses-permission android:name="com.byx.xiuboss.xiuboss.permission.PROCESS_PUSH_MSG" />
+
     <application
         android:name=".Application.JgApplication"
         android:allowBackup="true"
@@ -80,6 +94,12 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value=" 2e511472e51a99dedae2a6a0beddfc09" />
+
+        <!--华为推送的appid-->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="	100561025">
+        </meta-data>
 
         <activity android:name=".MainActivity" />
         <activity android:name=".Mvp.activity.Login_RegisterActivity" />
@@ -190,10 +210,35 @@
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!--华为相关的服务测试start-->
+
+        <provider
+            android:name="com.huawei.hms.update.provider.UpdateProvider"
+            android:authorities="com.byx.xiuboss.xiuboss.hms.update.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"/>
+
+
+        <receiver android:name=".receiver.MyHuaWeiReceiver"
+            android:permission="com.byx.xiuboss.xiuboss.permission.PROCESS_PUSH_MSG">
+            <intent-filter>
+                <!-- 必须,用于接收token -->
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+                <!-- 必须, 用于接收透传消息 -->
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
+                <!-- 必须, 用于接收通知栏消息点击事件 此事件不需要开发者处理，只需注册就可以-->
+                <action android:name="com.huawei.intent.action.PUSH_DELAY_NOTIFY"/>
+            </intent-filter>
+        </receiver>
+        <!--华为相关的服务测试end-->
+
         <activity android:name=".Mvp.activity.CollRecordeActivity" />
         <activity android:name=".Mvp.activity.SettlementActivity" />
         <activity android:name=".Mvp.activity.SettRecordActivity" />
         <activity android:name=".Mvp.activity.SharedActivity"></activity>
+
+
     </application>
 
 </manifest>

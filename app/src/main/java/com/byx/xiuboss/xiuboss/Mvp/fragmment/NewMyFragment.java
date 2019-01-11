@@ -26,6 +26,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bigkoo.pickerview.OptionsPickerView;
@@ -156,17 +157,17 @@ public class NewMyFragment extends BaseFragment {
                     if (myFragmentBean != null && myFragmentBean.getCode() == 2000) {
                         middleBean= myFragmentBean;
                         tvShopName.setText(myFragmentBean.getData().getTitle());
-                        tvBiLi.setText(myFragmentBean.getData().getReturnratio()+"%");//返现比例
                         RequestOptions requestOptions = new RequestOptions()
                                 .error(R.mipmap.my_icon_portrait_s)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL);
                         Glide.with(getActivity()).load(myFragmentBean.getData().getLogo()).apply(requestOptions).into(ivAvatar);
                         userName.setText(myFragmentBean.getData().getUsername());
-                        String role = myFragmentBean.getData().getRole();
-                        if(role==null || TextUtils.isEmpty(role)){
-                            identity.setText("0");
+                        identity.setText(myFragmentBean.getData().getRole());
+                        String returnRatio = myFragmentBean.getData().getReturnratio();
+                        if(returnRatio==null){
+                            tvBiLi.setText("0"+"%");
                         }else{
-                            identity.setText(myFragmentBean.getData().getRole());
+                            tvBiLi.setText(myFragmentBean.getData().getReturnratio()+"%");
                         }
 
                     }else if(myFragmentBean.getCode()==4001){
@@ -241,6 +242,7 @@ public class NewMyFragment extends BaseFragment {
                             public void onResponse(RatioBean ratioBean) {
                                 if(ratioBean!=null && ratioBean.getCode()==2000){
                                     tvBiLi.setText(tx+"%");
+                                    Toast.makeText(getActivity(),"设置成功",Toast.LENGTH_SHORT).show();
                                 }
 
 

@@ -5,6 +5,7 @@ public class AppUrl {
     static String testUrl = "https://dev.ourdaidai.com";//测试环境
     static String OnlineUrl = "https://www.ourdaidai.com";//线上环境
 
+
     //static String BaseUrl = OnlineUrl;//正式环境
     static String BaseUrl = testUrl;//测试环境
 
