@@ -85,7 +85,8 @@ public class PwdLoginActivity extends BaseActivity {
         titleText.setText("");
         rlSave.setVisibility(View.GONE);
         tvPhone.setText(mobile);
-
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(passwordInputView, InputMethodManager.SHOW_FORCED);
     }
 
     private void initData() {

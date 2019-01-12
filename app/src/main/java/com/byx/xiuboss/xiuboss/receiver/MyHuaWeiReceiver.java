@@ -62,7 +62,7 @@ public class MyHuaWeiReceiver extends PushReceiver {
 
         if (Event.NOTIFICATION_OPENED.equals(event) || Event.NOTIFICATION_CLICK_BTN.equals(event)) {
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (0 != notifyId && manager != null) {
+            if (0 != notifyId && manager != null){
                 manager.cancel(notifyId);
             }
         }

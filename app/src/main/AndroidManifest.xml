@@ -150,7 +150,8 @@
         <activity android:name=".Mvp.activity.WithDrawActivity" />
         <activity android:name=".Mvp.activity.HistoryRecordActivity" />
         <activity android:name=".Mvp.activity.PwdLoginActivity"
-            android:windowSoftInputMode="stateAlwaysVisible"/>
+            android:windowSoftInputMode="stateAlwaysVisible"
+            />
         <activity android:name=".Mvp.activity.FindWebViewActivity"/>
 
         <service

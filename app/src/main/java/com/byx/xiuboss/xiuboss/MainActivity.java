@@ -349,7 +349,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,H
                 //这边的结果只表明接口调用成功，是否能收到响应结果只在广播中接收，广播这块后面会有讲到
                 String token = result.getTokenRes().getToken();
                 System.out.println("main中的token"+token);
-
             }
         });
 
@@ -357,7 +356,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,H
 
     //断开
     @Override
-    public void onConnectionSuspended(int cause) {
+    public void onConnectionSuspended(int cause){
+
 
     }
 
